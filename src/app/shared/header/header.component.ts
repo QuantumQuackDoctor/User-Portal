@@ -3,17 +3,15 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-
-  isAuthenticated: boolean = true; //attach to auth service
+  isAuthenticated: boolean = false; //attach to auth service
   faUser = faUser;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     //check authentication status and set boolean
   }
-
 }

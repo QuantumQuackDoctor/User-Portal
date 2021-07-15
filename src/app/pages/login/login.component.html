@@ -1,1 +1,52 @@
-<p>login works!</p>
+<div class="container">
+  <form [formGroup]="loginGroup">
+    <h2 class="login">Login</h2>
+    <div class="textInput">
+      <fa-icon [icon]="emailIcon"></fa-icon>
+      <input
+        type="text"
+        id="email"
+        [placeholder]="'email'"
+        formControlName="email"
+        tabindex="1"
+      />
+    </div>
+    <div class="textInput">
+      <fa-icon [icon]="passwordIcon"></fa-icon>
+      <input
+        type="password"
+        id="password"
+        [placeholder]="'password'"
+        formControlName="password"
+        tabindex="2"
+      />
+    </div>
+    <a class="reset" tabindex="5">forgot password?</a>
+    <button type="submit" tabindex="3">Login</button>
+    <a class="signup" tabindex="4">Sign Up</a>
+  </form>
+  <img
+    src="../../../assets/triangle-left.svg"
+    alt=""
+    class="triangle"
+    id="left"
+  />
+  <img
+    src="../../../assets/triangle-right.svg"
+    alt=""
+    class="triangle"
+    id="right"
+  />
+  <img
+    src="../../../assets/triangle-bottom.svg"
+    alt=""
+    class="triangle"
+    id="bottom"
+  />
+  <img
+    src="../../../assets/triangle-center.svg"
+    alt=""
+    class="triangle"
+    id="center"
+  />
+</div>

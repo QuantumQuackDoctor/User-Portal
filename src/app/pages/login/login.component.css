@@ -1,0 +1,180 @@
+.container {
+  background: linear-gradient(to top right, var(--bg-main), var(--color-main));
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background-color: white;
+  margin: 2em;
+  flex: 1;
+  display: flex;
+  height: 80%;
+  flex-direction: column;
+  padding: 2em;
+  border-radius: 30px;
+  color: var(--text-dark);
+  z-index: 10;
+}
+
+.textInput,
+form button {
+  margin-top: 2em;
+}
+
+form button {
+  border: none;
+  text-transform: uppercase;
+  border-radius: 20px;
+  font-size: 1.3em;
+  padding: 0.4em;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(to right, var(--color-main), var(--bg-main));
+  margin-bottom: auto;
+  border: none;
+  box-shadow: 2px 3px var(--border-light);
+  transition: all 0.1s ease-in-out;
+}
+
+form button:hover {
+  cursor: pointer;
+  font-size: 1.4em;
+}
+
+form button:active {
+  box-shadow: 0px 0px var(--border-light);
+}
+
+form button:focus {
+  outline-width: 0px;
+  font-size: 1.4em;
+}
+
+a {
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  cursor: pointer;
+  color: var(--color-main);
+}
+
+a:focus {
+  outline-width: 0px;
+  color: var(--color-main);
+}
+
+.textInput {
+  display: flex;
+  border-bottom: 1px solid var(--border-dark);
+  padding: 0.3em;
+  transition: all 0.2s ease-in-out;
+  font-size: 1.2em;
+}
+
+.textInput:focus-within {
+  border-color: var(--color-main);
+  border-width: 2px;
+}
+
+.textInput fa-icon {
+  margin-right: 0.3em;
+}
+
+.textInput input {
+  border: none;
+  flex-grow: 1;
+}
+
+.textInput input:focus {
+  outline-width: 0;
+}
+
+.login {
+  align-self: center;
+}
+
+.triangle {
+  position: absolute;
+  display: none;
+}
+
+.reset {
+  align-self: flex-end;
+  margin-top: 0.4em;
+  margin-right: 0.5em;
+  font-size: 0.8em;
+}
+
+.signup {
+  align-self: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+#center {
+  display: inline-block;
+  animation: upDown 5s ease-in-out infinite;
+  height: 70%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes upDown {
+  0%,
+  100% {
+    transform: translateY(0px) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(20px) rotateZ(-1deg);
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  form {
+    min-width: 300px;
+    max-width: min(30%, 400px);
+    height: 60%;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  .triangle {
+    display: inline-block;
+  }
+
+  #right {
+    right: 0;
+    height: 60%;
+  }
+
+  #left {
+    height: 40%;
+    left: 0;
+    top: 0;
+  }
+
+  #bottom {
+    bottom: 0;
+    left: 30px;
+    width: 30%;
+  }
+
+  #center {
+    width: 550px;
+    height: auto;
+  }
+}
