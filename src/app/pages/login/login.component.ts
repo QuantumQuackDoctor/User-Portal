@@ -15,13 +15,19 @@ export class LoginComponent implements OnInit {
 
   constructor() {
     this.loginGroup = new FormGroup({
-      email: new FormControl(null, Validators.email),
-      password: new FormControl(null, Validators.minLength(8)),
+      email: new FormControl(null, {
+        validators: [Validators.email, Validators.required],
+        updateOn: 'blur',
+      }),
+      password: new FormControl(null, {
+        validators: [Validators.minLength(8)],
+        updateOn: 'blur',
+      }),
       isDriver: new FormControl(false),
     });
   }
 
   ngOnInit(): void {}
 
-  onSubmitJ() {}
+  onSubmit() {}
 }

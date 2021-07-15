@@ -1,27 +1,50 @@
 <div class="container">
-  <form [formGroup]="loginGroup">
+  <form [formGroup]="loginGroup" (ngSubmit)="onSubmit()">
     <h2 class="login">Login</h2>
-    <div class="textInput">
-      <fa-icon [icon]="emailIcon"></fa-icon>
-      <input
-        type="text"
-        id="email"
-        [placeholder]="'email'"
-        formControlName="email"
-        tabindex="1"
-      />
+    <div class="group">
+      <div
+        *ngIf="
+          loginGroup.get('email')?.invalid && loginGroup.get('email')?.touched
+        "
+        class="warning"
+        style="color: red"
+      >
+        *email invalid
+      </div>
+      <div class="textInput">
+        <fa-icon [icon]="emailIcon"></fa-icon>
+        <input
+          type="text"
+          id="email"
+          [placeholder]="'email'"
+          formControlName="email"
+          tabindex="1"
+        />
+      </div>
     </div>
-    <div class="textInput">
-      <fa-icon [icon]="passwordIcon"></fa-icon>
-      <input
-        type="password"
-        id="password"
-        [placeholder]="'password'"
-        formControlName="password"
-        tabindex="2"
-      />
+    <div class="group">
+      <div
+        *ngIf="
+          loginGroup.get('password')?.invalid &&
+          loginGroup.get('password')?.touched
+        "
+        class="warning"
+        style="color: red"
+      >
+        *password isn't long enough
+      </div>
+      <div class="textInput">
+        <fa-icon [icon]="passwordIcon"></fa-icon>
+        <input
+          type="password"
+          id="password"
+          [placeholder]="'password'"
+          formControlName="password"
+          tabindex="2"
+        />
+      </div>
+      <a class="reset" tabindex="5">forgot password?</a>
     </div>
-    <a class="reset" tabindex="5">forgot password?</a>
     <button type="submit" tabindex="3">Login</button>
     <a class="signup" tabindex="4">Sign Up</a>
   </form>

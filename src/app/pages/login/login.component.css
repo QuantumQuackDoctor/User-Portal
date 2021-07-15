@@ -22,7 +22,7 @@ form {
   z-index: 10;
 }
 
-.textInput,
+.group,
 form button {
   margin-top: 2em;
 }
@@ -39,7 +39,7 @@ form button {
   margin-bottom: auto;
   border: none;
   box-shadow: 2px 3px var(--border-light);
-  transition: all 0.1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 form button:hover {
@@ -126,7 +126,8 @@ h2 {
 #center {
   display: inline-block;
   animation: upDown 5s ease-in-out infinite;
-  height: 70%;
+  width: 115%;
+  height: auto;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -143,11 +144,16 @@ h2 {
   }
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 400px) {
   form {
     min-width: 300px;
     max-width: min(30%, 400px);
-    height: 60%;
+    height: 70%;
+  }
+
+  #center {
+    width: 500px;
+    height: auto;
   }
 }
 
@@ -174,7 +180,7 @@ h2 {
   }
 
   #center {
-    width: 550px;
+    width: min(550px, 450%);
     height: auto;
   }
 }
