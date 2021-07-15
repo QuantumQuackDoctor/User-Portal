@@ -1,1 +1,11 @@
-<p>header works!</p>
+<header>
+    <a [routerLink]="['/home']" class="logo">
+        <img src="../../../assets/logo.svg" alt="">
+    </a>
+    <button *ngIf="!isAuthenticated">
+        <a [routerLink]="['/login']">Sign In</a>
+    </button>
+    <a *ngIf="isAuthenticated" [routerLink]="['/account']">
+        <fa-icon [icon]="faUser"></fa-icon>
+    </a>
+</header>
