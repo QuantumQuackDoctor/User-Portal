@@ -7,7 +7,6 @@
           loginGroup.get('email')?.invalid && loginGroup.get('email')?.touched
         "
         class="warning"
-        style="color: red"
       >
         *email invalid
       </div>
@@ -29,7 +28,6 @@
           loginGroup.get('password')?.touched
         "
         class="warning"
-        style="color: red"
       >
         *password isn't long enough
       </div>
@@ -42,6 +40,9 @@
           formControlName="password"
           tabindex="2"
         />
+      </div>
+      <div *ngIf="badCredentials" class="warning">
+        *username or password not valid
       </div>
       <a class="reset" tabindex="5">forgot password?</a>
     </div>

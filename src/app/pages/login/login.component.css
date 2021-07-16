@@ -70,6 +70,10 @@ a:focus {
   color: var(--color-main);
 }
 
+.warning {
+  color: red;
+}
+
 .textInput {
   display: flex;
   border-bottom: 1px solid var(--border-dark);
