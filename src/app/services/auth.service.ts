@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthRequest, AuthResponse } from '../models/Authentication';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private baseUrl: string;
+  private authennticationSubject = new Subject<boolean>();
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -66,54 +68,74 @@ export class AuthService {
     return headers.append('Authorization', `Bearer ${this.getJwt()}`);
   }
 
+  /**
+   * adds jwt to local storage
+   * @param jwt new jwt
+   */
   private setJwt(jwt: string | undefined) {
     if (jwt === undefined) {
       localStorage.removeItem('jwt');
     } else {
-      localStorage.setItem('jwt', jwt);
+      localStorage['jwt'] = jwt;
     }
   }
 
-  getAuthenticationHeader(): HttpHeaders {
-    return new HttpHeaders({ Authorization: `Bearer ${this.getJwt()}` });
+  /**
+   * Retrieves jwt from localStorage, uses undefined instead of null (was to lazy to refactor the other functions that used undefined)
+   * @returns Jwt
+   */
+  getJwt(): string | undefined {
+    let jwt = localStorage['jwt'];
+    return jwt !== null ? jwt : undefined;
   }
 
-  getJwt(): string | undefined {
-    let jwt = localStorage.getItem('jwt');
-    return jwt !== null ? jwt : undefined;
+  /**
+   * returns subject that will emit an even on any authentication test.
+   * This implementation is because on startup the main authentication test is asynchronous,
+   * meaning if a component pulls data before the test is over it could be wrong
+   * @returns subject
+   */
+  getAuthenticationHeader(): HttpHeaders {
+    return new HttpHeaders({ Authorization: `Bearer ${this.getJwt()}` });
   }
 
   /**
    * Loose authentication check, does not check for session expiration
    * @returns true if authenticated
    */
-  isAuthenticated(): boolean {
-    return this.getJwt() !== undefined;
+  getAuthenticationStatus(): Observable<boolean> {
+    return this.authennticationSubject.asObservable();
   }
 
   /**
    * Tests authentication with server, if it fails authservice data is reset and the returned promise is rejected
    * @returns promise, resolved if authentication is valid
    */
-  testAuthentication(): Promise<void> {
+  testAuthentication() {
     if (this.getJwt() === undefined) {
-      return Promise.reject(new NotAuthenticatedError("Jwt doesn't exists"));
+      this.authennticationSubject.next(false);
+      return;
     }
-    return new Promise((resolve, reject) => {
-      this.http
-        .get(this.baseUrl + '/accounts/authenticated', {
-          headers: this.addAuthenticationToHeaders(new HttpHeaders()),
-          observe: 'response',
-        })
-        .subscribe((response) => {
-          if (response.status === 200) {
-            resolve();
-          } else {
-            this.setJwt(undefined);
-            reject();
-          }
-        });
-    });
+    this.http
+      .get(this.baseUrl + '/accounts/authenticated', {
+        headers: this.getAuthenticationHeader(),
+      })
+      .subscribe(
+        (response) => {
+          this.authennticationSubject.next(true);
+        },
+        (error) => {
+          this.setJwt(undefined);
+          this.authennticationSubject.next(false);
+        }
+      );
+  }
+
+  /**
+   * Re emits previous authentication test
+   */
+  softTestAuthentication() {
+    this.authennticationSubject.next(this.getJwt() !== undefined);
   }
 }
 
