@@ -13,16 +13,14 @@ export class HeaderComponent implements OnInit {
   subscription?: Subscription;
 
   constructor(private authService: AuthService) {
-    this.subscription = authService
-      .getAuthenticationStatus()
-      .subscribe((value) => {
-        this.isAuthenticated = value;
-      });
+    this.subscription = authService.authenticationStatus.subscribe((status) => {
+      this.isAuthenticated = status.valid;
+    });
   }
 
   ngOnInit(): void {
     //check authentication status and set boolean
-    this.authService.softTestAuthentication();
+    this.authService.testAuthentication();
   }
 
   ngOnDestroy() {
