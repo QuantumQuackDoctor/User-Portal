@@ -69,6 +69,13 @@ export class AuthService {
   }
 
   /**
+   * @returns httpHeaders with authentication populated
+   */
+  generateAuthenticationHeader(): HttpHeaders {
+    return new HttpHeaders({ Authorization: `Bearer ${this.getJwt()}` });
+  }
+
+  /**
    * adds jwt to local storage
    * @param jwt new jwt
    */
@@ -93,15 +100,7 @@ export class AuthService {
    * returns subject that will emit an even on any authentication test.
    * This implementation is because on startup the main authentication test is asynchronous,
    * meaning if a component pulls data before the test is over it could be wrong
-   * @returns subject
-   */
-  getAuthenticationHeader(): HttpHeaders {
-    return new HttpHeaders({ Authorization: `Bearer ${this.getJwt()}` });
-  }
-
-  /**
-   * Loose authentication check, does not check for session expiration
-   * @returns true if authenticated
+   * @returns observable tied to authentication status
    */
   getAuthenticationStatus(): Observable<boolean> {
     return this.authennticationSubject.asObservable();
@@ -118,7 +117,7 @@ export class AuthService {
     }
     this.http
       .get(this.baseUrl + '/accounts/authenticated', {
-        headers: this.getAuthenticationHeader(),
+        headers: this.generateAuthenticationHeader(),
       })
       .subscribe(
         (response) => {
