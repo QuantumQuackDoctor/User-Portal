@@ -41,8 +41,8 @@
           tabindex="2"
         />
       </div>
-      <div *ngIf="badCredentials" class="warning">
-        *username or password not valid
+      <div *ngIf="loginError" class="warning">
+        {{ errorMessage }}
       </div>
       <a class="reset" tabindex="5">forgot password?</a>
     </div>

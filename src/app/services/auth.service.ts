@@ -66,14 +66,16 @@ export class AuthService {
     return this.currentUser.value;
   }
 
-  public get authenticationStatus() {
+  /**
+   * Returns observable with authentication status, contains token and boolean flag.
+   * Upon subscription it will emit current value, any changes will also be emitted.
+   */
+  public get authenticationStatus(): Observable<AuthToken> {
     return this.currentUser.asObservable();
   }
 
   testAuthentication() {
-    this.http.get(`${this.baseUrl}/accounts/authenticated`).subscribe(() => {
-      console.log('testing');
-    });
+    this.http.get(`${this.baseUrl}/accounts/authenticated`);
     //LoginErrorInterceptor handles logout
   }
 }

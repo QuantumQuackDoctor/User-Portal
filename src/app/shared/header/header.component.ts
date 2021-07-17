@@ -18,10 +18,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    //check authentication status and set boolean
-    this.authService.testAuthentication();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();

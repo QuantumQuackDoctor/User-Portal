@@ -4,8 +4,6 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { ɵangular_packages_platform_browser_platform_browser_k } from '@angular/platform-browser';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +13,8 @@ export class LoginComponent implements OnInit {
   loginGroup: FormGroup;
   emailIcon = faEnvelope;
   passwordIcon = faLock;
-  badCredentials = false;
+  loginError = false;
+  errorMessage = '*email or password invalid';
 
   constructor(private authService: AuthService, private router: Router) {
     this.loginGroup = new FormGroup({
@@ -40,14 +39,11 @@ export class LoginComponent implements OnInit {
         (err) => {
           switch (err.status) {
             case 0:
-              console.log('failed to connect to server');
+              this.errorMessage = 'failed to connect to server';
               //TODO change invalid credentials message
               break;
-            case 401:
-              console.log('authorization failed');
-              break;
             default:
-              console.log("really don't know what happened");
+              this.errorMessage = '*email or password invalid';
           }
         }
       );

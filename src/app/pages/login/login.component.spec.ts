@@ -3,8 +3,6 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { LoginComponent } from './login.component';
 
-class MockAuthService {}
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
