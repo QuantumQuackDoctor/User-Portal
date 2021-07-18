@@ -35,7 +35,9 @@ export class AuthService {
    * @param authRequest authentication data
    * @returns promise that is resolved upon successful authentication
    */
+
   login(authRequest: AuthRequest): Observable<AuthResponse> {
+    console.log(this.baseUrl + '/accounts/login');
     return this.http
       .post<AuthResponse>(
         this.baseUrl + '/accounts/login',
@@ -66,6 +68,9 @@ export class AuthService {
     return this.currentUser.value;
   }
 
+  public get url(): string {
+    return this.baseUrl;
+  }
   /**
    * Returns observable with authentication status, contains token and boolean flag.
    * Upon subscription it will emit current value, any changes will also be emitted.
