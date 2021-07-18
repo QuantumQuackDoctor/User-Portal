@@ -9,9 +9,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -33,6 +30,14 @@ describe('AuthService', () => {
 
       expect(mockReq.cancelled).toBeFalsy();
       expect(mockReq.request.method).toEqual('POST');
+    }
+  ));
+
+  it('test http client', inject(
+    [HttpClient, HttpTestingController],
+    (httpClient: HttpClient, controller: HttpTestingController) => {
+      httpClient.get('/test');
+      controller.expectOne('/test');
     }
   ));
 });
