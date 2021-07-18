@@ -24,20 +24,14 @@ describe('AuthService', () => {
         password: 'password',
         isDriver: false,
       };
-      authService.login(credentials);
+      authService.login(credentials).subscribe(() => {
+        console.log('please');
+      });
 
       const mockReq = httpMock.expectOne(authService.url + '/accounts/login');
 
       expect(mockReq.cancelled).toBeFalsy();
       expect(mockReq.request.method).toEqual('POST');
-    }
-  ));
-
-  it('test http client', inject(
-    [HttpClient, HttpTestingController],
-    (httpClient: HttpClient, controller: HttpTestingController) => {
-      httpClient.get('/test');
-      controller.expectOne('/test');
     }
   ));
 });
