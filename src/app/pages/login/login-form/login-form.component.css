@@ -1,0 +1,127 @@
+form {
+  background-color: white;
+  position: relative;
+  height: 80vh;
+  margin: 2em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  border-radius: 30px;
+  color: var(--text-dark);
+  z-index: 10;
+}
+
+.group,
+form button {
+  margin-top: 2em;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+form button {
+  border: none;
+  text-transform: uppercase;
+  border-radius: 20px;
+  font-size: 1.3em;
+  padding: 0.4em;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(to right, var(--color-main), var(--bg-main));
+  margin-bottom: auto;
+  border: none;
+  box-shadow: 2px 3px var(--border-light);
+  transition: all 0.2s ease-in-out;
+}
+
+form button:hover {
+  cursor: pointer;
+  font-size: 1.4em;
+}
+
+form button:active {
+  box-shadow: 0px 0px var(--border-light);
+  color: var(--color-accent);
+}
+
+form button:focus {
+  outline-width: 0px;
+  font-size: 1.4em;
+}
+
+a {
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  cursor: pointer;
+  color: var(--color-main);
+}
+
+a:focus {
+  outline-width: 0px;
+  color: var(--color-main);
+}
+
+.warning {
+  color: red;
+}
+
+.textInput {
+  display: flex;
+  border-bottom: 1px solid var(--border-dark);
+  padding: 0.3em;
+  transition: all 0.2s ease-in-out;
+  font-size: 1.2em;
+}
+
+.textInput:focus-within {
+  border-color: var(--color-main);
+  border-width: 2px;
+}
+
+.textInput fa-icon {
+  margin-right: 0.3em;
+}
+
+.textInput input {
+  border: none;
+  flex-grow: 1;
+}
+
+.textInput input:focus {
+  outline-width: 0;
+}
+
+.login {
+  align-self: center;
+}
+
+.reset {
+  align-self: flex-end;
+  margin-top: 0.4em;
+  margin-right: 0.5em;
+  font-size: 0.8em;
+}
+
+.signup {
+  align-self: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+@media only screen and (min-width: 400px) {
+  form {
+    min-width: 300px;
+    width: min(40vw, 500px);
+    height: 70vh;
+  }
+}
