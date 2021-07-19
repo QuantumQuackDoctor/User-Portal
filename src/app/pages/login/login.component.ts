@@ -35,8 +35,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginGroup.valid) {
       this.authService.login(this.loginGroup.value).subscribe(
-        (res) => this.router.navigate(['/home']),
+        (res) => {
+          this.loginError = false;
+          this.router.navigate(['/home']);
+        },
         (err) => {
+          this.loginError = true;
           switch (err.status) {
             case 0:
               this.errorMessage = 'failed to connect to server';
