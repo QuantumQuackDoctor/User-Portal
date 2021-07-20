@@ -1,1 +1,143 @@
-<p>register-form works!</p>
+<form
+  [formGroup]="registerGroup"
+  (keyup.enter)="onSubmit()"
+  (ngSubmit)="onSubmit()"
+>
+  <h2 class="login">Login</h2>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('email')?.invalid &&
+        registerGroup.get('email')?.touched
+      "
+      class="warning"
+    >
+      *email invalid
+    </div>
+    <div class="textInput">
+      <fa-icon [icon]="emailIcon"></fa-icon>
+      <input
+        type="text"
+        [placeholder]="'email'"
+        formControlName="email"
+        tabindex="1"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('password')?.invalid &&
+        registerGroup.get('password')?.touched
+      "
+      class="warning"
+    >
+      *password isn't long enough
+    </div>
+    <div class="textInput">
+      <fa-icon [icon]="passwordIcon"></fa-icon>
+      <input
+        type="password"
+        [placeholder]="'password'"
+        formControlName="password"
+        tabindex="2"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('firstName')?.invalid &&
+        registerGroup.get('firstName')?.touched
+      "
+      class="warning"
+    >
+      * first name required
+    </div>
+    <div class="textInput">
+      <input
+        type="text"
+        [placeholder]="'first name'"
+        formControlName="firstName"
+        tabindex="3"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div class="textInput">
+      <input
+        type="text"
+        [placeholder]="'last name'"
+        formControlName="lastName"
+        tabindex="4"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div class="textInput">
+      <input
+        type="text"
+        [placeholder]="'phone number'"
+        formControlName="phone"
+        tabindex="5"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div class="checkbox">
+      <input
+        type="checkbox"
+        id="text"
+        formControlName="textNotifications"
+        tabindex="6"
+      />
+      <label for="text">recieve text notifications?</label>
+    </div>
+  </div>
+  <div class="group">
+    <div class="checkbox">
+      <input
+        type="checkbox"
+        id="email"
+        formControlName="emailNotifications"
+        tabindex="7"
+      />
+      <label for="email">recieve email notifications?</label>
+    </div>
+  </div>
+  <div class="group">
+    <div class="radio">
+      <input
+        type="radio"
+        name="theme"
+        value="dark"
+        id="dark"
+        formControlName="theme"
+      />
+      <label
+        for="dark"
+        class="radioButton"
+        tabindex="8"
+        (keydown.space)="selectTheme('dark')"
+        >dark</label
+      >
+      <input
+        type="radio"
+        name="theme"
+        value="light"
+        id="light"
+        formControlName="theme"
+      />
+      <label
+        for="light"
+        class="radioButton"
+        tabindex="9"
+        (keydown.space)="selectTheme('light')"
+        >light</label
+      >
+    </div>
+  </div>
+
+  <button type="submit" tabindex="9">Register</button>
+  <a class="signup" [routerLink]="['/account/login']">Login</a>
+</form>

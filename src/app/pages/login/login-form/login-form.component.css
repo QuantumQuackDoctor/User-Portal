@@ -111,6 +111,9 @@ a:focus {
   align-self: center;
   font-size: 1.5em;
   font-weight: 600;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-size: 2em;
 }
 
 h2 {

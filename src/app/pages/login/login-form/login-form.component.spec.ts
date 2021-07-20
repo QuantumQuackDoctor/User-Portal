@@ -8,9 +8,8 @@ describe('LoginFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginFormComponent ]
-    })
-    .compileComponents();
+      declarations: [LoginFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -21,5 +20,30 @@ describe('LoginFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('form invalid when empty', () => {
+    component.loginGroup.updateValueAndValidity();
+    expect(component.loginGroup.valid).toBeFalsy();
+  });
+
+  it('email field required', () => {
+    let email = component.loginGroup.get('email');
+    email?.updateValueAndValidity();
+    expect(email?.valid).toBeFalsy();
+
+    let errors = email?.errors || {};
+    expect(errors['required']).toBeTruthy();
+  });
+
+  it('email field validation', () => {
+    let email = component.loginGroup.get('email');
+    email?.setValue('invalid');
+    email?.updateValueAndValidity();
+    expect(email?.valid).toBeFalse();
+
+    email?.setValue('validEmail@example.com');
+    email?.updateValueAndValidity();
+    expect(email?.valid).toBeTrue();
   });
 });

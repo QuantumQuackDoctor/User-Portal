@@ -24,7 +24,7 @@ export class LoginFormComponent implements OnInit {
         updateOn: 'blur',
       }),
       password: new FormControl(null, {
-        validators: [Validators.minLength(8)],
+        validators: [Validators.minLength(8), Validators.required],
         updateOn: 'blur',
       }),
       isDriver: new FormControl(false),
