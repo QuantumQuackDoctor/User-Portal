@@ -19,6 +19,7 @@
       <input
         type="text"
         [placeholder]="'email'"
+        id="email"
         formControlName="email"
         tabindex="1"
       />
@@ -40,6 +41,7 @@
         type="password"
         [placeholder]="'password'"
         formControlName="password"
+        id="password"
         tabindex="2"
       />
     </div>
@@ -59,6 +61,7 @@
         type="text"
         [placeholder]="'first name'"
         formControlName="firstName"
+        id="firstName"
         tabindex="3"
       />
     </div>
@@ -69,6 +72,7 @@
         type="text"
         [placeholder]="'last name'"
         formControlName="lastName"
+        id="lastName"
         tabindex="4"
       />
     </div>
@@ -79,6 +83,7 @@
         type="text"
         [placeholder]="'phone number'"
         formControlName="phone"
+        id="phone"
         tabindex="5"
       />
     </div>
@@ -87,7 +92,7 @@
     <div class="checkbox">
       <input
         type="checkbox"
-        id="text"
+        id="textNotifications"
         formControlName="textNotifications"
         tabindex="6"
       />
@@ -98,7 +103,7 @@
     <div class="checkbox">
       <input
         type="checkbox"
-        id="email"
+        id="emailNotifications"
         formControlName="emailNotifications"
         tabindex="7"
       />
@@ -136,6 +141,7 @@
         >light</label
       >
     </div>
+    <div class="warning" *ngIf="displayError">{{ errorMessage }}</div>
   </div>
 
   <button type="submit" tabindex="9">Register</button>

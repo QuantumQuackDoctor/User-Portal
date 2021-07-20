@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { AuthRequest, AuthResponse } from '../models/Authentication';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../models/User';
 
 export interface AuthToken {
   token?: string;
@@ -37,7 +38,6 @@ export class AuthService {
    */
 
   login(authRequest: AuthRequest): Observable<AuthResponse> {
-    console.log(this.baseUrl + '/accounts/login');
     return this.http
       .post<AuthResponse>(
         this.baseUrl + '/accounts/login',
@@ -62,6 +62,10 @@ export class AuthService {
     this.currentUser.next({
       valid: false,
     });
+  }
+
+  register(user: User) {
+    return this.http.put<any>(this.baseUrl + '/accounts/register', user);
   }
 
   public get currentAuthenticatedUser() {

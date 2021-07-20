@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login-form',
@@ -16,8 +17,13 @@ export class LoginFormComponent implements OnInit {
   passwordIcon = faLock;
   loginError = false;
   errorMessage = '*email or password invalid';
+  returnUrl: string = '/';
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.loginGroup = new FormGroup({
       email: new FormControl(null, {
         validators: [Validators.email, Validators.required],
@@ -29,6 +35,9 @@ export class LoginFormComponent implements OnInit {
       }),
       isDriver: new FormControl(false),
     });
+    this.route.queryParamMap.subscribe((map) => {
+      this.returnUrl = map.get('returnUrl') || '/';
+    });
   }
 
   ngOnInit(): void {}
@@ -38,14 +47,13 @@ export class LoginFormComponent implements OnInit {
       this.authService.login(this.loginGroup.value).subscribe(
         (res) => {
           this.loginError = false;
-          this.router.navigate(['/home']);
+          this.router.navigate([this.returnUrl]);
         },
         (err) => {
           this.loginError = true;
           switch (err.status) {
             case 0:
               this.errorMessage = 'failed to connect to server';
-              //TODO change invalid credentials message
               break;
             default:
               this.errorMessage = '*email or password invalid';

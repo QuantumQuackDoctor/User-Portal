@@ -2,10 +2,10 @@
   <a [routerLink]="['/home']" class="logo">
     <img src="../../../assets/logo.svg" alt="" />
   </a>
-  <button *ngIf="!isAuthenticated">
-    <a [routerLink]="['/login']">Sign In</a>
+  <button *ngIf="!isAuthenticated" class="login">
+    <a [routerLink]="['/account/login']">Sign In</a>
   </button>
-  <a *ngIf="isAuthenticated" [routerLink]="['/account']">
+  <a *ngIf="isAuthenticated" [routerLink]="['/account']" class="account">
     <fa-icon [icon]="faUser"></fa-icon>
   </a>
 </header>
