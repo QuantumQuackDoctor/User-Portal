@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css'],
+  styleUrls: ['../shared.css'],
 })
 export class LoginFormComponent implements OnInit {
   loginGroup: FormGroup;

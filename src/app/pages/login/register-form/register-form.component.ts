@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.css'],
+  styleUrls: ['../shared.css'],
 })
 export class RegisterFormComponent implements OnInit {
   registerGroup: FormGroup;
