@@ -90,6 +90,12 @@ a:focus {
   border-width: 2px;
 }
 
+.text {
+  font-size: 0.7em;
+  color: var(--text-dark);
+  margin-left: 0.4em;
+}
+
 .textInput fa-icon {
   margin-right: 0.3em;
 }

@@ -216,13 +216,13 @@ describe('RegisterFormComponent', () => {
       textNotifications: true,
       emailNotifications: true,
       theme: 'dark',
+      DOB: '2021-02-08',
+      veteranStatus: false,
     });
 
     component.onSubmit();
 
-    const req = httpController.expectOne(
-      'http://localhost:8080/accounts/register'
-    );
+    const req = httpController.expectOne('/accounts/register');
 
     const expected = {
       email: 'email@example.com',
@@ -237,11 +237,13 @@ describe('RegisterFormComponent', () => {
         },
         theme: 'dark',
       },
+      DOB: '2021-02-08',
+      veteranStatus: false,
     };
 
     expect(req.request.body).toEqual(expected);
 
-    req.flush(null);
+    req.flush('account created');
 
     expect(mockNavigate.navigate).toHaveBeenCalled();
   });

@@ -29,18 +29,22 @@ export class RegisterFormComponent implements OnInit {
     this.registerGroup = new FormGroup({
       email: new FormControl(null, {
         validators: [Validators.email, Validators.required],
-        updateOn: 'blur',
       }),
       password: new FormControl(null, {
         validators: [Validators.minLength(8), Validators.required],
-        updateOn: 'blur',
+      }),
+      DOB: new FormControl(null, {
+        validators: [
+          Validators.required,
+          Validators.pattern(/^\d{4}-\d{2}-\d{2}$/),
+        ],
       }),
       firstName: new FormControl(null, {
         validators: [Validators.minLength(3), Validators.required],
-        updateOn: 'blur',
       }),
       lastName: new FormControl(null),
       phone: new FormControl(null),
+      veteranStatus: new FormControl(false, Validators.required),
       textNotifications: new FormControl(false, {
         validators: [Validators.required],
       }),
@@ -73,9 +77,9 @@ export class RegisterFormComponent implements OnInit {
             queryParams: { returnUrl: this.returnUrl },
           });
         },
-        (error) => {
+        (err) => {
           this.displayError = true;
-          switch (error.status) {
+          switch (err.status) {
             case 0:
               this.errorMessage = '*server error';
               break;
@@ -98,6 +102,8 @@ export class RegisterFormComponent implements OnInit {
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       phone: formValue.phone,
+      veteranStatus: formValue.veteranStatus,
+      DOB: formValue.DOB,
       settings: {
         notifications: {
           email: formValue.emailNotifications,

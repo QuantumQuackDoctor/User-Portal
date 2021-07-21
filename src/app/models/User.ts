@@ -1,6 +1,7 @@
 export interface User {
   id?: number;
   DOB?: string;
+  veteranStatus?: boolean;
   email: string;
   firstName: string;
   lastName?: string;

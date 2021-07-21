@@ -23,7 +23,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
     //set base url
     if (!environment.production) {
-      this.baseUrl = 'http://localhost:8080';
+      this.baseUrl = '';
     } else {
       this.baseUrl = 'server url'; //TODO add server url when setup
     }
@@ -64,8 +64,11 @@ export class AuthService {
     });
   }
 
-  register(user: User) {
-    return this.http.put<any>(this.baseUrl + '/accounts/register', user);
+  register(user: User): Observable<string> {
+    return this.http.put(this.baseUrl + '/accounts/register', user, {
+      headers: this.httpOptions.headers,
+      responseType: 'text',
+    });
   }
 
   public get currentAuthenticatedUser() {

@@ -78,6 +78,20 @@
     </div>
   </div>
   <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('DOB')?.invalid && registerGroup.get('DOB')?.touched
+      "
+      class="warning"
+    >
+      *birth date required
+    </div>
+    <span class="text">birth date</span>
+    <div class="textInput">
+      <input type="date" formControlName="DOB" id="DOB" tabindex="4" />
+    </div>
+  </div>
+  <div class="group">
     <div class="textInput">
       <input
         type="text"
@@ -92,11 +106,22 @@
     <div class="checkbox">
       <input
         type="checkbox"
+        id="veteranStatus"
+        formControlName="veteranStatus"
+        tabindex="5"
+      />
+      <label for="veteranStatus">are you a veteran?</label>
+    </div>
+  </div>
+  <div class="group">
+    <div class="checkbox">
+      <input
+        type="checkbox"
         id="textNotifications"
         formControlName="textNotifications"
         tabindex="6"
       />
-      <label for="text">recieve text notifications?</label>
+      <label for="textNotifications">recieve text notifications?</label>
     </div>
   </div>
   <div class="group">
@@ -107,7 +132,7 @@
         formControlName="emailNotifications"
         tabindex="7"
       />
-      <label for="email">recieve email notifications?</label>
+      <label for="emailNotifications">recieve email notifications?</label>
     </div>
   </div>
   <div class="group">

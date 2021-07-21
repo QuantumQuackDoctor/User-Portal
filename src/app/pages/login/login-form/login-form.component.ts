@@ -27,11 +27,9 @@ export class LoginFormComponent implements OnInit {
     this.loginGroup = new FormGroup({
       email: new FormControl(null, {
         validators: [Validators.email, Validators.required],
-        updateOn: 'blur',
       }),
       password: new FormControl(null, {
         validators: [Validators.minLength(8), Validators.required],
-        updateOn: 'blur',
       }),
       isDriver: new FormControl(false),
     });
