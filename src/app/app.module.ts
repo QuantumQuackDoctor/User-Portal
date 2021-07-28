@@ -15,6 +15,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LoginErrorInterceptor } from './interceptors/LoginErrorInterceptor';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
+import { CartComponent } from './pages/cart/cart.component';
+import { CartItemComponent } from './pages/cart/cart-item/cart-item.component';
+import { RestaurantComponent } from './pages/restaurant/restaurant.component';
+import { RestaurantItemComponent } from './pages/restaurant/restaurant-item/restaurant-item.component';
+import { ShopComponent } from './pages/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,11 @@ import { JwtInterceptor } from './interceptors/JwtInterceptor';
     LoginComponent,
     SearchComponent,
     AccountComponent,
+    CartComponent,
+    CartItemComponent,
+    RestaurantComponent,
+    RestaurantItemComponent,
+    ShopComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,14 @@
+<div class="album py-5">
+  <div class="d-flex justify-content-start align-items-baseline h-100">
+    <div class="text-start m-lg-4">
+      <h3 class="mb-2">Sample Restaurant Menu</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let item of menuItems">
+        <app-restaurant-item [menuItem]="item"></app-restaurant-item>
+      </div>
+    </div>
+  </div>
+</div>

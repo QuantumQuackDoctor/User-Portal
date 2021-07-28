@@ -1,0 +1,33 @@
+<div *ngIf="orderItems.length === 0" class="alert alert-info">Your Cart is Empty.</div>
+
+<ul *ngIf="orderItems.length > 0" class="list-group">
+  <li class="list-group-item" *ngFor="let item of orderItems">
+    <app-cart-item [orderItem]="item"></app-cart-item>
+  </li>
+
+  <li class="list-group-item">
+    <select class="form-select form-select-sm" aria-label=".form-select-sm">
+      <option selected>Select Pickup or Delivery</option>
+      <option value="Pickup">Pickup</option>
+      <option value="Delivery">Delivery</option>
+    </select>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm">
+      <option selected>Select pickup/delivery time</option>
+      <option value="15">15 Min (Fastest)</option>
+      <option value="30">30 Min</option>
+      <option value="45">45 Min</option>
+    </select>
+    <input type = "text" placeholder="Enter Address" name = "address">
+  </li>
+
+  <li class="list-group-item active">
+    <strong>Total</strong> {{ cartTotal | currency:'USD' }}
+  </li>
+  <li class="list-group-item active">
+    <button type = "button" class="btn btn-sm btn-dark"
+            (click) = clearCart()>Clear Cart</button>
+    <button type = "button" class="btn btn-sm btn-success"
+            (click) = placeOrder()>Checkout</button>
+  </li>
+</ul>
+

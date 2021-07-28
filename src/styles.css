@@ -22,3 +22,20 @@ body {
   padding: 0;
   background-color: var(--bg-main);
 }
+
+.cart-item {
+  font-size: small;
+}
+
+.card, .form-control, .btn {
+  border-radius: 0;
+}
+
+.product-btn {
+  font-size: smaller;
+}
+
+#remove {
+  cursor: pointer;
+}
+
