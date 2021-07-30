@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="item">
+    <span class="text">Text notifications: </span>
+    <span class="text">{{
+      user?.settings?.notifications?.text ? "true" : "false"
+    }}</span>
+  </div>
+  <div class="item">
+    <span class="text">Email notifications: </span>
+    <span class="text">{{
+      user?.settings?.notifications?.email ? "true" : "false"
+    }}</span>
+  </div>
+  <div class="item">
+    <span class="text">THeme: </span>
+    <span class="text">{{ user?.settings?.theme || "" }}</span>
+  </div>
+</div>
