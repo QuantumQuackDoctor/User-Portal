@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import { CartItemComponent } from './pages/cart/cart-item/cart-item.component';
 import { RestaurantComponent } from './pages/restaurant/restaurant.component';
 import { RestaurantItemComponent } from './pages/restaurant/restaurant-item/restaurant-item.component';
 import { ShopComponent } from './pages/shop/shop.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ShopComponent } from './pages/shop/shop.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [
     {

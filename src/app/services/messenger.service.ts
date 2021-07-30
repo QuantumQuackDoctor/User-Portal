@@ -25,8 +25,8 @@ export class MessengerService {
     this.http.put (url, product, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).subscribe(
-      res => {
-        alert ("Success")
+      () => {
+        alert ("Order Placed!")
       },
       error => {
         alert (error)
