@@ -5,6 +5,9 @@ header {
   padding: 0.5em 2em 0.5em 2em;
   align-items: center;
   border-bottom: 3px solid var(--border-light);
+  height: 5vh;
+  position: sticky;
+  top: 0;
 }
 
 .logo {

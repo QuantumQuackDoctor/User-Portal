@@ -25,7 +25,7 @@ const routes: Routes = [
     ],
   },
   { path: 'search', component: SearchComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'my-account', component: AccountComponent },
 ];
 
 @NgModule({
