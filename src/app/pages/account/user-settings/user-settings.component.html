@@ -12,7 +12,8 @@
     }}</span>
   </div>
   <div class="item">
-    <span class="text">THeme: </span>
+    <span class="text">Theme: </span>
     <span class="text">{{ user?.settings?.theme || "" }}</span>
   </div>
+  <button (click)="logout()">Log Out</button>
 </div>
