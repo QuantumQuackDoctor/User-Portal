@@ -5,7 +5,7 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 @Component({
   selector: 'app-user-email',
   templateUrl: './user-email.component.html',
-  styleUrls: ['./user-email.component.css'],
+  styleUrls: ['../account.component.css'],
 })
 export class UserEmailComponent implements OnInit {
   @Input() user: User | undefined;
