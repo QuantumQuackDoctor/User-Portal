@@ -12,4 +12,12 @@ export class UserService {
   public getUserDetails(): Observable<User> {
     return this.http.get<User>('/accounts/user');
   }
+
+  /**
+   *  Deletes current user, uses jwt for identification
+   * @returns
+   */
+  public deleteUser(): Observable<string> {
+    return this.http.delete('/accounts/user', { responseType: 'text' });
+  }
 }
