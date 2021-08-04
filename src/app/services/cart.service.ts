@@ -11,7 +11,7 @@ export class CartService {
   orderItems: Item[] = []
   cartTotal = 0
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
   getItems(): Item[] {

@@ -5,7 +5,7 @@ export class Item {
   price: number;
   description: string;
   quantity: number;
-  imgURL: string;
+  imgURL?: string;
   configuration: string;
 
   constructor(id: number, name: string, price: number, description: string, quantity: number, imgURL: string,

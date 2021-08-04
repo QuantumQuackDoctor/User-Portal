@@ -13,8 +13,7 @@ export class RestaurantComponent implements OnInit {
 
   menuItems : Item[] = []
 
-  constructor(private restaurantService : RestaurantService, private msgService : MessengerService,
-              private cartService : CartService) { }
+  constructor(private restaurantService : RestaurantService) { }
 
   ngOnInit() {
     this.menuItems = this.restaurantService.getItems();

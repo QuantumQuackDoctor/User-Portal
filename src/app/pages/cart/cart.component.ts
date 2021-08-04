@@ -95,9 +95,6 @@ export class CartComponent implements OnInit {
       let orderTime = new OrderTime(null, new Date(Date.now()),
         null, null, null, null,
         deliveryTime)
-      /*    let orderTime = new OrderTime (null,"2011-12-03T04:15:30-05:00[America/New_York]",
-            null, null, null, null,
-            "2011-12-03T04:35:30-05:00[America/New_York]")*/
       let foodOrders: FoodOrder[] = []
       foodOrders.push(new FoodOrder("1", this.orderItems))
       let orderDTO = new Order(null, this.selectedDelivery.toLowerCase(), null, null,
@@ -107,5 +104,4 @@ export class CartComponent implements OnInit {
       this.clearCart()
     }
   }
-
 }

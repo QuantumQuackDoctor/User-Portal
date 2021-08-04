@@ -18,8 +18,8 @@ export class CartItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  remove (item : Item){
+/*  remove (item : Item){
     this.cartService.remove(item)
     this.msg.sendMsg(item)
-  }
+  }*/
 }

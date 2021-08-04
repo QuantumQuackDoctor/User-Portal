@@ -21,6 +21,8 @@ import { RestaurantComponent } from './pages/restaurant/restaurant.component';
 import { RestaurantItemComponent } from './pages/restaurant/restaurant-item/restaurant-item.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrderComponent } from './pending-orders/order/order.component';
+import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RestaurantComponent,
     RestaurantItemComponent,
     ShopComponent,
+    OrderComponent,
+    PendingOrdersComponent,
   ],
   imports: [
     BrowserModule,
