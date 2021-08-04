@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LoginErrorInterceptor } from './interceptors/LoginErrorInterceptor';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
+import { CartComponent } from './pages/cart/cart.component';
+import { CartItemComponent } from './pages/cart/cart-item/cart-item.component';
+import { RestaurantComponent } from './pages/restaurant/restaurant.component';
+import { RestaurantItemComponent } from './pages/restaurant/restaurant-item/restaurant-item.component';
+import { ShopComponent } from './pages/shop/shop.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginFormComponent } from './pages/login/login-form/login-form.component';
 import { RegisterFormComponent } from './pages/login/register-form/register-form.component';
 import { UserDetailsComponent } from './pages/account/user-details/user-details.component';
@@ -33,6 +39,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     LoginComponent,
     SearchComponent,
     AccountComponent,
+    CartComponent,
+    CartItemComponent,
+    RestaurantComponent,
+    RestaurantItemComponent,
+    ShopComponent,
     LoginFormComponent,
     RegisterFormComponent,
     UserDetailsComponent,
@@ -50,6 +61,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     HttpClientModule,
     NoopAnimationsModule,
+    NgbModule,
   ],
   providers: [
     {

@@ -1,0 +1,40 @@
+<div *ngIf="orderItems.length === 0" class="alert alert-info">Your Cart is Empty.</div>
+
+<ul *ngIf="orderItems.length > 0" class="list-group">
+
+  <!--List of order items-->
+  <li class="list-group-item" *ngFor="let item of orderItems">
+    <app-cart-item [orderItem]="item"></app-cart-item>
+  </li>
+
+  <!--check out information-->
+
+    <li class="list-group-item">
+      <select [(ngModel)]="selectedDelivery" class="form-select form-select-sm mb-2"
+              aria-label=".form-select-sm">
+        <option *ngFor="let option of deliveryTypeList" [value]="option.type">
+          {{option.type}}
+        </option>
+      </select>
+      <select [(ngModel)]="selectedTime" *ngIf="selectedDelivery === 'Delivery'" class="form-select mb-2 form-select-sm" aria-label=".form-select-sm"
+              >
+        <option *ngFor="let option of deliveryTimeList" [value]=option.type>
+          {{option.type}}
+        </option>
+      </select>
+      <input [(ngModel)]="address" *ngIf="selectedDelivery === 'Delivery'" type="text" placeholder="Enter Address" name="address" class = "mb-2">
+      <input class = "mb-2" type="text" placeholder="Enter Payment Info" name="payment">
+    </li>
+
+    <li class="list-group-item active">
+      <strong>Total</strong> {{ cartTotal | currency:'USD' }}
+    </li>
+    <li class="list-group-item active">
+      <button type="button" class="btn btn-sm btn-dark"
+              (click)=clearCart()>Clear Cart
+      </button>
+      <button type="submit" class="btn btn-sm btn-success"
+              (click)=placeOrder()>Checkout
+      </button>
+    </li>
+</ul>
