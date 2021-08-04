@@ -21,6 +21,12 @@ import { RestaurantComponent } from './pages/restaurant/restaurant.component';
 import { RestaurantItemComponent } from './pages/restaurant/restaurant-item/restaurant-item.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginFormComponent } from './pages/login/login-form/login-form.component';
+import { RegisterFormComponent } from './pages/login/register-form/register-form.component';
+import { UserDetailsComponent } from './pages/account/user-details/user-details.component';
+import { UserEmailComponent } from './pages/account/user-email/user-email.component';
+import { UserOrdersComponent } from './pages/account/user-orders/user-orders.component';
+import { UserSettingsComponent } from './pages/account/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RestaurantComponent,
     RestaurantItemComponent,
     ShopComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
+    UserDetailsComponent,
+    UserEmailComponent,
+    UserOrdersComponent,
+    UserSettingsComponent,
   ],
   imports: [
     BrowserModule,

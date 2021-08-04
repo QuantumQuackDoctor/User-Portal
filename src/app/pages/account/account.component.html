@@ -1,1 +1,15 @@
 <app-header></app-header>
+<div class="container">
+  <div class="links">
+    <button class="link current" (click)="scroll(details)">Details</button>
+    <button class="link" (click)="scroll(email)">Email</button>
+    <button class="link" (click)="scroll(orders)">Orders</button>
+    <button class="link" (click)="scroll(settings)">Setting</button>
+  </div>
+  <div class="info">
+    <div #details><app-user-details [user]="user"></app-user-details></div>
+    <div #email><app-user-email [user]="user"></app-user-email></div>
+    <div #orders><app-user-orders></app-user-orders></div>
+    <div #settings><app-user-settings [user]="user"></app-user-settings></div>
+  </div>
+</div>

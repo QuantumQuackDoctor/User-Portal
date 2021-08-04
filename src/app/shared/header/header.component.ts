@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService, AuthToken } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,13 +12,17 @@ export class HeaderComponent implements OnInit {
   faUser = faUser;
   subscription?: Subscription;
 
-  constructor(private authService: AuthService) {
-    this.subscription = authService.authenticationStatus.subscribe((status) => {
-      this.isAuthenticated = status.valid;
-    });
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.subscription = this.authService.authenticationStatus.subscribe(
+      (status) => this.onStatusUpdate(status)
+    );
   }
 
-  ngOnInit(): void {}
+  onStatusUpdate(status: AuthToken) {
+    this.isAuthenticated = status.valid;
+  }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();

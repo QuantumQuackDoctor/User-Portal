@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { AuthRequest, AuthResponse } from '../models/Authentication';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../models/User';
 
 export interface AuthToken {
   token?: string;
@@ -22,7 +23,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
     //set base url
     if (!environment.production) {
-      this.baseUrl = 'http://localhost:8080';
+      this.baseUrl = '';
     } else {
       this.baseUrl = 'server url'; //TODO add server url when setup
     }
@@ -37,7 +38,6 @@ export class AuthService {
    */
 
   login(authRequest: AuthRequest): Observable<AuthResponse> {
-    console.log(this.baseUrl + '/accounts/login');
     return this.http
       .post<AuthResponse>(
         this.baseUrl + '/accounts/login',
@@ -61,6 +61,13 @@ export class AuthService {
     localStorage.removeItem('user');
     this.currentUser.next({
       valid: false,
+    });
+  }
+
+  register(user: User): Observable<string> {
+    return this.http.put(this.baseUrl + '/accounts/register', user, {
+      headers: this.httpOptions.headers,
+      responseType: 'text',
     });
   }
 

@@ -76,7 +76,7 @@
             },
             "development": {
               "browserTarget": "User-Portal:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
