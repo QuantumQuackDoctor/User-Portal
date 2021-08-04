@@ -50,7 +50,6 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart()
     this.orderItems = this.cartService.getItems()
     this.cartTotal = this.cartService.cartTotal
-    location.reload()
   }
 
   checkRequiredFields () : boolean{

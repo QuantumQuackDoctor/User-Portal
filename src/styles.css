@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;900&display=swap");
 /* You can add global styles to this file, and also import other style files */
 :root {
   --bg-main: #1b9ce5;
@@ -11,9 +10,6 @@
   --text-light: #6cdaee;
   --text-accent: #f79e02;
   --text-dark: #65828d;
-}
-* {
-  font-family: "Mulish", sans-serif;
 }
 
 body {
@@ -38,4 +34,3 @@ body {
 #remove {
   cursor: pointer;
 }
-
