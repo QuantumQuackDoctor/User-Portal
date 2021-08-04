@@ -1,0 +1,9 @@
+<div class="album py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let item of menuItems">
+        <app-restaurant-item [menuItem]="item"></app-restaurant-item>
+      </div>
+    </div>
+  </div>
+</div>

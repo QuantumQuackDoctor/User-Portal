@@ -27,3 +27,20 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.cart-item {
+  font-size: small;
+}
+
+.card, .form-control, .btn {
+  border-radius: 0;
+}
+
+.product-btn {
+  font-size: smaller;
+}
+
+#remove {
+  cursor: pointer;
+}
+

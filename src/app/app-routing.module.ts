@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountComponent } from './pages/account/account.component'
+import { HomeComponent } from './pages/home/home.component'
+import { LoginComponent } from './pages/login/login.component'
+import { LoginFormComponent } from './pages/login/login-form/login-form.component';
+import { SearchComponent } from './pages/search/search.component'
+import { CartComponent } from "./pages/cart/cart.component";
+import { RestaurantComponent } from "./pages/restaurant/restaurant.component";
+import { ShopComponent } from "./pages/shop/shop.component";
 import { AccountComponent } from './pages/account/account.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginFormComponent } from './pages/login/login-form/login-form.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterFormComponent } from './pages/login/register-form/register-form.component';
-import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +29,9 @@ const routes: Routes = [
     ],
   },
   { path: 'search', component: SearchComponent },
+  { path:'cart', component: CartComponent },
+  { path:'restaurant', component: RestaurantComponent },
+  { path:'shop', component: ShopComponent }
   { path: 'my-account', component: AccountComponent },
 ];
 
