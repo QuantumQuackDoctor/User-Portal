@@ -21,6 +21,9 @@ import { UserDetailsComponent } from './pages/account/user-details/user-details.
 import { UserEmailComponent } from './pages/account/user-email/user-email.component';
 import { UserOrdersComponent } from './pages/account/user-orders/user-orders.component';
 import { UserSettingsComponent } from './pages/account/user-settings/user-settings.component';
+import { DeleteAccountDialogComponent } from './pages/account/delete-account-dialog/delete-account-dialog.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,14 +39,17 @@ import { UserSettingsComponent } from './pages/account/user-settings/user-settin
     UserEmailComponent,
     UserOrdersComponent,
     UserSettingsComponent,
+    DeleteAccountDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NoopAnimationsModule,
   ],
   providers: [
     {

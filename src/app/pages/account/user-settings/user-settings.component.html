@@ -1,4 +1,4 @@
-<div class="container">
+<div class="info-container">
   <div class="item">
     <span class="text">Text notifications: </span>
     <span class="text">{{
@@ -12,7 +12,11 @@
     }}</span>
   </div>
   <div class="item">
-    <span class="text">THeme: </span>
+    <span class="text">Theme: </span>
     <span class="text">{{ user?.settings?.theme || "" }}</span>
+  </div>
+  <div class="item">
+    <button (click)="logout()">Log Out</button>
+    <button (click)="delete()" class="delete-button">Delete</button>
   </div>
 </div>
