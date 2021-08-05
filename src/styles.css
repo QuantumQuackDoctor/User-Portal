@@ -22,3 +22,10 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+*,
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
