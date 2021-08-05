@@ -1,0 +1,16 @@
+<div class="info-container">
+  <div class="item">
+    <fa-icon [icon]="nameIcon"></fa-icon>
+    <span class="text">{{ user?.firstName || "" }}</span>
+    &nbsp;
+    <span class="text">{{ user?.lastName || "" }}</span>
+  </div>
+  <div class="item">
+    <fa-icon [icon]="dateIcon"></fa-icon>
+    <span class="text">{{ user?.DOB || "" }}</span>
+  </div>
+  <div class="item">
+    <fa-icon [icon]="phoneIcon"></fa-icon>
+    <span class="text">{{ user?.phone || "" }}</span>
+  </div>
+</div>

@@ -17,20 +17,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-main);
-}
-
-.cart-item {
-  font-size: small;
-}
-
-.card, .form-control, .btn {
-  border-radius: 0;
-}
-
-.product-btn {
-  font-size: smaller;
-}
-
-#remove {
-  cursor: pointer;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
