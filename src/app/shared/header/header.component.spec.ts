@@ -37,8 +37,7 @@ describe('HeaderComponent', () => {
 
   it('should contain logo', async () => {
     await fixture.whenStable();
-    const logo = fixture.debugElement.query(By.css('.logo'));
-
+    const logo = fixture.debugElement.query(By.css('.header-logo'));
     expect(logo).toBeTruthy();
   });
 
