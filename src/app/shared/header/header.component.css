@@ -10,7 +10,7 @@ header {
   top: 0;
 }
 
-.logo {
+.header-logo {
   display: inline-block;
   flex-grow: 1;
 }
@@ -47,9 +47,5 @@ fa-icon {
   fa-icon {
     color: var(--color-accent);
     font-size: 2em;
-  }
-
-  header {
-    padding: 1em 2em 1em 2em;
   }
 }
