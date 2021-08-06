@@ -49,11 +49,11 @@ export class LoginFormComponent implements OnInit {
         (err) => {
           this.loginError = true;
           switch (err.status) {
-            case 0:
-              this.errorMessage = 'failed to connect to server';
+            case 401 | 403:
+              this.errorMessage = '*email or password invalid';
               break;
             default:
-              this.errorMessage = '*email or password invalid';
+              this.errorMessage = 'failed to connect to server';
           }
         }
       );
