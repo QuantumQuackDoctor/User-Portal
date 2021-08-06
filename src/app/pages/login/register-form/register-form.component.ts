@@ -80,14 +80,11 @@ export class RegisterFormComponent implements OnInit {
         (err) => {
           this.displayError = true;
           switch (err.status) {
-            case 0:
-              this.errorMessage = '*server error';
-              break;
             case 409:
               this.errorMessage = '*email taken';
               break;
             default:
-              this.errorMessage = '*not sure';
+              this.errorMessage = '*failed to connect to server';
           }
         }
       );
