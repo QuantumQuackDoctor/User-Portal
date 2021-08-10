@@ -4,10 +4,10 @@ export class OrderTime {
   restaurantStart?: string;
   restaurantComplete?: string;
   driverAccept?: string;
-  delivered?: string;
+  delivered?: number;
   deliverySlot?: Date;
 
-  constructor(orderPlaced: string, restaurantAccept: Date, restaurantStart: string, restaurantComplete: string, driverAccept: string, delivered: string, deliverySlot: Date) {
+  constructor(orderPlaced: string, restaurantAccept: Date, restaurantStart: string, restaurantComplete: string, driverAccept: string, delivered: number, deliverySlot: Date) {
     this.orderPlaced = orderPlaced;
     this.restaurantAccept = restaurantAccept;
     this.restaurantStart = restaurantStart;

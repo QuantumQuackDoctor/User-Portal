@@ -7,9 +7,9 @@ import { SearchComponent } from './pages/search/search.component'
 import { CartComponent } from "./pages/cart/cart.component";
 import { RestaurantComponent } from "./pages/restaurant/restaurant.component";
 import { ShopComponent } from "./pages/shop/shop.component";
-import { PendingOrdersComponent } from "./pending-orders/pending-orders.component";
 import { LoginFormComponent } from './pages/login/login-form/login-form.component';
 import { RegisterFormComponent } from './pages/login/register-form/register-form.component';
+import { OrdersComponent } from "./pages/orders/orders.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'cart', component: CartComponent },
   { path: 'restaurant', component: RestaurantComponent },
-  { path: 'shop', component: ShopComponent },
-  { path: 'pending', component: PendingOrdersComponent },
+  { path: 'shop/:id', component: ShopComponent },
+  { path: 'vieworders', component: OrdersComponent },
   { path: 'my-account', component: AccountComponent },
 ];
 
