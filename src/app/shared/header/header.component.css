@@ -8,6 +8,7 @@ header {
   height: 7vh;
   position: sticky;
   top: 0;
+  color: var(--text-dark);
 }
 
 .header-logo {
@@ -15,7 +16,7 @@ header {
   flex-grow: 1;
 }
 
-img {
+.logoImg {
   max-height: 3em;
   max-width: 40%;
   min-width: 6em;
@@ -48,4 +49,31 @@ fa-icon {
     color: var(--color-accent);
     font-size: 2em;
   }
+}
+
+.textInput {
+  display: flex;
+  border-bottom: 1px solid var(--border-dark);
+  padding: 0.3em;
+  transition: all 0.2s ease-in-out;
+  font-size: 1.2em;
+}
+
+.textInput:focus-within {
+  border-color: var(--color-main);
+  border-width: 2px;
+}
+
+.textInput input {
+  border: none;
+  flex-grow: 1;
+}
+
+.textInput input:focus {
+  outline-width: 0;
+}
+
+.searchImg {
+  width: 1em;
+  height: 1em;
 }

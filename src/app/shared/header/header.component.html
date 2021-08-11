@@ -1,11 +1,23 @@
 <header>
-  <a [routerLink]="['/home']" class="header-logo">
-    <img src="../../../assets/logo.svg" alt="" />
+
+  <a [routerLink]="['/home']" class="logo">
+    <img class="logoImg" src="../../../assets/logo.svg" alt="" />
   </a>
-  <button *ngIf="!isAuthenticated" class="login">
-    <a [routerLink]="['/account/login']">Sign In</a>
+
+  <div class="textInput">
+    <img class="searchImg" src="../../../assets/search.svg" />
+    <input
+      type="text"
+      id="search"
+      [placeholder]="'search'"
+      (keydown.enter)="searchInput($event)"
+    />
+  </div>
+
+  <button *ngIf="!isAuthenticated">
+    <a [routerLink]="['/login']">Sign In</a>
   </button>
-  <a *ngIf="isAuthenticated" [routerLink]="['/my-account']" class="account">
+  <a *ngIf="isAuthenticated" [routerLink]="['/account']">
     <fa-icon [icon]="faUser"></fa-icon>
   </a>
 </header>

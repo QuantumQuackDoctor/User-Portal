@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +32,14 @@ import { UserSettingsComponent } from './pages/account/user-settings/user-settin
 import { DeleteAccountDialogComponent } from './pages/account/delete-account-dialog/delete-account-dialog.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatListModule} from "@angular/material/list";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -59,11 +67,19 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatDialogModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatSidenavModule,
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatListModule,
+    MatButtonModule,
     NgbModule,
     NoopAnimationsModule,
   ],

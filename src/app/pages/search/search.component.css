@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+}
+
+.app-header {
+  z-index: -1;
+}
+
+.container {
+  background: linear-gradient(to top right, var(--bg-main), var(--color-main));
+  max-width: 10000px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  margin-left: 0;
+}
+
+table {
+  width: 100%;
+}
+
+.restaurants {
+  flex-grow: 1;
+}
+
+.restaurants table {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.toggleMenuButton {
+  float: left;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+
+.mat-drawer {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.side-menu li {
+  padding: 8px 8px 8px 0px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.side-menu .mat-slider {
+  padding: 8px 8px 8px 0px;
+  text-decoration: none;
+  display: block;
+  transition: 0.3s;
+}
+
+
+
+.toggleMenuButton {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #111;
+  padding: 10px 15px;
+  border: none;
+}
+
+
+.toggleMenuButton:hover {
+  background-color: #444;
+}
+
+.window {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.side-menu {
+  margin-left: 0;
+  min-width: 200px;
+  width: 20%;
+  padding: 20px;
+}
+
+a {
+  float: right;
+  padding: 10px;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+}
+
+button {
+  float: right;
+  background-color: var(--color-accent);
+  width: 80px;
+}
+
+.mat-form-field {
+  float: right;
+  width: 80px;
+  height: 40px;
+  padding: 5px;
+}
+
+::ng-deep .mat-form-field {
+  font-size: 10px;
+}
+
+
+.side-menu-contents {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
