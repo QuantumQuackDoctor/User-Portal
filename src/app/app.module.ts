@@ -31,6 +31,7 @@ import { DeleteAccountDialogComponent } from './pages/account/delete-account-dia
 import { MatDialogModule } from '@angular/material/dialog';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderComponent } from "./pages/orders/order/order.component";
+import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { OrderComponent } from "./pages/orders/order/order.component";
     DeleteAccountDialogComponent,
     OrderComponent,
     OrdersComponent,
+    ActivateAccountComponent,
   ],
     imports: [
         BrowserModule,

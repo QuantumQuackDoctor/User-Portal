@@ -72,6 +72,14 @@ export class AuthService {
     });
   }
 
+  activateAccount(token: string): Observable<string> {
+    return this.http.post(
+      `${this.baseUrl}/accounts/activate/${token}`,
+      {},
+      { responseType: 'text' }
+    );
+  }
+
   public get currentAuthenticatedUser() {
     return this.currentUser.value;
   }

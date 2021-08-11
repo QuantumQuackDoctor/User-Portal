@@ -22,7 +22,6 @@ export class DeleteAccountDialogComponent implements OnInit {
   delete(): void {
     this.dialogRef.close();
     this.userService.deleteUser().subscribe((res) => {
-      console.log(res);
       this.authService.logout();
       this.router.navigate(['/home']);
     });
