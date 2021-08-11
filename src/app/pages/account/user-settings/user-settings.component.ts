@@ -19,9 +19,11 @@ export class UserSettingsComponent implements OnInit {
     private matDialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   logout(): void {
+    localStorage.removeItem('userId');
     this.authService.logout();
     this.router.navigate(['/home']);
   }
