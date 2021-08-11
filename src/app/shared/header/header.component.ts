@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   isAuthenticated: boolean = false; //attach to auth service
   faUser = faUser;
   subscription?: Subscription;
+  navbarCollapsed = true;
 
   constructor(private authService: AuthService) {}
 
