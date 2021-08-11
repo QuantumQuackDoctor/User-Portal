@@ -169,6 +169,7 @@
     <div class="warning" *ngIf="displayError">{{ errorMessage }}</div>
   </div>
 
-  <button type="submit" tabindex="9">Register</button>
+  <button *ngIf="!hasSubmitted" type="submit" tabindex="9">Register</button>
+  <span *ngIf="hasSubmitted">Loading</span>
   <a class="signup" [routerLink]="['/account/login']">Login</a>
 </form>

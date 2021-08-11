@@ -1,0 +1,26 @@
+<div class="activate-container">
+  <div *ngIf="loading" class="activate-loading">Loading</div>
+  <div *ngIf="!loading">
+    <div *ngIf="activated">
+      <h2>Activation Successful</h2>
+      <div class="activate-center">
+        <a
+          [routerLink]="['/account/login']"
+          routerLinkActive="router-link-active"
+          >Go to login</a
+        >
+      </div>
+    </div>
+    <div *ngIf="!activated">
+      <h2>Activation Failed</h2>
+      <h4>{{ errorMessage }}</h4>
+      <div class="activate-center">
+        <a
+          [routerLink]="['/account/register']"
+          routerLinkActive="router-link-active"
+          >Go to register</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

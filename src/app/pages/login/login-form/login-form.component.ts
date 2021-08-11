@@ -4,6 +4,7 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -46,10 +47,11 @@ export class LoginFormComponent implements OnInit {
           this.loginError = false;
           this.router.navigate([this.returnUrl]);
         },
-        (err) => {
+        (err: HttpErrorResponse) => {
           this.loginError = true;
           switch (err.status) {
-            case 401 | 403:
+            case 401:
+            case 403:
               this.errorMessage = '*email or password invalid';
               break;
             default:

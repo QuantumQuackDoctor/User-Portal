@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-form',
@@ -20,6 +21,7 @@ export class RegisterFormComponent implements OnInit {
   errorMessage = '*email or password invalid';
   returnUrl: string = '/';
   subscription?: Subscription;
+  hasSubmitted = false;
 
   constructor(
     private authService: AuthService,
@@ -69,7 +71,8 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.registerGroup.valid) {
+    if (this.registerGroup.valid && !this.hasSubmitted) {
+      this.hasSubmitted = true;
       this.authService.register(this.createUser()).subscribe(
         (res) => {
           this.displayError = false;
@@ -77,7 +80,8 @@ export class RegisterFormComponent implements OnInit {
             queryParams: { returnUrl: this.returnUrl },
           });
         },
-        (err) => {
+        (err: HttpErrorResponse) => {
+          this.hasSubmitted = false;
           this.displayError = true;
           switch (err.status) {
             case 409:

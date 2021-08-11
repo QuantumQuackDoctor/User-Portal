@@ -32,6 +32,7 @@ import { UserSettingsComponent } from './pages/account/user-settings/user-settin
 import { DeleteAccountDialogComponent } from './pages/account/delete-account-dialog/delete-account-dialog.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     UserOrdersComponent,
     UserSettingsComponent,
     DeleteAccountDialogComponent,
+    ActivateAccountComponent,
   ],
   imports: [
     BrowserModule,
