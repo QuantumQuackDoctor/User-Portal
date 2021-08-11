@@ -78,13 +78,13 @@ export class CartService {
         if (itemExists) {
           itemExists.quantity++;
           localStorage.setItem('cart', JSON.stringify(check));
-          this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
+         // this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
         }
         //if no item then add item to list
         else {
           orderExists.items.push(item);
           localStorage.setItem('cart', JSON.stringify(check));
-          this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
+         // this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
         }
       }
         //if no order from restaurant then make
@@ -93,7 +93,7 @@ export class CartService {
         let newFoodOrder = new FoodOrder(menuId, null, [item]);
         check.push(newFoodOrder);
         localStorage.setItem('cart', JSON.stringify(check));
-        this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
+       // this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
       }
     }
     // if no list of FoodOrders at all then make a new one
@@ -101,7 +101,7 @@ export class CartService {
       let newFoodOrder = new FoodOrder(menuId, null, [item]);
       let newOrderList: FoodOrder[] = [newFoodOrder];
       localStorage.setItem('cart', JSON.stringify(newOrderList));
-      this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
+      //this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
     }
 
     //put the current cart into placeholder
@@ -116,7 +116,8 @@ export class CartService {
       foodOrder.items.forEach(item => {
         this.cartTotal += (item.quantity * item.price);
       })
-    })
+    });
+    this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
   }
 
   clearCart() {

@@ -16,7 +16,6 @@ export class RestaurantItemComponent implements OnInit {
   constructor(private cartService: CartService,
               private actRoute: ActivatedRoute) {
     this.menuId = this.actRoute.snapshot.params.id;
-    console.log (this.menuId);
   }
 
   ngOnInit(): void {

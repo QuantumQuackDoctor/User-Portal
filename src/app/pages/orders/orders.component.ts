@@ -29,8 +29,8 @@ export class OrdersComponent implements OnInit {
   sortOrderByDate(orderList: Order[]): Map<number, Order[]> {
     let map: Map<number, Order[]> = new Map();
     orderList.sort((a, b) => {
-      let dateA = new Date(a.orderTime.deliverySlot);
-      let dateB = new Date(b.orderTime.deliverySlot);
+      let dateA = new Date(a.orderTime.restaurantAccept);
+      let dateB = new Date(b.orderTime.restaurantAccept);
       if (dateA.getTime() < dateB.getTime()) {
         return 1;
       } else if (dateA.getTime() > dateB.getTime()) {
@@ -40,7 +40,7 @@ export class OrdersComponent implements OnInit {
     });
     for (let order of orderList) {
 
-      let month = new Date(order.orderTime.deliverySlot).getMonth() + 1;
+      let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;
       if (map.has(month)) {
         map.get(month).push(order);
       } else {

@@ -11,6 +11,7 @@ import { LoginFormComponent } from './pages/login/login-form/login-form.componen
 import { RegisterFormComponent } from './pages/login/register-form/register-form.component';
 import { OrdersComponent } from "./pages/orders/orders.component";
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },

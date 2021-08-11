@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RestaurantItemComponent } from './restaurant-item.component';
 import {HttpClientModule} from "@angular/common/http";
-import {MessengerService} from "../../../services/messenger.service";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('RestaurantItemComponent', () => {
   let component: RestaurantItemComponent;
@@ -10,7 +10,7 @@ describe('RestaurantItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [ RestaurantItemComponent ]
     })
     .compileComponents();

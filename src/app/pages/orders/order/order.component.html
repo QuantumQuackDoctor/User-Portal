@@ -1,4 +1,4 @@
-<div *ngFor="let order of orderMap.value">
+<div *ngFor="let order of orderMap?.value">
   <ul class="list-group" *ngIf="order.orderTime.delivered !== null">
     <li class="list-group-item">
       <div class="row">
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="OrderOptions col-3">
-          <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3"
+          <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
                   ngbPopover="{{printFood(order)}}" popoverTitle="Order Items: ">
             Details
           </button>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="OrderOptions col-3">
-          <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 pull-right"
+          <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
                   ngbPopover="{{printFood(order)}}" popoverTitle="Order Items: ">
             Details
           </button>

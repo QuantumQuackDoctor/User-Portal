@@ -222,7 +222,7 @@ describe('RegisterFormComponent', () => {
 
     component.onSubmit();
 
-    const req = httpController.expectOne('/accounts/register');
+    const req = httpController.expectOne('http://localhost:4200/accounts/register');
 
     const expected = {
       email: 'email@example.com',

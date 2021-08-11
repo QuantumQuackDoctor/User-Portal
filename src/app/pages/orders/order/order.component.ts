@@ -9,31 +9,27 @@ import {KeyValue} from "@angular/common";
 })
 export class OrderComponent implements OnInit {
 
-  @Input() orderMap? : KeyValue <number, Order[]>;
-  currentDate : Date;
-  constructor() { }
+  @Input() orderMap?: KeyValue<number, Order[]>;
+  currentDate: Date;
 
-  ngOnInit(): void {
-    this.currentDate = new Date (Date.now());
+  constructor() {
   }
 
-  printFood (order: Order): string{
+  ngOnInit(): void {
+    this.currentDate = new Date(Date.now());
+  }
+
+  printFood(order: Order): string {
     let items: string = '';
-    for (let foodOrder of order.food){
-      items += foodOrder.restaurantName + ': ';
-      for (let item of foodOrder.items){
-        items += item.name + ', ';
+    if (order) {
+      for (let foodOrder of order.food) {
+        items += foodOrder.restaurantName + ': ';
+        for (let item of foodOrder.items) {
+          items += item.name + ', ';
+        }
+        items += "\n";
       }
-      items += '\n';
     }
     return items;
   }
-
-/*  isPending (date : Date) : boolean{
-    let compareDate = new Date (date);
-    console.log (compareDate);
-    console.log ("current: " + this.currentDate);
-    return compareDate > this.currentDate;
-  }*/
-
 }

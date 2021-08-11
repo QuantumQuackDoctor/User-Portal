@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RestaurantComponent } from './restaurant.component';
+import {RestaurantComponent} from './restaurant.component';
+import {RestaurantService} from "../../services/restaurant.service";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('RestaurantComponent', () => {
   let component: RestaurantComponent;
@@ -8,9 +10,11 @@ describe('RestaurantComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RestaurantComponent ]
+      imports: [RouterTestingModule],
+      providers: [RestaurantService],
+      declarations: [RestaurantComponent],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

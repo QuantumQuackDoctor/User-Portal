@@ -115,7 +115,7 @@ describe('LoginFormComponent', () => {
 
     component.onSubmit();
 
-    const req = httpController.expectOne('/accounts/login');
+    const req = httpController.expectOne('http://localhost:4200/accounts/login');
 
     expect(req.request.body.email).toEqual('email@example.com');
     expect(req.request.body.password).toEqual('password');

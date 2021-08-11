@@ -46,6 +46,7 @@ export class CartComponent implements OnInit {
     })
     this.cartService.cartItemsSubject.subscribe((items: Item[]) => {
       this.orderItems = items;
+      this.cartTotal = this.cartService.cartTotal;
     })
   }
 
@@ -53,7 +54,8 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart()
     this.foodOrders = [];
     this.orderItems = [];
-    this.cartTotal = this.cartService.cartTotal
+    this.cartTotal = this.cartService.cartTotal;
+    location.reload();
   }
 
   checkRequiredFields(): boolean {
@@ -99,6 +101,14 @@ export class CartComponent implements OnInit {
         deliveryTime)
 
       let foodOrders: FoodOrder[] = this.foodOrders;
+
+      foodOrders.forEach(foodOrder => {
+        foodOrder.items.forEach(item => {
+          item.configurations = [];
+          item.configurations.push(item.quantity.toString());
+        });
+      });
+
       let orderDTO = new Order(null, this.selectedDelivery.toLowerCase(), null,
         this.address, orderTime, false, new Price(this.cartTotal, null, null),
         foodOrders)
