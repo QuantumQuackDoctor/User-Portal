@@ -41,7 +41,7 @@ describe('ActivateAccountComponent', () => {
   });
 
   it('should send activation request on init', () => {
-    http.expectOne('/accounts/activate/token').flush('');
+    http.expectOne('http://localhost:4200/accounts/activate/token').flush('');
     fixture.detectChanges();
     expect(
       fixture.debugElement.query(By.css('h2')).nativeElement.innerText
@@ -50,7 +50,7 @@ describe('ActivateAccountComponent', () => {
 
   it('should display expired on 410', () => {
     http
-      .expectOne('/accounts/activate/token')
+      .expectOne('http://localhost:4200/accounts/activate/token')
       .flush('', { status: 410, statusText: 'not found' });
 
     fixture.detectChanges();
@@ -62,7 +62,7 @@ describe('ActivateAccountComponent', () => {
 
   it('should display not found on 404', () => {
     http
-      .expectOne('/accounts/activate/token')
+      .expectOne('http://localhost:4200/accounts/activate/token')
       .flush('', { status: 404, statusText: 'not found' });
 
     fixture.detectChanges();
@@ -74,7 +74,7 @@ describe('ActivateAccountComponent', () => {
 
   it('should display server error default', () => {
     http
-      .expectOne('/accounts/activate/token')
+      .expectOne('http://localhost:4200/accounts/activate/token')
       .flush('', { status: 0, statusText: 'not found' });
 
     fixture.detectChanges();
