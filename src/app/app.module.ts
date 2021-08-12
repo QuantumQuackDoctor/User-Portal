@@ -25,12 +25,11 @@ import { LoginFormComponent } from './pages/login/login-form/login-form.componen
 import { RegisterFormComponent } from './pages/login/register-form/register-form.component';
 import { UserDetailsComponent } from './pages/account/user-details/user-details.component';
 import { UserEmailComponent } from './pages/account/user-email/user-email.component';
-import { UserOrdersComponent } from './pages/account/user-orders/user-orders.component';
 import { UserSettingsComponent } from './pages/account/user-settings/user-settings.component';
 import { DeleteAccountDialogComponent } from './pages/account/delete-account-dialog/delete-account-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { OrdersComponent } from './pages/orders/orders.component';
-import { OrderComponent } from "./pages/orders/order/order.component";
+import { OrdersComponent } from './pages/account/orders/orders.component';
+import { OrderComponent } from './pages/account/orders/order/order.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 
 @NgModule({
@@ -50,23 +49,22 @@ import { ActivateAccountComponent } from './pages/activate-account/activate-acco
     RegisterFormComponent,
     UserDetailsComponent,
     UserEmailComponent,
-    UserOrdersComponent,
     UserSettingsComponent,
     DeleteAccountDialogComponent,
     OrderComponent,
     OrdersComponent,
     ActivateAccountComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        MatDialogModule,
-        FontAwesomeModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgbModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatDialogModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
