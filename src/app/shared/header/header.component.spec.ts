@@ -37,7 +37,7 @@ describe('HeaderComponent', () => {
 
   it('should contain logo', async () => {
     await fixture.whenStable();
-    const logo = fixture.debugElement.query(By.css('.header-logo'));
+    const logo = fixture.debugElement.query(By.css('.navbar-brand'));
     expect(logo).toBeTruthy();
   });
 
@@ -45,7 +45,7 @@ describe('HeaderComponent', () => {
     statusSubject.next({ valid: false });
     fixture.detectChanges();
     await fixture.whenStable();
-    const signInButton = fixture.debugElement.query(By.css('.login'));
+    const signInButton = fixture.debugElement.query(By.css('.btn'));
     expect(signInButton).toBeTruthy();
   });
 
@@ -53,7 +53,7 @@ describe('HeaderComponent', () => {
     statusSubject.next({ valid: true });
     fixture.detectChanges();
     await fixture.whenStable();
-    const accountIcon = fixture.debugElement.query(By.css('.account'));
+    const accountIcon = fixture.debugElement.query(By.css('#account'));
     expect(accountIcon).toBeTruthy();
   });
 });

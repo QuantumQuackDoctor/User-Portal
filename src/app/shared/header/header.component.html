@@ -1,11 +1,51 @@
-<header class = "fixed-top">
-  <a [routerLink]="['/home']" class="header-logo">
-    <img src="../../../assets/logo.svg" alt="" />
+<nav
+  class="navbar navbar-expand-lg smart-scroll navbar-light bg-light p-2 d-flex"
+>
+  <a [routerLink]="['/home']" class="navbar-brand">
+    <img src="../../../assets/logo.svg" alt="" width="260" />
   </a>
-  <button *ngIf="!isAuthenticated" class="login">
-    <a [routerLink]="['/account/login']">Sign In</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportingContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    (click)="navbarCollapsed = !navbarCollapsed"
+  >
+    <span class="navbar-toggler-icon"></span>
   </button>
-  <a *ngIf="isAuthenticated" [routerLink]="['/my-account']" class="account">
-    <fa-icon [icon]="faUser"></fa-icon>
-  </a>
-</header>
+  <div
+    class="collapse navbar-collapse justify-content-end"
+    [ngbCollapse]="navbarCollapsed"
+    id="navbarSupportingContent"
+  >
+    <ul class="navbar-nav d-flex flex-row-reverse px-3">
+      <li class="nav-item active">
+        <button
+          *ngIf="!isAuthenticated"
+          [routerLink]="['/account/login']"
+          routerLinkActive="router-link-active"
+          class="
+            nav-item
+            btn btn-link
+            nav-link
+            bg-color-accent
+            border-color-accent
+            color-border-dark
+          "
+        >
+          Sign in
+        </button>
+        <a
+          *ngIf="isAuthenticated"
+          [routerLink]="['/my-account']"
+          class="nav-link"
+          id="account"
+        >
+          <fa-icon [icon]="faUser" class="fs-2 color-color-accent"></fa-icon>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
