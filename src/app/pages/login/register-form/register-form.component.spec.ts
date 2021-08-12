@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { ActivatedRouteStub } from '../../testing-helpers/ActivatedRouteStub';
+import { ActivatedRouteStub } from 'src/app/testing-helpers/ActivatedRouteStub';
 
 import { RegisterFormComponent } from './register-form.component';
 
@@ -222,7 +222,9 @@ describe('RegisterFormComponent', () => {
 
     component.onSubmit();
 
-    const req = httpController.expectOne('http://localhost:4200/accounts/register');
+    const req = httpController.expectOne(
+      'http://localhost:4200/accounts/register'
+    );
 
     const expected = {
       email: 'email@example.com',

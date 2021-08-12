@@ -56,7 +56,7 @@ describe('ActivateAccountComponent', () => {
     fixture.detectChanges();
 
     expect(
-      fixture.debugElement.query(By.css('h4')).nativeElement.innerText
+      fixture.debugElement.query(By.css('h2')).nativeElement.innerText
     ).toContain('expired');
   });
 
@@ -68,7 +68,7 @@ describe('ActivateAccountComponent', () => {
     fixture.detectChanges();
 
     expect(
-      fixture.debugElement.query(By.css('h4')).nativeElement.innerText
+      fixture.debugElement.query(By.css('h2')).nativeElement.innerText
     ).toContain('not found');
   });
 
@@ -80,7 +80,7 @@ describe('ActivateAccountComponent', () => {
     fixture.detectChanges();
 
     expect(
-      fixture.debugElement.query(By.css('h4')).nativeElement.innerText
+      fixture.debugElement.query(By.css('h2')).nativeElement.innerText
     ).toContain('server error');
   });
 });

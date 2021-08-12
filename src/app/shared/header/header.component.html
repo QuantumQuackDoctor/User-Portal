@@ -28,18 +28,16 @@
             nav-link
             bg-color-accent
             border-color-accent
+            color-border-dark
           "
         >
-          <a
-            [routerLink]="['/account/login']"
-            class="text-decoration-none color-border-light"
-            >Sign In</a
-          >
+          Sign in
         </button>
         <a
           *ngIf="isAuthenticated"
           [routerLink]="['/my-account']"
           class="nav-link"
+          id="account"
         >
           <fa-icon [icon]="faUser" class="fs-2 color-color-accent"></fa-icon>
         </a>

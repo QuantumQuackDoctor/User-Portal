@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { ActivatedRouteStub } from '../../testing-helpers/ActivatedRouteStub';
+import { ActivatedRouteStub } from 'src/app/testing-helpers/ActivatedRouteStub';
 
 import { LoginFormComponent } from './login-form.component';
 
@@ -115,7 +115,9 @@ describe('LoginFormComponent', () => {
 
     component.onSubmit();
 
-    const req = httpController.expectOne('http://localhost:4200/accounts/login');
+    const req = httpController.expectOne(
+      'http://localhost:4200/accounts/login'
+    );
 
     expect(req.request.body.email).toEqual('email@example.com');
     expect(req.request.body.password).toEqual('password');

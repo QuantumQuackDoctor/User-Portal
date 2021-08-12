@@ -139,7 +139,7 @@ input[type="radio"] {
   justify-content: center;
 }
 .radio label {
-  border: 1px solid var(--text-dark);
+  border: 1px solid var(--border-light);
   padding: 0.2em 4em 0.2em 4em;
   transition: all ease-in-out 0.2s;
 }
