@@ -1,26 +1,55 @@
-<div class="activate-container">
-  <div *ngIf="loading" class="activate-loading">Loading</div>
+<div>
+  <div *ngIf="loading" class="spinner-border">
+    <span class="sr-only">Loading...</span>
+  </div>
   <div *ngIf="!loading">
     <div *ngIf="activated">
-      <h2>Activation Successful</h2>
-      <div class="activate-center">
+      <h2
+        class="
+          p-4
+          color-color-accent
+          bg-color-main
+          navbar-expand-lg
+          w-100
+          text-center
+        "
+      >
+        Activation Successful
+      </h2>
+      <button
+        class="btn p-3 btn-primary bg-color-decoration border-color-decoration"
+      >
         <a
           [routerLink]="['/account/login']"
           routerLinkActive="router-link-active"
+          class="text-decoration-none color-color-dark"
           >Go to login</a
         >
-      </div>
+      </button>
     </div>
-    <div *ngIf="!activated">
-      <h2>Activation Failed</h2>
-      <h4>{{ errorMessage }}</h4>
-      <div class="activate-center">
+    <div *ngIf="!activated" class="d-flex flex-column align-items-center">
+      <h2
+        class="
+          p-4
+          color-color-accent
+          bg-color-main
+          navbar-expand-lg
+          w-100
+          text-center
+        "
+      >
+        Activation Failed, <small class="text-muted">{{ errorMessage }}</small>
+      </h2>
+      <button
+        class="btn p-3 btn-primary bg-color-decoration border-color-decoration"
+      >
         <a
           [routerLink]="['/account/register']"
           routerLinkActive="router-link-active"
+          class="text-decoration-none color-color-dark"
           >Go to register</a
         >
-      </div>
+      </button>
     </div>
   </div>
 </div>
