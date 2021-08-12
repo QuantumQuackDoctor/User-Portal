@@ -84,7 +84,7 @@
       "
       class="warning"
     >
-      *birth date required
+      *must be over 18
     </div>
     <span class="text">birth date</span>
     <div class="textInput">
@@ -92,6 +92,15 @@
     </div>
   </div>
   <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('phone')?.invalid &&
+        registerGroup.get('phone')?.touched
+      "
+      class="warning"
+    >
+      *phone must be valid or empty
+    </div>
     <div class="textInput">
       <input
         type="text"
@@ -114,6 +123,17 @@
     </div>
   </div>
   <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('textNotifications')?.value === true &&
+        (registerGroup.get('phone')?.invalid ||
+          registerGroup.get('phone')?.value === null ||
+          registerGroup.get('phone')?.value?.length === 0)
+      "
+      class="warning"
+    >
+      *valid phone number required
+    </div>
     <div class="checkbox">
       <input
         type="checkbox"

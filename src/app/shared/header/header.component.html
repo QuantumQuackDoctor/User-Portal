@@ -22,6 +22,8 @@
       <li class="nav-item active">
         <button
           *ngIf="!isAuthenticated"
+          [routerLink]="['/account/login']"
+          routerLinkActive="router-link-active"
           class="
             nav-item
             btn btn-link
