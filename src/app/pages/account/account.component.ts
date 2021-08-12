@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {User} from 'src/app/models/User';
-import {AuthService} from 'src/app/services/auth.service';
-import {UserService} from 'src/app/services/user-service.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-account',
@@ -28,7 +28,7 @@ export class AccountComponent implements OnInit {
         userService.getUserDetails().subscribe((user) => {
           this.user = user;
           localStorage.setItem('userId', user.id.toString());
-          localStorage.setItem ('userOrders', JSON.stringify(user.orders));
+          localStorage.setItem('userOrders', JSON.stringify(user.orders));
           //this.checkCartUpdate(this.user)
           console.log(JSON.parse(localStorage.getItem('userOrders')));
         });
@@ -38,12 +38,10 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  checkCartUpdate (user: User) {
-    this.userService.userCartSubject.subscribe(orders => {
+  checkCartUpdate(user: User) {
+    this.userService.userCartSubject.subscribe((orders) => {
       user.orders = orders;
     });
   }
