@@ -1,19 +1,31 @@
-<div class="card shadow-sm" style="max-width: 200px">
-  <img class="image img-thumbnail card-img-top p-2" width="100%"
-       style = "max-height: 200px; max-width: 200px"
-       [src]=menuItem?.imgURL  alt=""/>
+<div
+  class="d-flex bg-white rounded shadow-sm flex-row-reverse"
+  style="max-height: 150px; overflow: hidden"
+>
+  <div
+    class="bg-image"
+    style="height: 150px; width: 150px; background-size: cover"
+    [style.backgroundImage]="'url(' + menuItem?.imgURL + ')'"
+  ></div>
   <div class="card-body">
     <p class="card-text">
-      <strong>{{menuItem?.name}}</strong>
+      <strong>{{ menuItem?.name }}</strong>
     </p>
-    <p class="card-text text-truncate">{{menuItem?.description}}</p>
+    <p class="card-text text-truncate">{{ menuItem?.description }}</p>
     <div class="d-flex justify-content-between align-items-center">
       <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-primary product-btn"
-        (click) = "handleAddToCart()">Add to Cart</button>
-<!--        <button type="button" class="btn btn-sm btn-outline-secondary product-btn">View Details</button>-->
+        <button
+          type="button"
+          class="btn btn-sm btn-primary product-btn"
+          (click)="handleAddToCart()"
+        >
+          Add to Cart
+        </button>
+        <!--        <button type="button" class="btn btn-sm btn-outline-secondary product-btn">View Details</button>-->
       </div>
-      <small class="text-muted text-truncate">{{ menuItem?.price | currency:'USD' }}</small>
+      <small class="text-muted text-truncate">{{
+        menuItem?.price | currency: "USD"
+      }}</small>
     </div>
   </div>
 </div>

@@ -13,6 +13,7 @@
 body {
   margin: 0;
   padding: 0;
+  padding-top: 78px;
   background-color: var(--bg-main);
   height: 100vh;
   width: 100vw;
