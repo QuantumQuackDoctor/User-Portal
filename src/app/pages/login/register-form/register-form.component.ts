@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
@@ -26,7 +32,7 @@ export class RegisterFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    route: ActivatedRoute
   ) {
     this.registerGroup = new FormGroup({
       email: new FormControl(null, {
@@ -39,16 +45,51 @@ export class RegisterFormComponent implements OnInit {
         validators: [
           Validators.required,
           Validators.pattern(/^\d{4}-\d{2}-\d{2}$/),
+          (control: AbstractControl): ValidationErrors | null => {
+            let dateDiff = Date.now() - Date.parse(control.value);
+            let ageDate = new Date(dateDiff);
+            if (ageDate.getUTCFullYear() - 1970 >= 18) return null;
+            return {
+              tooYoung: { value: control.value },
+            };
+          },
         ],
       }),
       firstName: new FormControl(null, {
         validators: [Validators.minLength(3), Validators.required],
       }),
       lastName: new FormControl(null),
-      phone: new FormControl(null),
+      phone: new FormControl(null, {
+        validators: [
+          (control: AbstractControl): ValidationErrors | null => {
+            if (
+              !control.value ||
+              control.value.length === 0 ||
+              (control.value.length === 10 && !isNaN(control.value))
+            ) {
+              return null;
+            }
+            return { invalidPhoneNumber: { value: control.value } };
+          },
+        ],
+      }),
       veteranStatus: new FormControl(false, Validators.required),
       textNotifications: new FormControl(false, {
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+          (control: AbstractControl): ValidationErrors | null => {
+            //if user would like to recieve text notifications they must have a valid phone number
+            if (control.value === false) {
+              return null;
+            }
+            if (this.phonePresentAndValid()) {
+              return null;
+            }
+            return {
+              invalidPhoneNumber: { value: control.value },
+            };
+          },
+        ],
       }),
       emailNotifications: new FormControl(false, {
         validators: [Validators.required],
@@ -60,6 +101,11 @@ export class RegisterFormComponent implements OnInit {
     this.subscription = route.queryParamMap.subscribe((map) => {
       this.returnUrl = map.get('returnUrl') || '/';
     });
+  }
+
+  private phonePresentAndValid(): boolean {
+    let phone = this.registerGroup.get('phone');
+    return phone.value !== null && phone.value.length > 0 && phone.valid;
   }
 
   ngOnInit(): void {
