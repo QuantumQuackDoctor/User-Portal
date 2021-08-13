@@ -65,7 +65,6 @@ export class AuthService {
   }
 
   register(user: User): Observable<string> {
-    console.log (this.baseUrl);
     return this.http.put(this.baseUrl + '/accounts/register', user, {
       headers: this.httpOptions.headers,
       responseType: 'text',

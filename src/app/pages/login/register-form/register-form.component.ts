@@ -117,6 +117,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.registerGroup.updateValueAndValidity();
     if (this.registerGroup.valid && !this.hasSubmitted) {
       this.hasSubmitted = true;
       this.authService.register(this.createUser()).subscribe(

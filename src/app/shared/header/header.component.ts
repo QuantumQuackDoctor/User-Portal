@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService, AuthToken } from 'src/app/services/auth.service';

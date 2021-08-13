@@ -212,11 +212,11 @@ describe('RegisterFormComponent', () => {
       password: 'password',
       firstName: 'first',
       lastName: 'last',
-      phone: 'phone',
-      textNotifications: true,
+      phone: '',
+      textNotifications: false,
       emailNotifications: true,
       theme: 'dark',
-      DOB: '2021-02-08',
+      DOB: '2000-02-08',
       veteranStatus: false,
     });
 
@@ -231,15 +231,15 @@ describe('RegisterFormComponent', () => {
       firstName: 'first',
       lastName: 'last',
       password: 'password',
-      phone: 'phone',
+      phone: '',
       settings: {
         notifications: {
           email: true,
-          text: true,
+          text: false,
         },
         theme: 'dark',
       },
-      DOB: '2021-02-08',
+      DOB: '2000-02-08',
       veteranStatus: false,
     };
 
