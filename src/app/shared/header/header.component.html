@@ -48,7 +48,6 @@
           Sign in
         </button>
       </li>
-
       <ng-container *ngIf="isAuthenticated">
         <li class="nav-item">
           <a [routerLink]="['/my-account']" class="nav-link" id="account">
@@ -57,6 +56,15 @@
         </li>
         <app-cart-dropdown *ngIf="router.url !== '/cart'"></app-cart-dropdown>
       </ng-container>
+      <li class="textInput">
+        <img class="searchImg" src="../../../assets/search.svg" />
+        <input
+          type="text"
+          id="search"
+          [placeholder]="'search'"
+          (keydown.enter)="searchInput($event)"
+        />
+      </li>
     </ul>
   </div>
 </nav>

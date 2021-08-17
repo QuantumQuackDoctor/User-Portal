@@ -3,6 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BehaviorSubject, of } from 'rxjs';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { AuthService, AuthToken } from 'src/app/services/auth.service';
 
 import { HeaderComponent } from './header.component';
@@ -19,7 +23,7 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule],
       providers: [{ provide: AuthService, useValue: mockAuthService }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
