@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { SearchComponent } from './pages/search/search.component';
+import {RestaurantDialog, SearchComponent} from './pages/search/search.component';
 import { AccountComponent } from './pages/account/account.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -40,6 +40,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatButtonModule} from "@angular/material/button";
     HomeComponent,
     LoginComponent,
     SearchComponent,
+    RestaurantDialog,
     AccountComponent,
     CartComponent,
     CartItemComponent,
@@ -82,6 +84,7 @@ import {MatButtonModule} from "@angular/material/button";
     MatButtonModule,
     NgbModule,
     NoopAnimationsModule,
+    MatSelectModule,
   ],
   providers: [
     {
