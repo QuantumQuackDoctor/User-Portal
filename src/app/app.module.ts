@@ -41,6 +41,16 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSelectModule} from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { OrdersComponent } from './pages/account/orders/orders.component';
+import { OrderComponent } from './pages/account/orders/order/order.component';
+import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -65,6 +75,9 @@ import {MatSelectModule} from '@angular/material/select';
     UserOrdersComponent,
     UserSettingsComponent,
     DeleteAccountDialogComponent,
+    OrderComponent,
+    OrdersComponent,
+    ActivateAccountComponent,
   ],
   imports: [
     BrowserModule,

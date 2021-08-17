@@ -7,13 +7,10 @@
   --color-accent: #f79e02;
   --color-main: #6cdaee;
   --color-decoration: #ffbbef;
-  --text-light: #6cdaee;
-  --text-accent: #f79e02;
-  --text-dark: #65828d;
+  --color-dark: #65828d;
 }
 
 body {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
   background-color: var(--bg-main);
@@ -30,5 +27,98 @@ html {
   padding: 0;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.bg-bg-main {
+  background-color: var(--bg-main);
+}
+
+.bg-bg-main-d {
+  background-color: var(--bg-main-desaturated);
+}
+
+.bg-color-main {
+  background-color: var(--color-main);
+}
+
+.bg-color-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-color-decoration {
+  background-color: var(--color-decoration);
+}
+
+.bg-color-dark {
+  background-color: var(--color-dark);
+}
+
+.bg-border-dark {
+  background-color: var(--border-dark);
+}
+
+.bg-border-dark {
+  background-color: var(--border-light);
+}
+
+.border-bg-main {
+  border-color: var(--bg-main);
+}
+
+.border-bg-main-d {
+  border-color: var(--bg-main-desaturated);
+}
+
+.border-color-main {
+  border-color: var(--color-main);
+}
+
+.border-color-accent {
+  border-color: var(--color-accent);
+}
+
+.border-color-decoration {
+  border-color: var(--color-decoration);
+}
+
+.border-color-dark {
+  border-color: var(--color-dark);
+}
+
+.border-border-dark {
+  border-color: var(--border-dark);
+}
+
+.border-border-light {
+  border-color: var(--border-light);
+}
+
+.color-bg-main {
+  color: var(--bg-main);
+}
+
+.color-bg-main-d {
+  color: var(--bg-main-desaturated);
+}
+
+.color-color-main {
+  color: var(--color-main);
+}
+
+.color-color-accent {
+  color: var(--color-accent);
+}
+
+.color-color-decoration {
+  color: var(--color-decoration);
+}
+
+.color-color-dark {
+  color: var(--color-dark);
+}
+
+.color-border-dark {
+  color: var(--border-dark);
+}
+
+.color-border-light {
+  color: var(--border-light);
+}

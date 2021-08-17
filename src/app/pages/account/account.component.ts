@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    userService: UserService,
+    private userService: UserService,
     authService: AuthService,
     router: Router
   ) {
@@ -27,6 +27,10 @@ export class AccountComponent implements OnInit {
       if (status.valid) {
         userService.getUserDetails().subscribe((user) => {
           this.user = user;
+          localStorage.setItem('userId', user.id.toString());
+          localStorage.setItem('userOrders', JSON.stringify(user.orders));
+          //this.checkCartUpdate(this.user)
+          console.log(JSON.parse(localStorage.getItem('userOrders')));
         });
       } else {
         router.navigate(['/home']);
@@ -35,6 +39,12 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  checkCartUpdate(user: User) {
+    this.userService.userCartSubject.subscribe((orders) => {
+      user.orders = orders;
+    });
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
