@@ -1,6 +1,6 @@
-<div *ngIf="orderItems.length === 0" class="alert alert-info">Your Cart is Empty.</div>
+<div *ngIf="foodOrders.length === 0" class="alert alert-info">Your Cart is Empty.</div>
 
-<ul *ngIf="orderItems.length > 0" class="list-group">
+<ul *ngIf="foodOrders.length > 0" class="list-group">
 
   <!--List of order items-->
   <li class="list-group-item" *ngFor="let item of orderItems">

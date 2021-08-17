@@ -1,16 +1,80 @@
-<div class="info-container">
-  <div class="item">
-    <fa-icon [icon]="nameIcon"></fa-icon>
-    <span class="text">{{ user?.firstName || "" }}</span>
-    &nbsp;
-    <span class="text">{{ user?.lastName || "" }}</span>
-  </div>
-  <div class="item">
-    <fa-icon [icon]="dateIcon"></fa-icon>
-    <span class="text">{{ user?.DOB || "" }}</span>
-  </div>
-  <div class="item">
-    <fa-icon [icon]="phoneIcon"></fa-icon>
-    <span class="text">{{ user?.phone || "" }}</span>
+<h3><u>Details</u></h3>
+<div class="container-fluid p-0">
+  <div class="row gy-3">
+    <div class="col-md-6">
+      <div class="input-group">
+        <label for="firstName" class="input-group-text"
+          ><fa-icon [icon]="nameIcon"></fa-icon
+        ></label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          [value]="user?.firstName"
+          [readonly]="inputsDisabled"
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <label for="lastName" class="input-group-text"
+          ><fa-icon [icon]="nameIcon"></fa-icon
+        ></label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastname"
+          [value]="user?.lastName"
+          [readonly]="inputsDisabled"
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <label for="dob" class="input-group-text"
+          ><fa-icon [icon]="dateIcon"></fa-icon
+        ></label>
+        <input
+          type="date"
+          class="form-control"
+          id="dob"
+          [value]="user?.DOB"
+          [readonly]="inputsDisabled"
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <label for="phone" class="input-group-text"
+          ><fa-icon [icon]="phoneIcon"></fa-icon
+        ></label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          [value]="user?.phone"
+          [readonly]="inputsDisabled"
+        />
+      </div>
+    </div>
+    <div class="col-12 col-sm-11">
+      <div class="input-group">
+        <label for="email" class="input-group-text">
+          <fa-icon [icon]="emailIcon"></fa-icon>
+        </label>
+        <input
+          type="text"
+          id="email"
+          class="form-control"
+          [value]="user?.email"
+          [readonly]="inputsDisabled"
+        />
+      </div>
+    </div>
+    <div class="col-1">
+      <button class="btn btn-secondary">
+        <fa-icon [icon]="faPen"></fa-icon>
+      </button>
+    </div>
   </div>
 </div>

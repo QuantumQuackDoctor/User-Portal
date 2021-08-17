@@ -6,18 +6,16 @@ export class Order {
   id? : number;
   orderType? : string;
   driverID? : number;
-  restaurantId? : number;
   address? : string;
   orderTime? : OrderTime;
   refunded? : boolean;
   price?: Price;
   food?: FoodOrder[];
 
-  constructor(id: number, orderType: string, driverID: number, restaurantId: number, address: string, orderTime: OrderTime, refunded: boolean, price: Price, food: FoodOrder[]) {
+  constructor(id: number, orderType: string, driverID: number, address: string, orderTime: OrderTime, refunded: boolean, price: Price, food: FoodOrder[]) {
     this.id = id;
     this.orderType = orderType;
     this.driverID = driverID;
-    this.restaurantId = restaurantId;
     this.address = address;
     this.orderTime = orderTime;
     this.refunded = refunded;

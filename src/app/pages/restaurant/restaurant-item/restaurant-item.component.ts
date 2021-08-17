@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from "../../../models/item/item";
-import {MessengerService} from "../../../services/messenger.service";
+import {CartService} from "../../../services/cart.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-restaurant-item',
@@ -9,14 +10,18 @@ import {MessengerService} from "../../../services/messenger.service";
 })
 export class RestaurantItemComponent implements OnInit {
 
-  @Input() menuItem : Item
+  @Input() menuItem: Item
+  menuId: number;
 
-  constructor(private msgService : MessengerService) { }
+  constructor(private cartService: CartService,
+              private actRoute: ActivatedRoute) {
+    this.menuId = this.actRoute.snapshot.params.id;
+  }
 
   ngOnInit(): void {
   }
 
-  handleAddToCart (){
-    this.msgService.sendMsg(this.menuItem)
+  handleAddToCart() {
+    this.cartService.addToCart(this.menuItem, this.menuId);
   }
 }

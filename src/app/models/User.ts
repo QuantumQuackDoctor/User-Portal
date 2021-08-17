@@ -1,3 +1,5 @@
+import {Order} from "./order/order";
+
 export interface User {
   id?: number;
   DOB?: string;
@@ -8,6 +10,7 @@ export interface User {
   password?: string;
   phone?: string;
   points?: number;
+  orders?: Order[];
   settings: {
     notifications: {
       email: boolean;

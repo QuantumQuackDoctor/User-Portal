@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-settings',
@@ -11,7 +12,13 @@ import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-ac
   styleUrls: ['../account.component.css'],
 })
 export class UserSettingsComponent implements OnInit {
-  @Input() user: User | undefined;
+  @Input() user: User = {
+    email: '',
+    firstName: '',
+    settings: { notifications: { text: false, email: false }, theme: 'light' },
+  };
+  inputsDisabled: boolean = true;
+  faPen = faPen;
 
   constructor(
     private authService: AuthService,
@@ -22,6 +29,7 @@ export class UserSettingsComponent implements OnInit {
   ngOnInit(): void {}
 
   logout(): void {
+    localStorage.removeItem('userId');
     this.authService.logout();
     this.router.navigate(['/home']);
   }

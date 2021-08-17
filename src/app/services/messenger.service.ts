@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs'
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs'
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -7,29 +7,35 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class MessengerService {
 
+  baseOrderURL = "http://localhost:4200/order"
   subject = new Subject()
+  messages: string [] = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
+  addMsg(message: string) {
+    this.messages.push(message)
+  }
 
   sendMsg(product) {
     this.subject.next(product) //Triggering event
   }
 
-  getMsg(){
+  getMsg() {
     return this.subject.asObservable()
   }
 
-  placeOrder (product){
-    let url = "http://localhost:4200/order";
+  placeOrder(product) {
     console.log(product)
-    this.http.put (url, product, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    this.http.put(this.baseOrderURL, product, {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
     }).subscribe(
       () => {
-        alert ("Order Placed!")
+        alert("Order Placed!")
       },
       error => {
-        alert (error)
+        alert(error)
       }
     );
   }

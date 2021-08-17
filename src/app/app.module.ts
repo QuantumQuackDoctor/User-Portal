@@ -21,25 +21,24 @@ import { RestaurantComponent } from './pages/restaurant/restaurant.component';
 import { RestaurantItemComponent } from './pages/restaurant/restaurant-item/restaurant-item.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OrderComponent } from './pending-orders/order/order.component';
-import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
 import { LoginFormComponent } from './pages/login/login-form/login-form.component';
 import { RegisterFormComponent } from './pages/login/register-form/register-form.component';
 import { UserDetailsComponent } from './pages/account/user-details/user-details.component';
-import { UserEmailComponent } from './pages/account/user-email/user-email.component';
-import { UserOrdersComponent } from './pages/account/user-orders/user-orders.component';
 import { UserSettingsComponent } from './pages/account/user-settings/user-settings.component';
 import { DeleteAccountDialogComponent } from './pages/account/delete-account-dialog/delete-account-dialog.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatListModule} from "@angular/material/list";
-import {MatButtonModule} from "@angular/material/button";
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { OrdersComponent } from './pages/account/orders/orders.component';
+import { OrderComponent } from './pages/account/orders/order/order.component';
+import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -54,15 +53,14 @@ import {MatButtonModule} from "@angular/material/button";
     RestaurantComponent,
     RestaurantItemComponent,
     ShopComponent,
-    OrderComponent,
-    PendingOrdersComponent,
     LoginFormComponent,
     RegisterFormComponent,
     UserDetailsComponent,
-    UserEmailComponent,
-    UserOrdersComponent,
     UserSettingsComponent,
     DeleteAccountDialogComponent,
+    OrderComponent,
+    OrdersComponent,
+    ActivateAccountComponent,
   ],
   imports: [
     BrowserModule,
