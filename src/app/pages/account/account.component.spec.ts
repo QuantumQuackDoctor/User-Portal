@@ -87,11 +87,13 @@ describe('AccountComponent with authenticated user', () => {
 
   it('can get user', () => {
     httpMock.expectOne('/accounts/user').flush({
+      id: 2,
       email: 'email',
       firstName: 'firstName',
       lastName: 'lastName',
       points: 0,
       veteranStatus: true,
+      order: { test: 'test' },
     });
     expect(component.user).toBeTruthy();
   });

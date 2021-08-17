@@ -30,7 +30,6 @@ export class AccountComponent implements OnInit {
           localStorage.setItem('userId', user.id.toString());
           localStorage.setItem('userOrders', JSON.stringify(user.orders));
           //this.checkCartUpdate(this.user)
-          console.log(JSON.parse(localStorage.getItem('userOrders')));
         });
       } else {
         router.navigate(['/home']);
