@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { SearchComponent } from './pages/search/search.component';
+import {RestaurantDialog, SearchComponent} from './pages/search/search.component';
 import { AccountComponent } from './pages/account/account.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +27,15 @@ import { UserDetailsComponent } from './pages/account/user-details/user-details.
 import { UserSettingsComponent } from './pages/account/user-settings/user-settings.component';
 import { DeleteAccountDialogComponent } from './pages/account/delete-account-dialog/delete-account-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
 import { OrdersComponent } from './pages/account/orders/orders.component';
 import { OrderComponent } from './pages/account/orders/order/order.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
@@ -39,12 +48,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     LoginComponent,
     SearchComponent,
+    RestaurantDialog,
     AccountComponent,
     CartComponent,
     CartItemComponent,
     RestaurantComponent,
     RestaurantItemComponent,
     ShopComponent,
+    OrderComponent,
     LoginFormComponent,
     RegisterFormComponent,
     UserDetailsComponent,
@@ -57,13 +68,22 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatDialogModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatSidenavModule,
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatListModule,
+    MatButtonModule,
     NgbModule,
     NoopAnimationsModule,
+    MatSelectModule,
   ],
   providers: [
     {

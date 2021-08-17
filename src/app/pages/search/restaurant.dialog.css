@@ -1,0 +1,29 @@
+.mat-list {
+  margin: 0px;
+  padding: 0px;
+}
+.mat-list-item {
+  max-height: 20px;
+}
+
+img {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+button {
+  float: right;
+  background-color: var(--color-accent);
+  width: 80px;
+}
+
+.div {
+  height: 80%;
+  width: 60%;
+}
+a {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+

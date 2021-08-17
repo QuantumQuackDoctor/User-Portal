@@ -46,6 +46,15 @@
           <fa-icon [icon]="faUser" class="fs-2 color-color-accent"></fa-icon>
         </a>
       </li>
+      <li class="textInput">
+        <img class="searchImg" src="../../../assets/search.svg" />
+        <input
+          type="text"
+          id="search"
+          [placeholder]="'search'"
+          (keydown.enter)="searchInput($event)"
+        />
+      </li>
     </ul>
   </div>
 </nav>
