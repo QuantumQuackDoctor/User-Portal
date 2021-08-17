@@ -14,7 +14,7 @@ body {
   margin: 0;
   padding: 0;
   padding-top: 78px;
-  background-color: var(--bg-main);
+  background-color: white;
   height: 100vh;
   width: 100vw;
   overflow-y: auto;
@@ -56,40 +56,8 @@ html {
   background-color: var(--border-dark);
 }
 
-.bg-border-dark {
+.bg-border-light {
   background-color: var(--border-light);
-}
-
-.border-bg-main {
-  border-color: var(--bg-main);
-}
-
-.border-bg-main-d {
-  border-color: var(--bg-main-desaturated);
-}
-
-.border-color-main {
-  border-color: var(--color-main);
-}
-
-.border-color-accent {
-  border-color: var(--color-accent);
-}
-
-.border-color-decoration {
-  border-color: var(--color-decoration);
-}
-
-.border-color-dark {
-  border-color: var(--color-dark);
-}
-
-.border-border-dark {
-  border-color: var(--border-dark);
-}
-
-.border-border-light {
-  border-color: var(--border-light);
 }
 
 .color-bg-main {

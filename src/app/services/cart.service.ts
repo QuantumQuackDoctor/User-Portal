@@ -1,138 +1,116 @@
-import {Injectable} from '@angular/core';
-import {Item} from '../models/item/item';
-import {BehaviorSubject} from "rxjs";
-import {FoodOrder} from "../models/FoodOrder/food-order";
+import { Injectable } from '@angular/core';
+import { Item } from '../models/item/item';
+import { BehaviorSubject } from 'rxjs';
+import { FoodOrder } from '../models/FoodOrder/food-order';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
-
-  foodOrderHolder: FoodOrder[] = [];
+  currentCart: FoodOrder[] = [];
   cartItemHolder: Item[] = [];
   cartTotal = 0;
 
-  foodOrderSubject = new BehaviorSubject([]);
-  cartItemsSubject = new BehaviorSubject([]);
+  cartSubject = new BehaviorSubject<FoodOrder[]>([]);
 
   constructor() {
-    let checkFoodOrders: FoodOrder[] = JSON.parse(localStorage.getItem('cart'));
-    let checkAllOrders: Item[] = JSON.parse(localStorage.getItem('items'));
-    if (checkFoodOrders) this.foodOrderSubject.next(checkFoodOrders);
-    if (checkAllOrders) this.cartItemsSubject.next(checkAllOrders);
+    let savedCart: FoodOrder[] = JSON.parse(localStorage.getItem('cart'));
+    savedCart && this.setCart(savedCart);
   }
 
-  getItems(): FoodOrder[] {
-    //TODO: Populate  items from API and return an observable
-    return this.foodOrderHolder;
-  }
+  addToCart(item: Item, restaurantId: number) {
+    let currentCart: FoodOrder[] = JSON.parse(localStorage.getItem('cart'));
 
-  /*  getCartByUser () : Item[]{
-      this.placeHolder = JSON.parse(localStorage.getItem("orderItems"));
-      return this.placeHolder;
-    }*/
+    if (currentCart) {
+      let matchingOrder = this.findMatchingRestaurantOrder(
+        currentCart,
+        restaurantId
+      );
 
-  addToItems(item: Item) {
-    let checkAllOrders: Item[] = JSON.parse(localStorage.getItem('items'));
+      if (matchingOrder) {
+        let itemExists = this.findMatchingItem(matchingOrder, item.id);
 
-    if (checkAllOrders) {
-      let itemExists: Item = checkAllOrders.find(cursorItem => {
-        return cursorItem.id === item.id;
-      });
-
-      if (itemExists) {
-        itemExists.quantity++;
-        localStorage.setItem('items', JSON.stringify(checkAllOrders));
-        this.cartItemsSubject.next(JSON.parse(localStorage.getItem('items')));
-      } else {
-        checkAllOrders.push(item);
-        localStorage.setItem('items', JSON.stringify(checkAllOrders));
-        this.cartItemsSubject.next(JSON.parse(localStorage.getItem('items')));
-      }
-    } else {
-      localStorage.setItem('items', JSON.stringify([item]));
-      this.cartItemsSubject.next(JSON.parse(localStorage.getItem('items')));
-    }
-  }
-
-  addToCart(item: Item, menuId: number) {
-
-    let check: FoodOrder[] = JSON.parse(localStorage.getItem('cart'));
-
-    let orderExists: FoodOrder;
-
-    //if there is a cart of orders,
-    //find the order that matches the menuID of item being added
-    if (check) {
-      orderExists = check.find((exItem) => {
-        return exItem.restaurantId === menuId;
-      });
-
-      //if there is an order of other items from same menu
-      if (orderExists) {
-        let itemExists: Item = orderExists.items.find(orderItem => {
-          return orderItem.id === item.id;
-        })
-
-        //if current item exits then increment quantity
         if (itemExists) {
           itemExists.quantity++;
-          localStorage.setItem('cart', JSON.stringify(check));
-         // this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
+        } else {
+          matchingOrder.items.push(item);
         }
-        //if no item then add item to list
-        else {
-          orderExists.items.push(item);
-          localStorage.setItem('cart', JSON.stringify(check));
-         // this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
-        }
+      } else {
+        let newFoodOrder = new FoodOrder(restaurantId, null, [item]);
+        currentCart.push(newFoodOrder);
       }
-        //if no order from restaurant then make
-      // new one and add to list of FoodOrders
-      else {
-        let newFoodOrder = new FoodOrder(menuId, null, [item]);
-        check.push(newFoodOrder);
-        localStorage.setItem('cart', JSON.stringify(check));
-       // this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
-      }
-    }
-    // if no list of FoodOrders at all then make a new one
-    else {
-      let newFoodOrder = new FoodOrder(menuId, null, [item]);
-      let newOrderList: FoodOrder[] = [newFoodOrder];
-      localStorage.setItem('cart', JSON.stringify(newOrderList));
-      //this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
+    } else {
+      let newFoodOrder = new FoodOrder(restaurantId, null, [item]);
+      currentCart = [newFoodOrder];
     }
 
-    //put the current cart into placeholder
-    this.foodOrderHolder = JSON.parse(localStorage.getItem('cart'));
+    this.setCart(currentCart);
+  }
 
-    this.addToItems(item);
+  private setCart(cart: FoodOrder[]) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.currentCart = cart;
+    this.cartTotal = this.calculateCartTotal(cart);
+    this.cartSubject.next(JSON.parse(localStorage.getItem('cart')));
+  }
 
-    //calculate the cartTotal
-    let currentCart: FoodOrder[] = JSON.parse(localStorage.getItem('cart'));
-    this.cartTotal = 0
-    currentCart.forEach((foodOrder: FoodOrder) => {
-      foodOrder.items.forEach(item => {
-        this.cartTotal += (item.quantity * item.price);
-      })
+  getCart() {
+    return this.currentCart;
+  }
+
+  private findMatchingRestaurantOrder(
+    foodOrder: FoodOrder[],
+    restaurantId: number
+  ): FoodOrder {
+    return foodOrder.find((exItem) => {
+      return exItem.restaurantId === restaurantId;
     });
-    this.foodOrderSubject.next(JSON.parse(localStorage.getItem('cart')));
+  }
+
+  private findMatchingItem(foodOrder: FoodOrder, itemId: number) {
+    return foodOrder.items.find((orderItem) => {
+      return orderItem.id === itemId;
+    });
+  }
+
+  updateCartTotal() {
+    let currentCart: FoodOrder[] = JSON.parse(localStorage.getItem('cart'));
+    this.cartTotal = this.calculateCartTotal(currentCart);
+  }
+
+  private calculateCartTotal(cart: FoodOrder[]) {
+    let total = 0;
+    cart.forEach((foodOrder: FoodOrder) => {
+      foodOrder.items.forEach((item) => {
+        total += item.quantity * item.price;
+      });
+    });
+    return total;
   }
 
   clearCart() {
     //set quantity of all items to 1
-    this.foodOrderHolder.forEach((foodOrder: FoodOrder) => {
-      foodOrder.items.forEach(item => {
+    this.currentCart.forEach((foodOrder: FoodOrder) => {
+      foodOrder.items.forEach((item) => {
         item.quantity = 1;
-      })
+      });
     });
     //empty the placeholder and remove from local storage
     //also set cart total to 0
-    this.foodOrderHolder = [];
+    this.currentCart = [];
     localStorage.removeItem('cart');
     localStorage.removeItem('items');
     this.cartTotal = 0;
+  }
+
+  incrementItem(itemId: number, restaurantId: number, amount: number) {
+    let matchingRestaurant = this.findMatchingRestaurantOrder(
+      this.currentCart,
+      restaurantId
+    );
+    let matchingOrder = this.findMatchingItem(matchingRestaurant, itemId);
+    matchingOrder.quantity = Math.max(matchingOrder.quantity + amount, 1);
+    this.setCart(this.currentCart);
   }
 
   /*  remove(item: Item) {
@@ -146,4 +124,15 @@ export class CartService {
       }
     }*/
 
+  removeItem(restaurantId: number, itemId: number) {
+    let foodOrder = this.currentCart.find(
+      (order) => order.restaurantId === restaurantId
+    );
+    foodOrder.items = foodOrder.items.filter((item) => item.id !== itemId);
+    if (foodOrder.items.length === 0)
+      this.currentCart = this.currentCart.filter(
+        (order) => order.restaurantId !== restaurantId
+      );
+    this.setCart(this.currentCart);
+  }
 }

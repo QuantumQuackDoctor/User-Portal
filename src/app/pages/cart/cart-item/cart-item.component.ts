@@ -1,25 +1,37 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Item} from "../../../models/item/item";
-import {MessengerService} from "../../../services/messenger.service";
-import {CartService} from "../../../services/cart.service";
+import { Item } from '../../../models/item/item';
+import { MessengerService } from '../../../services/messenger.service';
+import { CartService } from '../../../services/cart.service';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cart-item',
   templateUrl: './cart-item.component.html',
-  styleUrls: ['./cart-item.component.css']
+  styleUrls: ['./cart-item.component.css'],
 })
 export class CartItemComponent implements OnInit {
+  @Input() orderItem?: Item;
+  @Input() restaurantId: number;
+  faDown = faAngleDown;
+  faUp = faAngleUp;
 
-  @Input() orderItem? : Item
+  constructor(
+    private msg: MessengerService,
+    private cartService: CartService
+  ) {}
 
-  constructor(private msg : MessengerService, private cartService : CartService) {
-  }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-/*  remove (item : Item){
+  /*  remove (item : Item){
     this.cartService.remove(item)
     this.msg.sendMsg(item)
   }*/
+
+  incrementQuantity(amount: number) {
+    this.cartService.incrementItem(
+      this.orderItem.id,
+      this.restaurantId,
+      amount
+    );
+  }
 }

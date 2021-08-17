@@ -30,6 +30,7 @@ import { OrdersComponent } from './pages/account/orders/orders.component';
 import { OrderComponent } from './pages/account/orders/order/order.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     OrderComponent,
     OrdersComponent,
     ActivateAccountComponent,
+    CartDropdownComponent,
   ],
   imports: [
     BrowserModule,

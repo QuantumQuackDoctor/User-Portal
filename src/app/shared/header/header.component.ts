@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService, AuthToken } from 'src/app/services/auth.service';
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit {
   subscription?: Subscription;
   navbarCollapsed = true;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, public router: Router) {}
 
   ngOnInit(): void {
     this.subscription = this.authService.authenticationStatus.subscribe(
