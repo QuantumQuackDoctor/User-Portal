@@ -46,7 +46,7 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription && this.subscription.unsubscribe();
   }
 
   public scroll(el: HTMLElement) {

@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
+    public router: Router,
     private searchService: SearchService
   ) {
     this.subscription = authService.authenticationStatus.subscribe((status) => {

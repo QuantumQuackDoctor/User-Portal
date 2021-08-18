@@ -1,5 +1,16 @@
 <nav
-  class="navbar navbar-expand-lg smart-scroll navbar-light bg-light p-2 d-flex"
+  class="
+    navbar navbar-expand-lg
+    smart-scroll
+    navbar-light
+    bg-light
+    p-2
+    px-3
+    d-flex
+    fixed-top
+  "
+  [style.height]="navbarCollapsed ? '78px' : '120px'"
+  style="transition: all 0.2s ease-in-out"
 >
   <a [routerLink]="['/home']" class="navbar-brand">
     <img src="../../../assets/logo.svg" alt="" width="260" />
@@ -20,10 +31,9 @@
     [ngbCollapse]="navbarCollapsed"
     id="navbarSupportingContent"
   >
-    <ul class="navbar-nav d-flex flex-row-reverse px-3">
-      <li class="nav-item active">
+    <ul class="navbar-nav d-flex flex-row-reverse gap-2">
+      <li class="nav-item active" *ngIf="!isAuthenticated">
         <button
-          *ngIf="!isAuthenticated"
           [routerLink]="['/account/login']"
           routerLinkActive="router-link-active"
           class="
@@ -37,15 +47,15 @@
         >
           Sign in
         </button>
-        <a
-          *ngIf="isAuthenticated"
-          [routerLink]="['/my-account']"
-          class="nav-link"
-          id="account"
-        >
-          <fa-icon [icon]="faUser" class="fs-2 color-color-accent"></fa-icon>
-        </a>
       </li>
+      <ng-container *ngIf="isAuthenticated">
+        <li class="nav-item">
+          <a [routerLink]="['/my-account']" class="nav-link" id="account">
+            <fa-icon [icon]="faUser" class="fs-2 color-color-accent"></fa-icon>
+          </a>
+        </li>
+        <app-cart-dropdown *ngIf="router.url !== '/cart'"></app-cart-dropdown>
+      </ng-container>
       <li class="textInput">
         <img class="searchImg" src="../../../assets/search.svg" />
         <input
