@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Install') {
             steps {
-                sh 'npm install'
+                sh 'ng install'
             }
         }
         stage('Test') {
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'npm run build --prod'
+                sh 'ng run build --prod'
             }
         }
     }
