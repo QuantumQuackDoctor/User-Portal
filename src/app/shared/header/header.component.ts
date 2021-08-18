@@ -34,8 +34,9 @@ export class HeaderComponent implements OnInit {
       }
     );
     this.cartSubscription = cartService.cartSubject.subscribe(() => {
+      this.navbarTogglerTimer && clearTimeout(this.navbarTogglerTimer);
       this.navBarTogglerGreen = true;
-      setTimeout(() => {
+      this.navbarTogglerTimer = setTimeout(() => {
         this.navBarTogglerGreen = false;
       }, 500);
     });
