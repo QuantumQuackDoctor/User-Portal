@@ -9,7 +9,7 @@
     d-flex
     fixed-top
   "
-  [style.height]="navbarCollapsed ? '78px' : '120px'"
+  [style.height]="navbarCollapsed ? '78px' : '140px'"
   style="transition: all 0.2s ease-in-out"
 >
   <a [routerLink]="['/home']" class="navbar-brand">
@@ -18,6 +18,8 @@
   <button
     class="navbar-toggler"
     type="button"
+    [style.border-color]="navBarTogglerGreen ? 'green' : 'lightgray'"
+    style="transition: border-color 0.3s ease-in-out"
     data-toggle="collapse"
     data-target="#navbarSupportingContent"
     aria-expanded="false"
@@ -31,7 +33,7 @@
     [ngbCollapse]="navbarCollapsed"
     id="navbarSupportingContent"
   >
-    <ul class="navbar-nav d-flex flex-row-reverse gap-2">
+    <ul class="navbar-nav d-flex flex-row-reverse gap-2 align-items-center">
       <li class="nav-item active" *ngIf="!isAuthenticated">
         <button
           [routerLink]="['/account/login']"
@@ -56,14 +58,17 @@
         </li>
         <app-cart-dropdown *ngIf="router.url !== '/cart'"></app-cart-dropdown>
       </ng-container>
-      <li class="textInput">
-        <img class="searchImg" src="../../../assets/search.svg" />
-        <input
-          type="text"
-          id="search"
-          [placeholder]="'search'"
-          (keydown.enter)="searchInput($event)"
-        />
+      <li class="nav-item">
+        <div class="input-group">
+          <fa-icon class="input-group-text" [icon]="faSearch"></fa-icon>
+          <input
+            type="text"
+            class="form-control"
+            id="search"
+            [placeholder]="'search'"
+            (keydown.enter)="searchInput($event)"
+          />
+        </div>
       </li>
     </ul>
   </div>
