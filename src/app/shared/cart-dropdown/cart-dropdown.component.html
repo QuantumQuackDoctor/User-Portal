@@ -1,0 +1,42 @@
+<li class="nav-item" ngbDropdown display="dynamic" #myDrop="ngbDropdown">
+  <a
+    class="nav-link"
+    role="button"
+    id="dropdownManual"
+    [style.color]="numItems > 0 ? 'green' : 'gray'"
+    ngbDropdownToggle
+    (focus)="myDrop.open()"
+  >
+    <fa-icon
+      [icon]="faCart"
+      class="fs-2"
+      [style.color]="numItems > 0 ? 'green' : 'gray'"
+    ></fa-icon>
+  </a>
+  <div
+    ngbDropdownMenu
+    aria-labelledby="dropdownManual"
+    class="p-2"
+    style="width: 300px"
+  >
+    <div class="container-fluid">
+      <div *ngFor="let order of currentCart" class="row my-1 gy-1">
+        <div *ngFor="let item of order.items">
+          <div class="col-12 p-2 bg-light rounded">
+            <span>{{ item.name }}</span>
+            <span> x {{ item.quantity }}</span>
+            <button
+              class="btn float-end p-0 m-0 text-warning"
+              (click)="remove(order.restaurantId, item.id)"
+            ></button>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <button class="col-12 btn btn-success" [routerLink]="['/cart']">
+          Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</li>

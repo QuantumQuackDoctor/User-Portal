@@ -1,0 +1,195 @@
+<form
+  [formGroup]="registerGroup"
+  (keyup.enter)="onSubmit()"
+  (ngSubmit)="onSubmit()"
+>
+  <h2 class="login">Register</h2>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('email')?.invalid &&
+        registerGroup.get('email')?.touched
+      "
+      class="warning"
+    >
+      *email invalid
+    </div>
+    <div class="textInput">
+      <fa-icon [icon]="emailIcon"></fa-icon>
+      <input
+        type="text"
+        [placeholder]="'email'"
+        id="email"
+        formControlName="email"
+        tabindex="1"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('password')?.invalid &&
+        registerGroup.get('password')?.touched
+      "
+      class="warning"
+    >
+      *password isn't long enough
+    </div>
+    <div class="textInput">
+      <fa-icon [icon]="passwordIcon"></fa-icon>
+      <input
+        type="password"
+        [placeholder]="'password'"
+        formControlName="password"
+        id="password"
+        tabindex="2"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('firstName')?.invalid &&
+        registerGroup.get('firstName')?.touched
+      "
+      class="warning"
+    >
+      * first name required
+    </div>
+    <div class="textInput">
+      <input
+        type="text"
+        [placeholder]="'first name'"
+        formControlName="firstName"
+        id="firstName"
+        tabindex="3"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div class="textInput">
+      <input
+        type="text"
+        [placeholder]="'last name'"
+        formControlName="lastName"
+        id="lastName"
+        tabindex="4"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('DOB')?.invalid && registerGroup.get('DOB')?.touched
+      "
+      class="warning"
+    >
+      *must be over 18
+    </div>
+    <span class="text">birth date</span>
+    <div class="textInput">
+      <input type="date" formControlName="DOB" id="DOB" tabindex="4" />
+    </div>
+  </div>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('phone')?.invalid &&
+        registerGroup.get('phone')?.touched
+      "
+      class="warning"
+    >
+      *phone must be valid or empty
+    </div>
+    <div class="textInput">
+      <input
+        type="text"
+        [placeholder]="'phone number'"
+        formControlName="phone"
+        id="phone"
+        tabindex="5"
+      />
+    </div>
+  </div>
+  <div class="group">
+    <div class="checkbox">
+      <input
+        type="checkbox"
+        id="veteranStatus"
+        formControlName="veteranStatus"
+        tabindex="5"
+      />
+      <label for="veteranStatus">are you a veteran?</label>
+    </div>
+  </div>
+  <div class="group">
+    <div
+      *ngIf="
+        registerGroup.get('textNotifications')?.value === true &&
+        (registerGroup.get('phone')?.invalid ||
+          registerGroup.get('phone')?.value === null ||
+          registerGroup.get('phone')?.value?.length === 0)
+      "
+      class="warning"
+    >
+      *valid phone number required
+    </div>
+    <div class="checkbox">
+      <input
+        type="checkbox"
+        id="textNotifications"
+        formControlName="textNotifications"
+        tabindex="6"
+      />
+      <label for="textNotifications">recieve text notifications?</label>
+    </div>
+  </div>
+  <div class="group">
+    <div class="checkbox">
+      <input
+        type="checkbox"
+        id="emailNotifications"
+        formControlName="emailNotifications"
+        tabindex="7"
+      />
+      <label for="emailNotifications">recieve email notifications?</label>
+    </div>
+  </div>
+  <div class="group">
+    <div class="radio">
+      <input
+        type="radio"
+        name="theme"
+        value="dark"
+        id="dark"
+        formControlName="theme"
+      />
+      <label
+        for="dark"
+        class="radioButton"
+        tabindex="8"
+        (keydown.space)="selectTheme('dark')"
+        >dark</label
+      >
+      <input
+        type="radio"
+        name="theme"
+        value="light"
+        id="light"
+        formControlName="theme"
+      />
+      <label
+        for="light"
+        class="radioButton"
+        tabindex="9"
+        (keydown.space)="selectTheme('light')"
+        >light</label
+      >
+    </div>
+    <div class="warning" *ngIf="displayError">{{ errorMessage }}</div>
+  </div>
+
+  <button *ngIf="!hasSubmitted" type="submit" tabindex="9">Register</button>
+  <span *ngIf="hasSubmitted">Loading</span>
+  <a class="signup" [routerLink]="['/account/login']">Login</a>
+</form>

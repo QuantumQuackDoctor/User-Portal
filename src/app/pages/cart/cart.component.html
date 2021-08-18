@@ -1,0 +1,90 @@
+<app-header></app-header>
+<div class="p-0 bg-white p-2">
+  <div *ngIf="foodOrders.length === 0" class="alert alert-info">
+    Your Cart is Empty.
+  </div>
+
+  <div *ngIf="foodOrders.length > 0">
+    <div class="container bg-border-light rounded p-4">
+      <div class="row p-2 g-3">
+        <ng-container *ngFor="let foodOrder of foodOrders; let i = index">
+          <app-cart-item
+            *ngFor="let item of foodOrder.items"
+            [orderItem]="item"
+            [restaurantId]="foodOrder.restaurantId"
+            class="col-md-6"
+          ></app-cart-item>
+        </ng-container>
+      </div>
+      <!--check out information-->
+      <div class="row border-bottom border-top border-dark my-3 p-2 g-2">
+        <div class="col-12">
+          <select
+            [(ngModel)]="selectedDelivery"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm"
+          >
+            <option
+              *ngFor="let option of deliveryTypeList"
+              [value]="option.type"
+            >
+              {{ option.type }}
+            </option>
+          </select>
+        </div>
+        <div class="col-12">
+          <select
+            [(ngModel)]="selectedTime"
+            *ngIf="selectedDelivery === 'Delivery'"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm"
+          >
+            <option
+              *ngFor="let option of deliveryTimeList"
+              [value]="option.type"
+            >
+              {{ option.type }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="input-group input-group-sm co"
+          *ngIf="selectedDelivery === 'Delivery'"
+        >
+          <label for="address" class="input-group-text">Address</label>
+          <input
+            type="text"
+            [(ngModel)]="address"
+            class="form-control"
+            id="address"
+          />
+        </div>
+        <div class="input-group input-group-sm col">
+          <label for="payment" class="input-group-text">Payment Info</label>
+          <input type="text" class="form-control" id="payment" />
+        </div>
+      </div>
+      <div class="row bg-bg-main p-2 rounded mx-1">
+        <div class="text-white">
+          <strong>Total</strong> {{ cartTotal | currency: "USD" }}
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="btn btn-sm btn-success"
+            (click)="placeOrder()"
+          >
+            Checkout
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-dark float-end"
+            (click)="clearCart()"
+          >
+            Clear Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

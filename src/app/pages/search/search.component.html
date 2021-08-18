@@ -1,1 +1,52 @@
 <app-header></app-header>
+<body>
+
+  <mat-drawer-container class="container" (click)="reload()">
+    <mat-drawer #drawer class="side-menu" mode="side">
+      <ul style="list-style-type:none;">
+        <li>Filter by Rating</li>
+        <li><mat-slider invert aria-label="ratingSlider" min="1" max="5" step="1" value="1" (change)="filterRating($event)"></mat-slider></li>
+        <li>Filter by Price</li>
+        <li><mat-slider aria-label="priceSlider" min="1" max="4" step="1" value="4" (change)="filterPrice($event)"></mat-slider></li>
+      </ul>
+    </mat-drawer>
+    <mat-drawer-content class="restaurants">
+      <button class="toggleMenuButton" type="button" mat-button (click)="drawer.toggle()">
+        <fa-icon [icon]="menuIcon"></fa-icon> Filter
+      </button>
+      <table (matSortChange)="sortData($event)" matSort>
+        <tr>
+          <th mat-sort-header="image">Image</th>
+          <th mat-sort-header="name">Name</th>
+          <th mat-sort-header="rating">Rating</th>
+          <th mat-sort-header="price">Price</th>
+          <th mat-sort-header="timeToDeliver">Time To Deliver</th>
+        </tr>
+
+        <tr *ngFor="let restaurant of searchResults">
+          <td><img src={{restaurant.iconId}}></td>
+          <td (click)="openRestaurant(restaurant)">{{restaurant.name}}</td>
+          <td>{{restaurant.averageRating}}</td>
+          <td>{{restaurant.priceRating}}</td>
+          <td>{{restaurant.averageTime}}</td>
+          <td>{{output}}</td>
+        </tr>
+      </table>
+
+      <button mat-raised-button class="NextButton" (click)="nextPage()">Next</button>
+      <a>{{getPage()}}</a>
+      <button mat-raised-button class="PrevButton" (click)="prevPage()">Previous</button>
+      <mat-form-field appearance="fill" floatLabel=always>
+        <mat-label hidden></mat-label>
+        <mat-select placeholder="10" [(value)]="selectedPageSize" (valueChange)="changePaging()">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="10">10</mat-option>
+          <mat-option value="25">25</mat-option>
+          <mat-option value="50">50</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-drawer-content>
+
+
+  </mat-drawer-container>
+</body>

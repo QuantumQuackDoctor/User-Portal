@@ -1,0 +1,54 @@
+<h3><u>Settings</u></h3>
+<div class="container-fluid p-0">
+  <div class="row mb-4 gy-3">
+    <div class="col-md-6">
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="text"
+          class="form-check-input"
+          [checked]="user?.settings?.notifications?.text"
+          [disabled]="inputsDisabled"
+        />
+        <label for="text" class="form-check-label">Text Notifications</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="emai"
+          class="form-check-input"
+          [checked]="user?.settings?.notifications?.email"
+          [disabled]="inputsDisabled"
+        />
+        <label for="email" class="form-check-label">Email Notifications</label>
+      </div>
+    </div>
+    <div class="col-md-11">
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="theme">Theme</label>
+        <select class="form-select" id="theme" [disabled]="inputsDisabled">
+          <option selected value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-secondary">
+        <fa-icon [icon]="faPen"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div>
+    <button
+      class="btn btn-primary btn-md bg-color-main border-color-main"
+      (click)="logout()"
+    >
+      Log Out
+    </button>
+    <button class="btn btn-warning btn-md float-end" (click)="delete()">
+      Delete
+    </button>
+  </div>
+</div>

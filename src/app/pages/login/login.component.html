@@ -1,54 +1,5 @@
-<div class="container">
-  <form [formGroup]="loginGroup" (ngSubmit)="onSubmit()">
-    <h2 class="login">Login</h2>
-    <div class="group">
-      <div
-        *ngIf="
-          loginGroup.get('email')?.invalid && loginGroup.get('email')?.touched
-        "
-        class="warning"
-      >
-        *email invalid
-      </div>
-      <div class="textInput">
-        <fa-icon [icon]="emailIcon"></fa-icon>
-        <input
-          type="text"
-          id="email"
-          [placeholder]="'email'"
-          formControlName="email"
-          tabindex="1"
-        />
-      </div>
-    </div>
-    <div class="group">
-      <div
-        *ngIf="
-          loginGroup.get('password')?.invalid &&
-          loginGroup.get('password')?.touched
-        "
-        class="warning"
-      >
-        *password isn't long enough
-      </div>
-      <div class="textInput">
-        <fa-icon [icon]="passwordIcon"></fa-icon>
-        <input
-          type="password"
-          id="password"
-          [placeholder]="'password'"
-          formControlName="password"
-          tabindex="2"
-        />
-      </div>
-      <div *ngIf="loginError" class="warning">
-        {{ errorMessage }}
-      </div>
-      <a class="reset" tabindex="5">forgot password?</a>
-    </div>
-    <button type="submit" tabindex="3">Login</button>
-    <a class="signup" tabindex="4">Sign Up</a>
-  </form>
+<div class="login-container">
+  <router-outlet></router-outlet>
   <img
     src="../../../assets/triangle-left.svg"
     alt=""
