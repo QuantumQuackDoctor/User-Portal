@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
 import { SearchService } from '../../services/search.service';
-import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService, AuthToken } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-header',

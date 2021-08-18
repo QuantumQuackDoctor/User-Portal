@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import {RestaurantDialog, SearchComponent} from './pages/search/search.component';
+import {
+  RestaurantDialog,
+  SearchComponent,
+} from './pages/search/search.component';
 import { AccountComponent } from './pages/account/account.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +31,7 @@ import { DeleteAccountDialogComponent } from './pages/account/delete-account-dia
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -54,7 +57,6 @@ import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.comp
     CartItemComponent,
     RestaurantComponent,
     RestaurantItemComponent,
-    ShopComponent,
     OrderComponent,
     LoginFormComponent,
     RegisterFormComponent,
