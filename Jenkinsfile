@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'npm test --global run-headless'
+                sh 'npm run test'
             }
         }
         stage('Build') {
