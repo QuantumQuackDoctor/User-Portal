@@ -3,6 +3,7 @@ import { Item } from '../../models/item/item';
 import { RestaurantService } from '../../services/restaurant.service';
 import { ActivatedRoute } from '@angular/router';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { Restaurant } from '../search/search.component';
 
 interface tempReview {
   username: string;
@@ -20,7 +21,7 @@ export class RestaurantComponent implements OnInit {
   @Input() restaurant = {
     name: 'Restaurant',
     averageTime: 10,
-    rating: 3,
+    averageRating: 3,
     priceRating: 4,
     address: '3017 Harrison Blvd, Ogden, UT 84403',
     menu: [],

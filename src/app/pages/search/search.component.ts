@@ -1,11 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {faBars} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faStar } from '@fortawesome/free-solid-svg-icons';
 
-import {Sort} from '@angular/material/sort';
-import {SearchService} from "../../services/search.service";
-import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
-import {MatDialog} from "@angular/material/dialog";
-
+import { SearchService } from '../../services/search.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 export interface Hours {
   mon: string;
@@ -29,61 +27,99 @@ export interface Restaurant {
   hours: Hours;
   search: string;
   menu: string;
-  ratings: string;
+  ratings: Array<any>;
 }
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-
-
   menuIcon = faBars;
-  displayedColumns: string[] = ['image', 'name', 'rating', 'price', 'timeToDeliver'];
   searchResults: Restaurant[];
   output: string;
-  selectedPageSize: 10;
+  isAsc: boolean = true;
+  faStar = faStar;
+  currentRatingFilter: number = 1;
 
-  constructor(private searchService: SearchService, public dialog: MatDialog) {
+  constructor(private searchService: SearchService, public router: Router) {
     // this.searchResults = this.EXAMPLE_DATA.slice();
-    this.searchResults = [];
-    this.output = "";
+    this.searchResults = [
+      {
+        id: 1,
+        name: 'Restaurant',
+        iconId: '2',
+        backgroundId: '2',
+        averageTime: 10,
+        averageRating: 5,
+        priceRating: 4,
+        address: 'address',
+        hours: {
+          mon: '',
+          tue: '',
+          wed: '',
+          thu: '',
+          fri: '',
+          sat: '',
+          sun: '',
+        },
+        search: 'restaurant',
+        menu: '',
+        ratings: [],
+      },
+      {
+        id: 2,
+        name: 'Restaurant2',
+        iconId: '2',
+        backgroundId: '2',
+        averageTime: 2,
+        averageRating: 5,
+        priceRating: 4,
+        address: 'address',
+        hours: {
+          mon: '',
+          tue: '',
+          wed: '',
+          thu: '',
+          fri: '',
+          sat: '',
+          sun: '',
+        },
+        search: 'tar',
+        menu: '',
+        ratings: [],
+      },
+    ];
+    this.output = '';
   }
 
-  sortData(sort: Sort) {
-
-    const data = this.searchResults;
-    const isAsc = sort.direction === 'asc';
-    if (!sort.active || sort.direction === '') {
-      this.searchResults = data;
-      return;
-    }
-
-    switch (sort.active) {
+  sortData(sort: string) {
+    switch (sort) {
       case 'name':
-        this.searchService.searchRestaurants().subscribe(
-          (res) => {
-            this.searchResults = res;
-          }
-        );
+        this.searchService.searchRestaurants().subscribe((res) => {
+          this.searchResults = res;
+        });
         break;
       case 'rating':
         this.searchService.sortType = 'stars';
-        this.searchService.sortValue = (isAsc ? 'low' : 'high');
+        this.searchService.sortValue = this.isAsc ? 'low' : 'high';
 
         break;
       case 'price':
         this.searchService.sortType = 'price';
-        this.searchService.sortValue = (isAsc ? 'low' : 'high');
+        this.searchService.sortValue = this.isAsc ? 'low' : 'high';
 
         break;
     }
   }
 
+  toggleAsc() {
+    this.isAsc = !this.isAsc;
+  }
+
   open(restaurant: Restaurant) {
-    restaurant.name = "thing";
+    restaurant.name = 'thing';
   }
 
   reload() {
@@ -97,12 +133,17 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  changePaging() {
-    this.searchService.size = this.selectedPageSize;
+  changePaging(size) {
+    this.searchService.size = size;
   }
 
-  filterRating(event: any) {
-    this.searchService.stars = event.value;
+  createRange(num: number) {
+    return new Array(num);
+  }
+
+  filterRating(rating: number) {
+    this.currentRatingFilter = rating;
+    this.searchService.stars = rating;
     this.searchService.searchRestaurants().subscribe(
       (res) => {
         this.searchResults = res;
@@ -140,43 +181,8 @@ export class SearchComponent implements OnInit {
   }
 
   openRestaurant(restaurant: Restaurant) {
-    this.dialog.open(RestaurantDialog, {
-      data: {
-        id: restaurant.id,
-        name: restaurant.name,
-        iconId: restaurant.iconId,
-        backgroundId: restaurant.backgroundId,
-        averageTime: restaurant.averageTime,
-        averageRating: restaurant.averageRating,
-        priceRating: restaurant.priceRating,
-        address: restaurant.address,
-        hours: {
-          mon: restaurant.hours.mon,
-          tue: restaurant.hours.tue,
-          wed: restaurant.hours.wed,
-          thu: restaurant.hours.thu,
-          fri: restaurant.hours.fri,
-          sat: restaurant.hours.sat,
-          sun: restaurant.hours.sun,
-        },
-        search: restaurant.search,
-        menu: restaurant.menu,
-        ratings: restaurant.ratings,
-      }
-    });
+    this.router.navigate([`/restaurant/${restaurant.id}`]);
   }
 
-  ngOnInit(): void {
-
-  }
-}
-
-
-@Component({
-  selector: 'restaurant-dialog',
-  templateUrl: 'restaurant.dialog.html',
-  styleUrls: ['./restaurant.dialog.css']
-})
-export class RestaurantDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Restaurant) {}
+  ngOnInit(): void {}
 }

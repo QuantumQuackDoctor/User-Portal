@@ -6,10 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import {
-  RestaurantDialog,
-  SearchComponent,
-} from './pages/search/search.component';
+import { SearchComponent } from './pages/search/search.component';
 import { AccountComponent } from './pages/account/account.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -30,19 +27,14 @@ import { UserSettingsComponent } from './pages/account/user-settings/user-settin
 import { DeleteAccountDialogComponent } from './pages/account/delete-account-dialog/delete-account-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
 import { OrdersComponent } from './pages/account/orders/orders.component';
 import { OrderComponent } from './pages/account/orders/order/order.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.component';
+import { RestaurantDisplayComponent } from './pages/search/restaurant-display/restaurant-display.component';
+import { StarComponent } from './shared/star/star.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +43,6 @@ import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.comp
     HomeComponent,
     LoginComponent,
     SearchComponent,
-    RestaurantDialog,
     AccountComponent,
     CartComponent,
     CartItemComponent,
@@ -67,6 +58,8 @@ import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.comp
     OrdersComponent,
     ActivateAccountComponent,
     CartDropdownComponent,
+    RestaurantDisplayComponent,
+    StarComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,14 +69,7 @@ import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.comp
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSliderModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatSortModule,
-    MatFormFieldModule,
     MatDialogModule,
-    MatListModule,
-    MatButtonModule,
     NgbModule,
     NoopAnimationsModule,
     MatSelectModule,

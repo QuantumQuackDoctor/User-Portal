@@ -55,6 +55,6 @@ describe('CartDropdownComponent', () => {
     //check that item name and quantity are displayed, I really don't know how to get specific elements in angular, this requires the same html knowledge as By.css to understand
     expect(
       container.children[0].children[0].children[0].nativeElement.innerText
-    ).toBe('item x 2');
+    ).toContain('item x 2');
   });
 });
