@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Order} from "../models/order/order";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, of, Subject} from "rxjs";
 import {MessengerService} from "./messenger.service";
 
@@ -10,41 +10,39 @@ import {MessengerService} from "./messenger.service";
 export class OrderService {
 
   baseOrderURL = "http://localhost:4200/order"
-  orderList : Subject<Order[]> = new Subject<Order[]>()
+  orderList: Subject<Order[]> = new Subject<Order[]>()
 
-  constructor(private http: HttpClient, private msgService: MessengerService) { }
+  constructor(private http: HttpClient, private msgService: MessengerService) {
+  }
 
-  private log (message: string){
+  private log(message: string) {
     this.msgService.addMsg(`OrderService: ${message}`);
   }
 
   getOrders() {
-    this.http.get <Order[]> (this.baseOrderURL).subscribe(
+    let parameters = new HttpParams().set("userId", Number(localStorage.getItem("userId")));
+    this.http.get <Order[]>(this.baseOrderURL + "/user", {params: parameters}).subscribe(
       res => {
         this.orderList.next(res);
       },
       () => {
-        this.handleError<Order[]> ('getOrders', [])
+        this.handleError<Order[]>('getOrders', [])
       }
     );
-/*      .pipe(
-        tap (_ => this.log ('Orders fetched')),
-        catchError (this.handleError<Order[]> ('getOrders', []))
-      );*/
   }
 
   /**
    * Handle Http errors
    * Allows the app to continue
    */
-  private handleError<T> (operation = 'operation', result? : T){
-      return (error : any ): Observable<T> => {
-        console.error (error);
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
 
-        console.log (`${operation} failed : ${error.message}`);
-        this.log(`${operation} failed : ${error.message}`);
+      console.log(`${operation} failed : ${error.message}`);
+      this.log(`${operation} failed : ${error.message}`);
 
-        return of (result as T);
-      }
+      return of(result as T);
+    }
   }
 }

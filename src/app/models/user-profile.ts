@@ -1,16 +1,10 @@
-
-
-export interface User {
+export class UserProfile {
   id?: number;
   DOB?: string;
-  isVeteran?: boolean;
   email: string;
   firstName: string;
   lastName?: string;
-  password?: string;
   phone?: string;
-  points?: number;
-  orders?: number[];
   settings: {
     notifications: {
       email: boolean;

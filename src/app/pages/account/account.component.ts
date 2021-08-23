@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/User';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user-service.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {User} from 'src/app/models/User';
+import {AuthService} from 'src/app/services/auth.service';
+import {UserService} from 'src/app/services/user-service.service';
+import {OrderService} from "../../services/order.service";
+import {Order} from "../../models/order/order";
 
 @Component({
   selector: 'app-account',
@@ -15,34 +17,35 @@ export class AccountComponent implements OnInit {
   userIsAuthenticated: boolean = false;
   router: Router;
   subscription: Subscription;
+  orderList?: Map<number, Order[]> = new Map();
 
   constructor(
     private userService: UserService,
-    authService: AuthService,
+    private orderService: OrderService,
+    private authService: AuthService,
     router: Router
   ) {
     this.router = router;
-    this.subscription = authService.authenticationStatus.subscribe((status) => {
-      this.userIsAuthenticated = status.valid;
-      if (status.valid) {
-        userService.getUserDetails().subscribe((user) => {
-          this.user = user;
-          localStorage.setItem('userId', user.id.toString());
-          localStorage.setItem('userOrders', JSON.stringify(user.orders));
-          //this.checkCartUpdate(this.user)
-        });
-      } else {
-        router.navigate(['/home']);
-      }
-    });
+
   }
 
-  ngOnInit(): void {}
-
-  checkCartUpdate(user: User) {
-    this.userService.userCartSubject.subscribe((orders) => {
-      user.orders = orders;
+  ngOnInit(): void {
+    this.subscription = this.authService.authenticationStatus.subscribe((status) => {
+      this.userIsAuthenticated = status.valid;
+      if (status.valid) {
+        /*userService.getUserDetails();*/
+        this.userService.getUserDetails().subscribe((user) => {
+          this.user = user;
+          this.userService.updateUser(user);
+          localStorage.setItem('userId', user.id.toString());
+          localStorage.setItem('userOrders', JSON.stringify(user.orders));
+          this.orderService.getOrders();
+        });
+      } else {
+        this.router.navigate(['/home']);
+      }
     });
+
   }
 
   ngOnDestroy(): void {

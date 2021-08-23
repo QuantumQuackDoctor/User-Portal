@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,6 +40,7 @@ import { OrderComponent } from './pages/account/orders/order/order.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,6 @@ import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.comp
     CartItemComponent,
     RestaurantComponent,
     RestaurantItemComponent,
-    ShopComponent,
     OrderComponent,
     LoginFormComponent,
     RegisterFormComponent,
@@ -85,6 +85,7 @@ import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.comp
     NgbModule,
     NoopAnimationsModule,
     MatSelectModule,
+    RouterModule,
   ],
   providers: [
     {

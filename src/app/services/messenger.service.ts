@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs'
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +27,13 @@ export class MessengerService {
   }
 
   placeOrder(product) {
-    console.log(product)
+    let parameters = new HttpParams().set("userId", Number(localStorage.getItem("userId")));
     this.http.put(this.baseOrderURL, product, {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      params : parameters
     }).subscribe(
-      () => {
-        alert("Order Placed!")
+      (result) => {
+          console.log (result);
       },
       error => {
         alert(error)

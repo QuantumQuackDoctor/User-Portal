@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CartService } from 'src/app/services/cart.service';
-import { MessengerService } from '../../services/messenger.service';
-import { Order } from '../../models/order/order';
-import { Price } from '../../models/price/price';
-import { FoodOrder } from '../../models/FoodOrder/food-order';
-import { OrderTime } from '../../models/OrderTime/order-time';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
+import {CartService} from 'src/app/services/cart.service';
+import {MessengerService} from '../../services/messenger.service';
+import {Order} from '../../models/order/order';
+import {Price} from '../../models/price/price';
+import {FoodOrder} from '../../models/FoodOrder/food-order';
+import {OrderTime} from '../../models/OrderTime/order-time';
 
 @Component({
   selector: 'app-cart',
@@ -49,7 +48,6 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart();
     this.foodOrders = [];
     this.cartTotal = this.cartService.cartTotal;
-    location.reload();
   }
 
   checkRequiredFields(): boolean {

@@ -241,6 +241,7 @@ describe('RegisterFormComponent', () => {
       },
       DOB: '2000-02-08',
       veteranStatus: false,
+      orders: [],
     };
 
     expect(req.request.body).toEqual(expected);
