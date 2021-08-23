@@ -1,13 +1,12 @@
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
-import {Injectable} from "@angular/core";
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-
   private readonly baseUrl: string;
   private _search: string;
   private _geolocation: string;
@@ -19,35 +18,29 @@ export class SearchService {
   private _size: number;
 
   constructor(private http: HttpClient) {
-
-    this._search = "";
-    this._geolocation = "";
-    this._sortType = "";
-    this._sortValue = "";
+    this._search = '';
+    this._geolocation = '';
+    this._sortType = '';
+    this._sortValue = '';
     this._stars = 0;
     this._price = 5;
     this._page = 0;
     this._size = 10;
-    if (!environment.production) {
-      this.baseUrl = 'http://localhost:8080';
-    }
-    else {
-      this.baseUrl = 'server url'; //TODO add server url when setup
-    }
+    this.baseUrl = environment.baseURL;
   }
 
   searchRestaurants(): Observable<any> {
     let params = new HttpParams()
-      .append("search", this._search)
-      .append("geolocation", this._geolocation)
-      .append("sort_type", this._sortType)
-      .append("sort_values", this._sortValue)
-      .append("stars", this._stars)
-      .append("price", this._price)
-      .append("page", this._page)
-      .append("size", this._size);
+      .append('search', this._search)
+      .append('geolocation', this._geolocation)
+      .append('sort_type', this._sortType)
+      .append('sort_values', this._sortValue)
+      .append('stars', this._stars)
+      .append('price', this._price)
+      .append('page', this._page)
+      .append('size', this._size);
 
-    return this.http.get(this.baseUrl + '/restaurants', {params: params});
+    return this.http.get(this.baseUrl + '/restaurants', { params: params });
   }
 
   get search(): string {

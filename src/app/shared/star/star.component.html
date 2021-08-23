@@ -1,0 +1,9 @@
+<fa-icon
+  [icon]="starIcon"
+  class="color-color-accent"
+  *ngFor="let index of createRange(stars)"
+></fa-icon>
+<fa-icon
+  [icon]="starIcon"
+  *ngFor="let index of createRange(5 - stars)"
+></fa-icon>
