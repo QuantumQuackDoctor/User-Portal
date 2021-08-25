@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Order} from "../models/order/order";
-import {HttpClient} from "@angular/common/http";
-import {Observable, of, Subject} from "rxjs";
-import {MessengerService} from "./messenger.service";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {Subject} from "rxjs";
+import {UserErrorHandlerService} from "./user-error-handler.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,41 +10,34 @@ import {MessengerService} from "./messenger.service";
 export class OrderService {
 
   baseOrderURL = "http://localhost:4200/order"
-  orderList : Subject<Order[]> = new Subject<Order[]>()
+  orderList: Subject<Order[]> = new Subject<Order[]>()
 
-  constructor(private http: HttpClient, private msgService: MessengerService) { }
-
-  private log (message: string){
-    this.msgService.addMsg(`OrderService: ${message}`);
+  constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {
   }
 
   getOrders() {
-    this.http.get <Order[]> (this.baseOrderURL).subscribe(
+    this.http.get <Order[]>(this.baseOrderURL + "/user").subscribe(
       res => {
         this.orderList.next(res);
       },
       () => {
-        this.handleError<Order[]> ('getOrders', [])
+        this.errorHandler.handleError<Order[]>('getOrders', [])
       }
     );
-/*      .pipe(
-        tap (_ => this.log ('Orders fetched')),
-        catchError (this.handleError<Order[]> ('getOrders', []))
-      );*/
   }
 
-  /**
-   * Handle Http errors
-   * Allows the app to continue
-   */
-  private handleError<T> (operation = 'operation', result? : T){
-      return (error : any ): Observable<T> => {
-        console.error (error);
-
-        console.log (`${operation} failed : ${error.message}`);
-        this.log(`${operation} failed : ${error.message}`);
-
-        return of (result as T);
+  placeOrder(product) {
+    let parameters = new HttpParams().set("userId", Number(localStorage.getItem("userId")));
+    this.http.put(this.baseOrderURL, product, {
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      params : parameters
+    }).subscribe(
+      (result) => {
+        console.log (result);
+      },
+      error => {
+        this.errorHandler.handleError('placeOrder', )
       }
+    );
   }
 }

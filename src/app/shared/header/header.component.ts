@@ -6,6 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from '../../services/search.service';
 import { AuthService, AuthToken } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

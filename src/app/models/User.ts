@@ -1,16 +1,14 @@
-import {Order} from "./order/order";
-
 export interface User {
   id?: number;
   DOB?: string;
-  veteranStatus?: boolean;
+  isVeteran?: boolean;
   email: string;
   firstName: string;
   lastName?: string;
   password?: string;
   phone?: string;
   points?: number;
-  orders?: Order[];
+  orders?: number[];
   settings: {
     notifications: {
       email: boolean;

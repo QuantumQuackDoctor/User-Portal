@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+
+import {ErrorHandler, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +34,8 @@ import { OrderComponent } from './pages/account/orders/order/order.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.component';
+import {RouterModule} from "@angular/router";
+import {UserErrorHandlerService} from "./services/user-error-handler.service";
 import { RestaurantDisplayComponent } from './pages/search/restaurant-display/restaurant-display.component';
 import { StarComponent } from './shared/star/star.component';
 
@@ -73,6 +76,7 @@ import { StarComponent } from './shared/star/star.component';
     NgbModule,
     NoopAnimationsModule,
     MatSelectModule,
+    RouterModule,
   ],
   providers: [
     {
@@ -84,6 +88,10 @@ import { StarComponent } from './shared/star/star.component';
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true,
+    },
+    {
+      provide: ErrorHandler,
+      useClass: UserErrorHandlerService,
     },
   ],
   bootstrap: [AppComponent],
