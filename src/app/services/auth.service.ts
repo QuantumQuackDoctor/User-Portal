@@ -22,11 +22,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     //set base url
-    if (!environment.production) {
-      this.baseUrl = 'http://localhost:4200';
-    } else {
-      this.baseUrl = 'server url'; //TODO add server url when setup
-    }
+    this.baseUrl = environment.baseURL;
     this.currentUser = new BehaviorSubject<AuthToken>(
       JSON.parse(localStorage.getItem('user') || '{"valid": false}')
     );

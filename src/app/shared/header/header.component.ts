@@ -1,10 +1,11 @@
-import {Component, OnInit,} from '@angular/core';
-import {Router} from '@angular/router';
-import {faUser} from '@fortawesome/free-regular-svg-icons';
-import {Subscription} from 'rxjs';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
-import {SearchService} from '../../services/search.service';
-import {AuthService, AuthToken} from 'src/app/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { Subscription } from 'rxjs';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { SearchService } from '../../services/search.service';
+import { AuthService, AuthToken } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -14,17 +15,31 @@ import {AuthService, AuthToken} from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
   isAuthenticated: boolean = false; //attach to auth service
   faUser = faUser;
-  subscription?: Subscription;
+  faSearch = faSearch;
+  authSubscription?: Subscription;
+  cartSubscription?: Subscription;
   searchIcon = faSearch;
   navbarCollapsed = true;
+  navBarTogglerGreen = false;
+  navbarTogglerTimer;
 
   constructor(
     private authService: AuthService,
     public router: Router,
-    private searchService: SearchService
+    private searchService: SearchService,
+    cartService: CartService
   ) {
-    this.subscription = authService.authenticationStatus.subscribe((status) => {
-      this.isAuthenticated = status.valid;
+    this.authSubscription = authService.authenticationStatus.subscribe(
+      (status) => {
+        this.isAuthenticated = status.valid;
+      }
+    );
+    this.cartSubscription = cartService.cartSubject.subscribe(() => {
+      this.navbarTogglerTimer && clearTimeout(this.navbarTogglerTimer);
+      this.navBarTogglerGreen = true;
+      this.navbarTogglerTimer = setTimeout(() => {
+        this.navBarTogglerGreen = false;
+      }, 500);
     });
   }
 
@@ -33,17 +48,10 @@ export class HeaderComponent implements OnInit {
     this.searchService.search = event.target.value;
   }
 
-  ngOnInit(): void {
-    this.subscription = this.authService.authenticationStatus.subscribe(
-      (status) => this.onStatusUpdate(status)
-    );
-  }
-
-  onStatusUpdate(status: AuthToken) {
-    this.isAuthenticated = status.valid;
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.authSubscription?.unsubscribe();
+    this.cartSubscription?.unsubscribe();
   }
 }

@@ -13,15 +13,7 @@
       <div class="d-flex gap-3">
         <!-- Stars and dollar signs are bound to restaurant.rating and restaurant.priceRating, the restaurant object is currently a placeholder -->
         <span>
-          <fa-icon
-            [icon]="starIcon"
-            class="color-color-accent"
-            *ngFor="let index of createRange(restaurant?.rating)"
-          ></fa-icon>
-          <fa-icon
-            [icon]="starIcon"
-            *ngFor="let index of createRange(5 - restaurant?.rating)"
-          ></fa-icon>
+          <app-star [stars]="restaurant.averageRating"></app-star>
           <span class="text-secondary mx-1">{{
             restaurantReviews.length
           }}</span>
@@ -132,15 +124,7 @@
           <div>
             <span>{{ item.username }}</span>
             <span class="mx-1">
-              <fa-icon
-                [icon]="starIcon"
-                class="color-color-accent"
-                *ngFor="let index of createRange(item.stars)"
-              ></fa-icon>
-              <fa-icon
-                [icon]="starIcon"
-                *ngFor="let index of createRange(5 - item.stars)"
-              ></fa-icon>
+              <app-star [stars]="item.stars"></app-star>
             </span>
           </div>
           <div class="text-secondary">{{ item.description }}</div>
