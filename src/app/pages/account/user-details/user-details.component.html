@@ -15,7 +15,7 @@
       "
           class="text-danger"
         >
-          * first name required
+          * first name invalid (only letters)
         </div>
         <div class="input-group">
           <label for="firstName" class="input-group-text"
@@ -44,6 +44,7 @@
             type="text"
             class="form-control"
             id="lastname"
+            formControlName="lastName"
             [value]="user?.lastName"
             [readonly]="inputsDisabled"
           />
@@ -122,7 +123,7 @@
             class="form-control"
             formControlName="email"
             [value]="user?.email"
-            [readonly]="true"
+            [readonly]="inputsDisabled"
           />
         </div>
       </div>

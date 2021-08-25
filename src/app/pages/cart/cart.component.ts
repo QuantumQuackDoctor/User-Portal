@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {CartService} from 'src/app/services/cart.service';
-import {MessengerService} from '../../services/messenger.service';
 import {Order} from '../../models/order/order';
 import {Price} from '../../models/price/price';
 import {FoodOrder} from '../../models/FoodOrder/food-order';
 import {OrderTime} from '../../models/OrderTime/order-time';
+import {OrderService} from "../../services/order.service";
 
 @Component({
   selector: 'app-cart',
@@ -34,7 +34,7 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private msg: MessengerService
+    private orderService: OrderService
   ) {}
 
   ngOnInit() {
@@ -119,7 +119,7 @@ export class CartComponent implements OnInit {
         new Price(this.cartTotal, null, null),
         foodOrders
       );
-      this.msg.placeOrder(orderDTO);
+      this.orderService.placeOrder(orderDTO);
       this.clearCart();
     }
   }

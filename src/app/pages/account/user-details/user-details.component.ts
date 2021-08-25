@@ -9,7 +9,8 @@ import {User} from 'src/app/models/User';
 import {faPen} from '@fortawesome/free-solid-svg-icons';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user-service.service";
-import {UserProfile} from "../../../models/user-profile";
+import {AuthService} from "../../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-details',
@@ -17,11 +18,7 @@ import {UserProfile} from "../../../models/user-profile";
   styleUrls: ['../account.component.css'],
 })
 export class UserDetailsComponent implements OnInit {
-  user: User/* = {
-    email: '',
-    firstName: '',
-    settings: {notifications: {text: false, email: false}, theme: 'light'},
-  };*/
+  user: User
 
   profileRegisterGroup: FormGroup;
 
@@ -32,7 +29,9 @@ export class UserDetailsComponent implements OnInit {
   phoneIcon = faPhone;
   emailIcon = faEnvelope;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private authService: AuthService,
+              private router: Router,) {
   }
 
   ngOnInit(): void {
@@ -58,7 +57,9 @@ export class UserDetailsComponent implements OnInit {
           ],
         }),
         firstName: new FormControl(this.user.firstName, {
-          validators: [Validators.minLength(3), Validators.required],
+          validators: [Validators.minLength(3),
+            Validators.pattern ( '^[a-zA-Z ]*$'),
+            Validators.required],
         }),
         lastName: new FormControl(this.user.lastName),
         phone: new FormControl(this.user.phone, {
@@ -83,13 +84,20 @@ export class UserDetailsComponent implements OnInit {
   profileUpdate() {
     this.profileRegisterGroup.updateValueAndValidity();
     if (this.profileRegisterGroup.valid) {
+      if (this.user.email != this.profileRegisterGroup.value.email){
+        this.userService.updateProfile(this.updateInfo());
+        this.authService.logout();
+        this.router.navigate(['/home']);
+      }
       this.userService.updateProfile(this.updateInfo());
+      this.inputsDisabled = true;
     }
 
   }
 
-  updateInfo(): UserProfile {
-    let updatedUser = new UserProfile();
+  updateInfo(): User {
+    let updatedUser = this.user;
+    updatedUser.password = 'dummypassword';
     let formValues = this.profileRegisterGroup.value;
     updatedUser.id = this.user.id;
     updatedUser.DOB = formValues.DOB;

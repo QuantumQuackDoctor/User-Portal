@@ -33,12 +33,9 @@ export class AccountComponent implements OnInit {
     this.subscription = this.authService.authenticationStatus.subscribe((status) => {
       this.userIsAuthenticated = status.valid;
       if (status.valid) {
-        /*userService.getUserDetails();*/
         this.userService.getUserDetails().subscribe((user) => {
           this.user = user;
           this.userService.updateUser(user);
-          localStorage.setItem('userId', user.id.toString());
-          localStorage.setItem('userOrders', JSON.stringify(user.orders));
           this.orderService.getOrders();
         });
       } else {

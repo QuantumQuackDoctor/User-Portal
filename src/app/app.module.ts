@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +41,7 @@ import { ActivateAccountComponent } from './pages/activate-account/activate-acco
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.component';
 import {RouterModule} from "@angular/router";
+import {UserErrorHandlerService} from "./services/user-error-handler.service";
 
 @NgModule({
   declarations: [
@@ -97,6 +98,10 @@ import {RouterModule} from "@angular/router";
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true,
+    },
+    {
+      provide: ErrorHandler,
+      useClass: UserErrorHandlerService,
     },
   ],
   bootstrap: [AppComponent],

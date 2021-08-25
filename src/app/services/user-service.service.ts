@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import { User } from '../models/User';
-import {UserProfile} from "../models/user-profile";
+import {UserErrorHandlerService} from "./user-error-handler.service";
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class UserService {
 
   userDetails: Subject<User> = new Subject<User>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {}
 
   public getUserDetails(): Observable<User> {
    return this.http.get<User>('/accounts/user');
@@ -29,15 +29,14 @@ export class UserService {
     this.userDetails.next (user);
   }
 
-  updateProfile (userProfile: UserProfile) {
-    console.log (userProfile);
-    this.http.patch ('/accounts/user', userProfile).subscribe(
+  updateProfile (updatedUser: User) {
+    this.http.patch ('/accounts/user', updatedUser).subscribe(
       (result: User) => {
+        console.log (result);
         this.userDetails.next(result);
     },
-      //TODO log and handle with msgService
     err => {
-        console.log (err)
+        this.errorHandler.handleError ('updateProfile', updatedUser);
     }
     );
   }
