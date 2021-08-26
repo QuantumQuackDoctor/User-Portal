@@ -1,6 +1,6 @@
 <h3><u>Details</u></h3>
 <form
-  *ngIf = "user"
+  *ngIf="user"
   [formGroup]="profileRegisterGroup"
   (keyup)="profileRegisterGroup.updateValueAndValidity()"
   (ngSubmit)="profileUpdate()"
@@ -10,18 +10,17 @@
       <div class="col-md-6">
         <div
           *ngIf="
-        profileRegisterGroup.get('firstName')?.invalid &&
-        profileRegisterGroup.get('firstName')?.dirty
-      "
+            profileRegisterGroup.get('firstName')?.invalid &&
+            profileRegisterGroup.get('firstName')?.dirty
+          "
           class="text-danger"
         >
           * first name invalid (only letters)
         </div>
         <div class="input-group">
-          <label for="firstName" class="input-group-text"
-          >
-            <fa-icon [icon]="nameIcon"></fa-icon
-            >
+          <label for="firstName" class="input-group-text">
+            <fa-icon [icon]="nameIcon"></fa-icon>
+            <span class="px-1">First Name</span>
           </label>
           <input
             type="text"
@@ -35,10 +34,9 @@
       </div>
       <div class="col-md-6">
         <div class="input-group">
-          <label for="lastName" class="input-group-text"
-          >
-            <fa-icon [icon]="nameIcon"></fa-icon
-            >
+          <label for="lastName" class="input-group-text">
+            <fa-icon [icon]="nameIcon"></fa-icon>
+            <span class="px-1">Last Name</span>
           </label>
           <input
             type="text"
@@ -53,17 +51,17 @@
       <div class="col-md-6">
         <div
           *ngIf="
-        profileRegisterGroup.get('DOB')?.invalid && profileRegisterGroup.get('DOB')?.dirty
-      "
+            profileRegisterGroup.get('DOB')?.invalid &&
+            profileRegisterGroup.get('DOB')?.dirty
+          "
           class="text-danger"
         >
           *must be over 18
         </div>
         <div class="input-group">
-          <label for="dob" class="input-group-text"
-          >
-            <fa-icon [icon]="dateIcon"></fa-icon
-            >
+          <label for="dob" class="input-group-text">
+            <fa-icon [icon]="dateIcon"></fa-icon>
+            <span class="px-1">Birth Date</span>
           </label>
           <input
             type="date"
@@ -79,19 +77,18 @@
         <div class="group">
           <div
             *ngIf="
-        profileRegisterGroup.get('phone')?.invalid &&
-        profileRegisterGroup.get('phone')?.touched
-      "
+              profileRegisterGroup.get('phone')?.invalid &&
+              profileRegisterGroup.get('phone')?.touched
+            "
             class="text-danger"
           >
             *phone must be valid or empty
           </div>
         </div>
         <div class="input-group">
-          <label for="phone" class="input-group-text"
-          >
-            <fa-icon [icon]="phoneIcon"></fa-icon
-            >
+          <label for="phone" class="input-group-text">
+            <fa-icon [icon]="phoneIcon"></fa-icon>
+            <span class="px-1">Phone</span>
           </label>
           <input
             type="text"
@@ -106,9 +103,9 @@
       <div class="col-12 col-sm-11">
         <div
           *ngIf="
-        profileRegisterGroup.get('email')?.invalid &&
-        profileRegisterGroup.get('email')?.dirty
-      "
+            profileRegisterGroup.get('email')?.invalid &&
+            profileRegisterGroup.get('email')?.dirty
+          "
           class="text-danger"
         >
           *email invalid
@@ -116,6 +113,7 @@
         <div class="input-group">
           <label for="email" class="input-group-text">
             <fa-icon [icon]="emailIcon"></fa-icon>
+            <span class="px-1">Email</span>
           </label>
           <input
             type="text"
@@ -128,14 +126,12 @@
         </div>
       </div>
       <div class="col-1">
-        <button type = "button" class="btn btn-secondary" (click)="toggleInput();">
+        <button type="button" class="btn btn-secondary" (click)="toggleInput()">
           <fa-icon [icon]="faPen"></fa-icon>
         </button>
       </div>
       <div class="col-1" *ngIf="!inputsDisabled">
-        <button type="submit" class="btn btn-primary">
-          Submit
-        </button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </div>
