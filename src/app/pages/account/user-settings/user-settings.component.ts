@@ -29,7 +29,6 @@ export class UserSettingsComponent implements OnInit {
   ngOnInit(): void {}
 
   logout(): void {
-    localStorage.removeItem('userId');
     this.authService.logout();
     this.router.navigate(['/home']);
   }

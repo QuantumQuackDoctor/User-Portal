@@ -29,13 +29,12 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.orderService.getOrders();
     this.orderService.orderList.subscribe((res) => {
-      this.orderList = this.sortOrderByDate(res);
+      this.orderList = this.sortOrdersByMonth(res);
     });
   }
 
-  sortOrderByDate(orderList: Order[]): Map<number, Order[]> {
+  sortOrdersByMonth(orderList: Order[]): Map<number, Order[]> {
     let map: Map<number, Order[]> = new Map();
     orderList.sort((a, b) => {
       let dateA = new Date(a.orderTime.restaurantAccept);

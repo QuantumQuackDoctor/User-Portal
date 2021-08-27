@@ -1,7 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OrdersComponent } from './orders.component';
+import {OrdersComponent} from './orders.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {Order} from "../../../models/order/order";
+import {OrderTime} from "../../../models/OrderTime/order-time";
+
+function sampleOrderList(orderList: Order[], month: number) : Order[] {
+
+  if (month === 0) return orderList;
+  let restaurantAccept = new Date (Date.now());
+  restaurantAccept.setMonth(month);
+  let orderTime = new OrderTime (null, restaurantAccept, null ,null, null, null, null);
+  let order = new Order (null, null, null, null, orderTime, null, null, null);
+  orderList.push (order);
+  return sampleOrderList(orderList, month - 1);
+
+}
 
 describe('OrdersComponent', () => {
   let component: OrdersComponent;
@@ -9,10 +23,10 @@ describe('OrdersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule],
-      declarations: [ OrdersComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [OrdersComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -23,5 +37,15 @@ describe('OrdersComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should sort', () => {
+    let orderList = sampleOrderList([], 5);
+    let map = component.sortOrdersByMonth(orderList);
+    map.forEach((value: Order[], key: number) => {
+      value.forEach((order: Order) => {
+        expect(key === order.orderTime.restaurantAccept.getMonth() + 1).toBe(true);
+      })
+    })
   });
 });

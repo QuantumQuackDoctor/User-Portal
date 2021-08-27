@@ -1,80 +1,138 @@
 <h3><u>Details</u></h3>
-<div class="container-fluid p-0">
-  <div class="row gy-3">
-    <div class="col-md-6">
-      <div class="input-group">
-        <label for="firstName" class="input-group-text"
-          ><fa-icon [icon]="nameIcon"></fa-icon
-        ></label>
-        <input
-          type="text"
-          class="form-control"
-          id="firstName"
-          [value]="user?.firstName"
-          [readonly]="inputsDisabled"
-        />
+<form
+  *ngIf="user"
+  [formGroup]="profileRegisterGroup"
+  (keyup)="profileRegisterGroup.updateValueAndValidity()"
+  (ngSubmit)="profileUpdate()"
+>
+  <div class="container-fluid p-0">
+    <div class="row gy-3">
+      <div class="col-md-6">
+        <div
+          *ngIf="
+            profileRegisterGroup.get('firstName')?.invalid &&
+            profileRegisterGroup.get('firstName')?.dirty
+          "
+          class="text-danger"
+        >
+          * first name invalid (only letters)
+        </div>
+        <div class="input-group">
+          <label for="firstName" class="input-group-text">
+            <fa-icon [icon]="nameIcon"></fa-icon>
+            <span class="px-1">First Name</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            formControlName="firstName"
+            [value]="user?.firstName"
+            [readonly]="inputsDisabled"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="input-group">
-        <label for="lastName" class="input-group-text"
-          ><fa-icon [icon]="nameIcon"></fa-icon
-        ></label>
-        <input
-          type="text"
-          class="form-control"
-          id="lastname"
-          [value]="user?.lastName"
-          [readonly]="inputsDisabled"
-        />
+      <div class="col-md-6">
+        <div class="input-group">
+          <label for="lastName" class="input-group-text">
+            <fa-icon [icon]="nameIcon"></fa-icon>
+            <span class="px-1">Last Name</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastname"
+            formControlName="lastName"
+            [value]="user?.lastName"
+            [readonly]="inputsDisabled"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="input-group">
-        <label for="dob" class="input-group-text"
-          ><fa-icon [icon]="dateIcon"></fa-icon
-        ></label>
-        <input
-          type="date"
-          class="form-control"
-          id="dob"
-          [value]="user?.DOB"
-          [readonly]="inputsDisabled"
-        />
+      <div class="col-md-6">
+        <div
+          *ngIf="
+            profileRegisterGroup.get('DOB')?.invalid &&
+            profileRegisterGroup.get('DOB')?.dirty
+          "
+          class="text-danger"
+        >
+          *must be over 18
+        </div>
+        <div class="input-group">
+          <label for="dob" class="input-group-text">
+            <fa-icon [icon]="dateIcon"></fa-icon>
+            <span class="px-1">Birth Date</span>
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            id="dob"
+            formControlName="DOB"
+            [value]="user?.DOB"
+            [readonly]="inputsDisabled"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="input-group">
-        <label for="phone" class="input-group-text"
-          ><fa-icon [icon]="phoneIcon"></fa-icon
-        ></label>
-        <input
-          type="text"
-          class="form-control"
-          id="phone"
-          [value]="user?.phone"
-          [readonly]="inputsDisabled"
-        />
+      <div class="col-md-6">
+        <div class="group">
+          <div
+            *ngIf="
+              profileRegisterGroup.get('phone')?.invalid &&
+              profileRegisterGroup.get('phone')?.touched
+            "
+            class="text-danger"
+          >
+            *phone must be valid or empty
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="phone" class="input-group-text">
+            <fa-icon [icon]="phoneIcon"></fa-icon>
+            <span class="px-1">Phone</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone"
+            formControlName="phone"
+            [value]="user?.phone"
+            [readonly]="inputsDisabled"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col-12 col-sm-11">
-      <div class="input-group">
-        <label for="email" class="input-group-text">
-          <fa-icon [icon]="emailIcon"></fa-icon>
-        </label>
-        <input
-          type="text"
-          id="email"
-          class="form-control"
-          [value]="user?.email"
-          [readonly]="inputsDisabled"
-        />
+      <div class="col-12 col-sm-11">
+        <div
+          *ngIf="
+            profileRegisterGroup.get('email')?.invalid &&
+            profileRegisterGroup.get('email')?.dirty
+          "
+          class="text-danger"
+        >
+          *email invalid
+        </div>
+        <div class="input-group">
+          <label for="email" class="input-group-text">
+            <fa-icon [icon]="emailIcon"></fa-icon>
+            <span class="px-1">Email</span>
+          </label>
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            [value]="user?.email"
+            [readonly]="inputsDisabled"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col-1">
-      <button class="btn btn-secondary">
-        <fa-icon [icon]="faPen"></fa-icon>
-      </button>
+      <div class="col-1">
+        <button type="button" class="btn btn-secondary" (click)="toggleInput()">
+          <fa-icon [icon]="faPen"></fa-icon>
+        </button>
+      </div>
+      <div class="col-1" *ngIf="!inputsDisabled">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
     </div>
   </div>
-</div>
+</form>
