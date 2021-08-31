@@ -15,7 +15,7 @@
         <span>
           <app-star [stars]="restaurant.averageRating"></app-star>
           <span class="text-secondary mx-1">{{
-            restaurantReviews.length
+            restaurant.ratings.length
           }}</span>
         </span>
         <span>
@@ -106,9 +106,7 @@
           <div class="bg-light p-2 rounded">Hours</div>
           <div *ngFor="let item of hours" class="p-2 border-bottom">
             <span class="text-dark">{{ item.day }}</span>
-            <span class="text-dark float-end"
-              >{{ item.start }}-{{ item.end }}</span
-            >
+            <span class="text-dark float-end">{{ item.hours }}</span>
           </div>
         </div>
       </div>
@@ -118,7 +116,7 @@
           Sorting settings here
         </div>
         <div
-          *ngFor="let item of restaurantReviews"
+          *ngFor="let item of restaurant.ratings"
           class="col-12 bg-white rounded p-3"
         >
           <div>

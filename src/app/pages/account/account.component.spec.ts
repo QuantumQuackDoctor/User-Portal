@@ -92,7 +92,7 @@ describe('AccountComponent with authenticated user', () => {
       firstName: 'firstName',
       lastName: 'lastName',
       points: 0,
-      veteranStatus: true,
+      isVeteran: true,
       order: { test: 'test' },
     });
     expect(component.user).toBeTruthy();
