@@ -217,7 +217,7 @@ describe('RegisterFormComponent', () => {
       emailNotifications: true,
       theme: 'dark',
       DOB: '2000-02-08',
-      veteranStatus: false,
+      isVeteran: false,
     });
 
     component.onSubmit();
@@ -240,7 +240,7 @@ describe('RegisterFormComponent', () => {
         theme: 'dark',
       },
       DOB: '2000-02-08',
-      veteranStatus: false,
+      isVeteran: false,
       orders: [],
     };
 
