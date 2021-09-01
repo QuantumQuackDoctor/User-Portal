@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CartService} from 'src/app/services/cart.service';
 import {Order} from '../../models/order/order';
 import {Price} from '../../models/price/price';
 import {FoodOrder} from '../../models/FoodOrder/food-order';
 import {OrderTime} from '../../models/OrderTime/order-time';
 import {OrderService} from "../../services/order.service";
+import {CreateTokenComponent} from "./create-token/create-token.component";
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +13,9 @@ import {OrderService} from "../../services/order.service";
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
+
+  @ViewChild (CreateTokenComponent) createToken: CreateTokenComponent;
+
   selectedTime = 'Select Delivery Time';
   selectedDelivery = 'Select Delivery or Pickup';
   address = '';
@@ -34,7 +38,7 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private orderService: OrderService
+    private orderService: OrderService,
   ) {}
 
   ngOnInit() {
@@ -42,6 +46,7 @@ export class CartComponent implements OnInit {
       this.foodOrders = foodOrders;
       this.cartTotal = this.cartService.cartTotal;
     });
+
   }
 
   clearCart() {
@@ -88,6 +93,7 @@ export class CartComponent implements OnInit {
   }
 
   placeOrder() {
+    this.createToken.createToken();
     if (this.checkRequiredFields()) {
       let deliveryTime = this.getDeliveryTime();
       let orderTime = new OrderTime(

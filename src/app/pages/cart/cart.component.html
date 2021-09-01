@@ -7,7 +7,7 @@
   <div *ngIf="foodOrders.length > 0">
     <div class="container bg-border-light rounded p-4">
       <div class="row p-2 g-3">
-        <ng-container *ngFor="let foodOrder of foodOrders; let i = index">
+        <ng-container *ngFor="let foodOrder of foodOrders;">
           <app-cart-item
             *ngFor="let item of foodOrder.items"
             [orderItem]="item"
@@ -59,10 +59,7 @@
             id="address"
           />
         </div>
-        <div class="input-group input-group-sm col">
-          <label for="payment" class="input-group-text">Payment Info</label>
-          <input type="text" class="form-control" id="payment" />
-        </div>
+          <app-create-token></app-create-token>
       </div>
       <div class="row bg-bg-main p-2 rounded mx-1">
         <div class="text-white">

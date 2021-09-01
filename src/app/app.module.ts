@@ -38,6 +38,8 @@ import {RouterModule} from "@angular/router";
 import {UserErrorHandlerService} from "./services/user-error-handler.service";
 import { RestaurantDisplayComponent } from './pages/search/restaurant-display/restaurant-display.component';
 import { StarComponent } from './shared/star/star.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { CreateTokenComponent } from './pages/cart/create-token/create-token.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { StarComponent } from './shared/star/star.component';
     CartDropdownComponent,
     RestaurantDisplayComponent,
     StarComponent,
+    CreateTokenComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ import { StarComponent } from './shared/star/star.component';
     NoopAnimationsModule,
     MatSelectModule,
     RouterModule,
+    NgxStripeModule.forRoot('pk_test_51JUCrpATHQZZA29u2Z9T83a5jPQIPVHCa0wooyuyiaj561uWh4iNt9ZhocS0nSPWTft9rCbksrjq3Dk8pqKSLad100ZrRTjE9z'),
   ],
   providers: [
     {

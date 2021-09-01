@@ -3,6 +3,7 @@ import {Order} from "../models/order/order";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Subject} from "rxjs";
 import {UserErrorHandlerService} from "./user-error-handler.service";
+import {ChargeResponse} from "../models/charge-response";
 
 @Injectable({
   providedIn: 'root'
@@ -26,18 +27,35 @@ export class OrderService {
     );
   }
 
-  placeOrder(product) {
-    let parameters = new HttpParams().set("userId", Number(localStorage.getItem("userId")));
-    this.http.put(this.baseOrderURL, product, {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      params : parameters
-    }).subscribe(
-      (result) => {
-        console.log (result);
+  processPayment(tokenId: string) {
+    this.http.post(this.baseOrderURL + '/charge', tokenId).subscribe(
+      (chargeResponse: ChargeResponse) => {
+        if (chargeResponse.error.length != 0){
+          alert(chargeResponse.error);
+        }else{
+          alert ("Thanks for the money");
+        }
+        console.log(chargeResponse);
       },
       error => {
-        this.errorHandler.handleError('placeOrder', )
+        console.log(error);
       }
+    )
+  }
+
+  placeOrder(product) {
+    let parameters = new HttpParams().set("userId", Number(localStorage.getItem("userId")));
+
+    this.http.put(this.baseOrderURL, product, {
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      params: parameters
+    }).subscribe(
+      (result) => {
+        console.log(result);
+      },
+      () => {
+        this.errorHandler.handleError('placeOrder', null);
+      },
     );
   }
 }

@@ -32,10 +32,9 @@ export class UserService {
   updateProfile (updatedUser: User) {
     this.http.patch ('/accounts/user', updatedUser).subscribe(
       (result: User) => {
-        console.log (result);
         this.userDetails.next(result);
     },
-    err => {
+    () => {
         this.errorHandler.handleError ('updateProfile', updatedUser);
     }
     );

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Order } from 'src/app/models/order/order';
-import { OrderService } from 'src/app/services/order.service';
-import { KeyValue } from '@angular/common';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Order} from 'src/app/models/order/order';
+import {OrderService} from 'src/app/services/order.service';
+import {KeyValue} from '@angular/common';
 
 @Component({
   selector: 'app-orders',
@@ -25,12 +25,16 @@ export class OrdersComponent implements OnInit {
     'November',
     'December',
   ];
+  orderCount: number = 0;
 
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
     this.orderService.orderList.subscribe((res) => {
+/*      let topFiveList = this.sortOrdersByMonth(res);
+      let counter = 0;*/
       this.orderList = this.sortOrdersByMonth(res);
+      this.orderCount = 0;
     });
   }
 
