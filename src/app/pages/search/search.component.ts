@@ -1,8 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faBars, faStar } from '@fortawesome/free-solid-svg-icons';
 
 import { SearchService } from '../../services/search.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Restaurant } from 'src/app/models/Restaurant';
 

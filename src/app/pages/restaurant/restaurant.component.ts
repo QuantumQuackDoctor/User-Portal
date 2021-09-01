@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../models/item/item';
+import { Component, OnInit } from '@angular/core';
 import { RestaurantService } from '../../services/restaurant.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Restaurant } from '../../models/Restaurant';
 
@@ -12,7 +11,7 @@ import { Restaurant } from '../../models/Restaurant';
 })
 export class RestaurantComponent implements OnInit {
   menuId: number;
-  @Input() restaurant: Restaurant = {
+  restaurant: Restaurant = {
     id: 0,
     name: '',
     search: '',
@@ -33,51 +32,25 @@ export class RestaurantComponent implements OnInit {
     ratings: [],
   };
   starIcon = faStar;
-  hours = [];
+  days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
   constructor(
     private restaurantService: RestaurantService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.menuId = this.actRoute.snapshot.params.id;
   }
 
   ngOnInit() {
-    this.restaurant = this.restaurantService.getRestaurant(this.menuId);
-    this.changeHoursToArray();
-  }
-
-  private changeHoursToArray() {
-    this.hours = [
-      {
-        day: 'MON',
-        hours: this.restaurant.hours.MON,
+    this.restaurantService.getRestaurant(this.menuId).subscribe(
+      (restuarant: Restaurant) => {
+        this.restaurant = restuarant;
       },
-      {
-        day: 'TUE',
-        hours: this.restaurant.hours.TUE,
-      },
-      {
-        day: 'WED',
-        hours: this.restaurant.hours.WED,
-      },
-      {
-        day: 'THU',
-        hours: this.restaurant.hours.THU,
-      },
-      {
-        day: 'FRI',
-        hours: this.restaurant.hours.FRI,
-      },
-      {
-        day: 'SAT',
-        hours: this.restaurant.hours.SAT,
-      },
-      {
-        day: 'SUN',
-        hours: this.restaurant.hours.SUN,
-      },
-    ];
+      (err) => {
+        this.router.navigate(['/home']);
+      }
+    );
   }
 
   createRange(length: number): Array<number> {

@@ -25,7 +25,7 @@ export interface Restaurant {
   ratings: Array<RestaurantReview>;
 }
 
-interface RestaurantReview {
+export interface RestaurantReview {
   username: string;
   imageURL: string;
   stars: number;
