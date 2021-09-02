@@ -1,6 +1,9 @@
 pipeline {
     agent any
     stages {
+        tools {
+            nodejs "nodejs"
+        }
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
