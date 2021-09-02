@@ -1,14 +1,21 @@
 pipeline {
     agent any
     stages {
-        stage('git') {
+        stage('SonarQube analysis') {
             steps {
-                git branch: 'dev', url: 'https://github.com/QuantumQuackDoctor/User-Portal.git'
-            }
+                withSonarQubeEnv('SonarQube') {
+                    sh "npm install -D sonarqube-scanner"    
+                }    
+            }    
         }
-        stage('Install') {
+        stage('Quality Gate') {
             steps {
-                sh 'npm install'
+                waitForQualityGate abortPipeline= true
+            }   
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build --prod'
             }
         }
         stage('Test') {
@@ -16,10 +23,6 @@ pipeline {
                 sh 'ng test --browsers ChromeHeadless'
             }
         }
-        stage('Build') {
-            steps {
-                sh 'npm run build --prod'
-            }
-        }
+
     }
 } 
