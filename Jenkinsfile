@@ -6,9 +6,12 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
             steps {
+                script {
+                    tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                }
                 withSonarQubeEnv('SonarQube') {
                     //sh "npm install -D sonarqube-scanner"
-                    sh "sonar-scanner -Dsonar.projectKey=User-Portal -Dsonar.sources=. -Dsonar.host.url=http://18.218.39.157:9000 -Dsonar.login=admin"
+                    sh "${SonarQube}/bin/sonar-scanner -Dsonar.projectKey=User-Portal -Dsonar.sources=. -Dsonar.host.url=http://18.218.39.157:9000 -Dsonar.login=admin"
                 }
 
             }    
