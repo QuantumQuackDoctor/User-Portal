@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Order} from 'src/app/models/order/order';
 import {OrderService} from 'src/app/services/order.service';
 import {KeyValue} from '@angular/common';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-orders',
@@ -25,16 +26,17 @@ export class OrdersComponent implements OnInit {
     'November',
     'December',
   ];
-  orderCount: number = 0;
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.authService.authenticationStatus.subscribe((status) => {
+      if (status.valid){
+        this.orderService.getOrders();
+      }
+    });
     this.orderService.orderList.subscribe((res) => {
-/*      let topFiveList = this.sortOrdersByMonth(res);
-      let counter = 0;*/
       this.orderList = this.sortOrdersByMonth(res);
-      this.orderCount = 0;
     });
   }
 

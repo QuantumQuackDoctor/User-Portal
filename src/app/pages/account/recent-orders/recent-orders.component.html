@@ -1,0 +1,12 @@
+<h3><u>Orders</u></h3>
+<div class="orderGroup col">
+  <div *ngIf="recentOrders.length === 0" class="alert alert-info">
+    No Order History
+  </div>
+  <div class="row" *ngFor="let order of recentOrders">
+    <div *ngIf="recentOrders.length > 0" class="list-group">
+      <app-recent-order [order]="order"></app-recent-order>
+      <br/>
+    </div>
+  </div>
+</div>

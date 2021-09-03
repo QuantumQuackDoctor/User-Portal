@@ -40,6 +40,8 @@ import { RestaurantDisplayComponent } from './pages/search/restaurant-display/re
 import { StarComponent } from './shared/star/star.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { CreateTokenComponent } from './pages/cart/create-token/create-token.component';
+import { RecentOrdersComponent } from './pages/account/recent-orders/recent-orders.component';
+import { RecentOrderComponent } from './pages/account/recent-orders/recent-order/recent-order.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { CreateTokenComponent } from './pages/cart/create-token/create-token.com
     RestaurantDisplayComponent,
     StarComponent,
     CreateTokenComponent,
+    RecentOrdersComponent,
+    RecentOrderComponent,
   ],
   imports: [
     BrowserModule,

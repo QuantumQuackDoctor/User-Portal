@@ -1,4 +1,4 @@
 .orderGroup {
-  max-height: 300px;
+  height: 75%;
   overflow: auto;
 }

@@ -93,7 +93,6 @@ export class CartComponent implements OnInit {
   }
 
   placeOrder() {
-    this.createToken.createToken();
     if (this.checkRequiredFields()) {
       let deliveryTime = this.getDeliveryTime();
       let orderTime = new OrderTime(
@@ -122,11 +121,10 @@ export class CartComponent implements OnInit {
         this.address,
         orderTime,
         false,
-        new Price(this.cartTotal, null, null),
+        new Price(this.cartTotal * 100, null, null),
         foodOrders
       );
-      this.orderService.placeOrder(orderDTO);
-      this.clearCart();
+      this.createToken.createToken(orderDTO);
     }
   }
 }

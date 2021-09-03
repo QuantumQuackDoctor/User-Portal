@@ -102,7 +102,6 @@ export class CartService {
     localStorage.removeItem('items');
     this.cartTotal = 0;
     this.cartSubject.next (this.currentCart);
-
   }
 
   incrementItem(itemId: number, restaurantId: number, amount: number) {

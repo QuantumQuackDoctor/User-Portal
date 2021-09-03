@@ -1,14 +1,19 @@
-<h3><u>Orders</u></h3>
-<div class="orderGroup col">
-  <div *ngIf="orderList.size === 0" class="alert alert-info">
-    No Order History
-  </div>
-  <div class="row" *ngFor="let item of orderList | keyvalue: keyDescOrder">
-    <strong>{{ monthNames[item.key - 1] }}</strong>
-    <br/>
-    <div *ngIf="orderList.size > 0" class="list-group">
-      <app-order [orderMap]="item" [(childOrderCounter)]="orderCount" ></app-order>
-      <br/>
+<app-header></app-header>
+<div class="bg-bg-main p-1" >
+  <div #orders class="bg-white m-2 p-4 rounded">
+    <h3><u>Orders</u></h3>
+    <div class="orderGroup col">
+      <div *ngIf="orderList.size === 0" class="alert alert-info">
+        No Order History
+      </div>
+      <div class="row" *ngFor="let item of orderList | keyvalue: keyDescOrder">
+        <strong>{{ monthNames[item.key - 1] }}</strong>
+        <br/>
+        <div *ngIf="orderList.size > 0" class="list-group">
+          <app-order [orderMap]="item"></app-order>
+          <br/>
+        </div>
+      </div>
     </div>
   </div>
 </div>

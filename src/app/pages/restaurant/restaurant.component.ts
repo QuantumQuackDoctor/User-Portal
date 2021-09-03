@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../models/item/item';
-import { RestaurantService } from '../../services/restaurant.service';
-import { ActivatedRoute } from '@angular/router';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { Restaurant } from '../search/search.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {RestaurantService} from '../../services/restaurant.service';
+import {ActivatedRoute} from '@angular/router';
+import {faStar} from '@fortawesome/free-solid-svg-icons';
+import {Restaurant} from '../search/search.component';
 
 interface tempReview {
   username: string;
@@ -136,7 +135,7 @@ export class RestaurantComponent implements OnInit {
     el.scrollIntoView();
   }
 
-  encodedAdress() {
+  encodedAddress() {
     return encodeURIComponent(this.restaurant.address);
   }
 }

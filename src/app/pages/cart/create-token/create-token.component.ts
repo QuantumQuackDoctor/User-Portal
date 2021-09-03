@@ -1,8 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {StripeCardComponent, StripeService} from "ngx-stripe";
 import {StripeCardElementOptions, StripeElementsOptions} from "@stripe/stripe-js";
 import {OrderService} from "../../../services/order.service";
+import {Order} from "../../../models/order/order";
+import {ChargeRequest} from "../../../models/charge-request";
 
 @Component({
   selector: 'app-create-token',
@@ -12,6 +14,7 @@ import {OrderService} from "../../../services/order.service";
 export class CreateTokenComponent implements OnInit {
 
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
+  @Output("clearCart") clearCart: EventEmitter<any> = new EventEmitter<any>();
 
   cardOptions: StripeCardElementOptions = {
     style: {
@@ -41,16 +44,22 @@ export class CreateTokenComponent implements OnInit {
     this.paymentForm = this.formBuilder.group({
       name: ['PaymentToken', [Validators.required]]
     });
+    this.orderService.clearCart.subscribe( () => {
+      this.clearCart.emit();
+    });
   }
 
-  createToken(): void {
+  createToken(orderDTO: Order) {
     const name = this.paymentForm.get('name').value;
     this.stripeService.createToken(this.card.element, {name})
       .subscribe(
         result => {
           if (result.token) {
-            this.orderService.processPayment(result.token.id)
-            /*console.log(result.token);*/
+            let chargeRequest: ChargeRequest = {
+              tokenId: result.token.id,
+              chargePrice: orderDTO.price.food
+            }
+            this.orderService.processPayment(chargeRequest, orderDTO);
           } else if (result.error) {
             console.log(result.error.message);
           }

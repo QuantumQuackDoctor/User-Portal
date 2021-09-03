@@ -30,7 +30,6 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log ('test')
     this.subscription = this.authService.authenticationStatus.subscribe((status) => {
       this.userIsAuthenticated = status.valid;
       if (status.valid) {
