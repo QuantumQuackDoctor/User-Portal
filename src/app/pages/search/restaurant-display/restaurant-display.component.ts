@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { Restaurant } from '../search.component';
+import { Restaurant } from 'src/app/models/Restaurant';
 
 @Component({
   selector: 'app-restaurant-display',
@@ -18,16 +18,16 @@ export class RestaurantDisplayComponent implements OnInit {
     priceRating: 4,
     address: 'address',
     hours: {
-      mon: '',
-      tue: '',
-      wed: '',
-      thu: '',
-      fri: '',
-      sat: '',
-      sun: '',
+      MON: '',
+      TUE: '',
+      WED: '',
+      THU: '',
+      FRI: '',
+      SAT: '',
+      SUN: '',
     },
     search: 'restaurant',
-    menu: '',
+    menu: [],
     ratings: [],
   };
   iconImage = null;
