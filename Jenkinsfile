@@ -39,10 +39,10 @@ pipeline {
         }
         stage('S3 Deploy') {
             steps {
-                    // Install community.aws ansible packages
+                withAWS(credentials: '33586397-1614-42ed-a4fd-f501ce5f4125', region: 'us-east-2') {
                     sh 'ansible-galaxy collection install community.aws'
-                    // Push to S3 Bucket
                     sh 'ansible-playbook Playbooks/S3BucketDeploy.yml'
+                }
             }
         }        
 
