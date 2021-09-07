@@ -1,0 +1,10 @@
+---
+
+- name: Destroy User Portal from S3 Bucket
+  hosts: localhost
+
+  tasks:
+    - name: Delete a bucket and all contents
+      amazon.aws.aws_s3:
+        bucket: qqd-user-portal
+        mode: delete
