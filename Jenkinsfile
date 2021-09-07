@@ -34,9 +34,17 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'ng test --browsers ChromeHeadless'
+                sh 'npm test --browsers ChromeHeadless'
             }
         }
+        stage('S3 Deploy') {
+            steps {
+                    // Install community.aws ansible packages
+                    sh 'ansible-galaxy collection install community.aws'
+                    // Push to S3 Bucket
+                    sh 'ansible-playbook Playbooks/S3BucketDeploy.yml'
+            }
+        }        
 
     }
 } 
