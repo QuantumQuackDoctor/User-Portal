@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'npm test --browsers ChromeHeadless'
+                sh 'npm test'
             }
         }
         stage('S3 Deploy') {
