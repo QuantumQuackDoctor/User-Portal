@@ -1,9 +1,4 @@
----
-
-- name: Build and Upload User Portal Frontend to S3 Bucket
-  hosts: localhost
-
-  tasks:
+tasks:
     - name: Create S3 bucket if it doesn't exist
       amazon.aws.aws_s3:
         bucket: qqd-user-portal
