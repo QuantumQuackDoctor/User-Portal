@@ -2,6 +2,12 @@
 - name: Create and Upload UI-user-portal
   hosts: localhost
   tasks: 
+  - name: Ensure boto and boto3 modules are installed
+    pip:
+      name: "{{ item }}"
+    with_items:
+      - boto3
+      - botocore
   - name: "Create S3 bucket if it doesn't exist"
     amazon.aws.aws_s3: 
       bucket: qqd-user-portal
