@@ -1,22 +1,20 @@
 --- 
-- host: all
+- name: Create and Upload UI-user-portal
+  hosts: localhost
   tasks: 
-  - 
+  - name: "Create S3 bucket if it doesn't exist"
     amazon.aws.aws_s3: 
       bucket: qqd-user-portal
       mode: create
       permission: public-read
-    name: "Create S3 bucket if it doesn't exist"
-  - 
-    name: "Configure S3 bucket to static website"
+  - name: "Configure S3 bucket to static website"
     s3_website: 
       name: qqd-user-portal
       state: present
       suffix: index.html
-  - 
+  - name: "Upload user portal to S3 bucket"
     community.aws.s3_sync: 
       bucket: qqd-user-portal
       file_root: ../build
       include: "*"
       permission: public-read
-    name: "Upload user portal to S3 bucket"
