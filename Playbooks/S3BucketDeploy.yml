@@ -1,3 +1,5 @@
+host: all
+
 tasks:
     - name: Create S3 bucket if it doesn't exist
       amazon.aws.aws_s3:
