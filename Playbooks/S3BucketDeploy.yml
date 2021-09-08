@@ -1,6 +1,6 @@
 --- 
-host: all
-tasks: 
+- host: all
+  tasks: 
   - 
     amazon.aws.aws_s3: 
       bucket: qqd-user-portal
