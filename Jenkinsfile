@@ -32,11 +32,11 @@ pipeline {
                 sh 'npm run sonar'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh 'npm test'
+        //     }
+        // }
         stage('S3 Deploy') {
             steps {
                 withAWS(credentials: '33586397-1614-42ed-a4fd-f501ce5f4125', region: 'us-east-2') {
