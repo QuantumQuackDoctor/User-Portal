@@ -30,7 +30,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { OrdersComponent } from './pages/account/orders/orders.component';
-import { OrderComponent } from './pages/account/orders/order/order.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CartDropdownComponent } from './shared/cart-dropdown/cart-dropdown.component';
@@ -42,6 +41,9 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { CreateTokenComponent } from './pages/cart/create-token/create-token.component';
 import { RecentOrdersComponent } from './pages/account/recent-orders/recent-orders.component';
 import { RecentOrderComponent } from './pages/account/recent-orders/recent-order/recent-order.component';
+import { NgxPaginationModule } from "ngx-pagination";
+import { SingleOrderComponent } from './pages/account/orders/single-order/single-order.component';
+import { OrderFilterPipe } from './pipes/order-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -55,13 +57,11 @@ import { RecentOrderComponent } from './pages/account/recent-orders/recent-order
     CartItemComponent,
     RestaurantComponent,
     RestaurantItemComponent,
-    OrderComponent,
     LoginFormComponent,
     RegisterFormComponent,
     UserDetailsComponent,
     UserSettingsComponent,
     DeleteAccountDialogComponent,
-    OrderComponent,
     OrdersComponent,
     ActivateAccountComponent,
     CartDropdownComponent,
@@ -70,6 +70,8 @@ import { RecentOrderComponent } from './pages/account/recent-orders/recent-order
     CreateTokenComponent,
     RecentOrdersComponent,
     RecentOrderComponent,
+    SingleOrderComponent,
+    OrderFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +87,7 @@ import { RecentOrderComponent } from './pages/account/recent-orders/recent-order
     MatSelectModule,
     RouterModule,
     NgxStripeModule.forRoot('pk_test_51JUCrpATHQZZA29u2Z9T83a5jPQIPVHCa0wooyuyiaj561uWh4iNt9ZhocS0nSPWTft9rCbksrjq3Dk8pqKSLad100ZrRTjE9z'),
+    NgxPaginationModule,
   ],
   providers: [
     {

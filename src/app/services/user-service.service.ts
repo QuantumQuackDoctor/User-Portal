@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import { User } from '../models/User';
+import {User} from '../models/User';
 import {UserErrorHandlerService} from "./user-error-handler.service";
 
 @Injectable({
@@ -11,10 +11,11 @@ export class UserService {
 
   userDetails: Subject<User> = new Subject<User>();
 
-  constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {}
+  constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {
+  }
 
   public getUserDetails(): Observable<User> {
-   return this.http.get<User>('/accounts/user');
+    return this.http.get<User>('/accounts/user');
   }
 
   /**
@@ -22,22 +23,30 @@ export class UserService {
    * @returns
    */
   public deleteUser(): Observable<string> {
-    return this.http.delete('/accounts/user', { responseType: 'text' });
+    return this.http.delete('/accounts/user', {responseType: 'text'});
   }
 
-  updateUser (user: User){
-    this.userDetails.next (user);
+  updateUser(user: User) {
+    this.userDetails.next(user);
   }
 
-  updateProfile (updatedUser: User) {
-    this.http.patch ('/accounts/user', updatedUser).subscribe(
+  updateProfile(updatedUser: User) {
+    this.http.patch('/accounts/user', updatedUser).subscribe(
       (result: User) => {
         this.userDetails.next(result);
-    },
-    () => {
-        this.errorHandler.handleError ('updateProfile', updatedUser);
-    }
+      },
+      () => {
+        this.errorHandler.handleError('updateProfile', updatedUser);
+      }
     );
+  }
+
+  updateSettings(updatedSettings) {
+    this.http.patch('/accounts/notifications', updatedSettings).subscribe((result) => {
+      },
+      () => {
+        this.errorHandler.handleError('updateSettings')
+      });
   }
 
 }

@@ -16,6 +16,7 @@ export class RecentOrdersComponent implements OnInit {
   ngOnInit(): void {
     this.orderService.orderList.subscribe(res => {
       this.recentOrders = this.sortOrders(res);
+      console.log (res);
     });
   }
 
@@ -25,15 +26,16 @@ export class RecentOrdersComponent implements OnInit {
       let dateA = new Date(a.orderTime.restaurantAccept);
       let dateB = new Date(b.orderTime.restaurantAccept);
       if (dateA.getTime() < dateB.getTime()) {
-        return -1;
-      } else if (dateA.getTime() > dateB.getTime()) {
         return 1;
+      } else if (dateA.getTime() > dateB.getTime()) {
+        return -1;
       }
       return 0;
     });
 
     for (let i = 0; i < 5; i++) {
-      topFive.push(orders.pop());
+      if (!orders[i]) break;
+      topFive.push(orders[i]);
     }
     return topFive;
   }

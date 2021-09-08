@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Order} from 'src/app/models/order/order';
 import {OrderService} from 'src/app/services/order.service';
-import {KeyValue} from '@angular/common';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from "../../../services/auth.service";
 
 @Component({
@@ -12,6 +12,10 @@ import {AuthService} from "../../../services/auth.service";
 })
 export class OrdersComponent implements OnInit {
   orderList?: Map<number, Order[]> = new Map();
+  fullOrderList: Order[];
+  currentMonth: number;
+  page: number = 1;
+  faSearch = faSearch;
   monthNames = [
     'January',
     'February',
@@ -26,21 +30,31 @@ export class OrdersComponent implements OnInit {
     'November',
     'December',
   ];
-
-  constructor(private orderService: OrderService, private authService: AuthService) {}
+  constructor(private orderService: OrderService, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
+    this.orderService.orderList.subscribe((res) => {
+      this.fullOrderList = res.sort((a, b) => {
+        let dateA = new Date(a.orderTime.restaurantAccept);
+        let dateB = new Date(b.orderTime.restaurantAccept);
+        if (dateA.getTime() < dateB.getTime()) {
+          return 1;
+        } else if (dateA.getTime() > dateB.getTime()) {
+          return -1;
+        }
+        return 0;
+      });
+      this.currentMonth = new Date(this.fullOrderList[0].orderTime.restaurantAccept).getMonth() + 1;
+    });
     this.authService.authenticationStatus.subscribe((status) => {
-      if (status.valid){
+      if (status.valid) {
         this.orderService.getOrders();
       }
     });
-    this.orderService.orderList.subscribe((res) => {
-      this.orderList = this.sortOrdersByMonth(res);
-    });
   }
 
-  sortOrdersByMonth(orderList: Order[]): Map<number, Order[]> {
+/*  sortOrdersByMonth(orderList: Order[]): Map<number, Order[]> {
     let map: Map<number, Order[]> = new Map();
     orderList.sort((a, b) => {
       let dateA = new Date(a.orderTime.restaurantAccept);
@@ -61,12 +75,20 @@ export class OrdersComponent implements OnInit {
       }
     }
     return map;
-  }
+  }*/
 
-  keyDescOrder = (
+/*  keyDescOrder = (
     a: KeyValue<number, Order[]>,
     b: KeyValue<number, Order[]>
   ): number => {
     return a.key > b.key ? -1 : b.key > a.key ? 1 : 0;
-  };
+  };*/
+
+  checkMonthChange(order: Order, cursor: number): boolean {
+    let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;
+    if (this.currentMonth != month) {
+      this.currentMonth = month;
+      return true;
+    }else return cursor === 0;
+  }
 }

@@ -1,19 +1,27 @@
 <app-header></app-header>
-<div class="bg-bg-main p-1" >
-  <div #orders class="bg-white m-2 p-4 rounded">
+
+<div class="bg-bg-main p-1" style="min-height: 100%">
+
+  <div class="bg-white m-2 p-4 rounded row">
     <h3><u>Orders</u></h3>
-    <div class="orderGroup col">
-      <div *ngIf="orderList.size === 0" class="alert alert-info">
+    <div class="orderGroup">
+      <div *ngIf="fullOrderList.length === 0" class="alert alert-info">
         No Order History
       </div>
-      <div class="row" *ngFor="let item of orderList | keyvalue: keyDescOrder">
-        <strong>{{ monthNames[item.key - 1] }}</strong>
-        <br/>
-        <div *ngIf="orderList.size > 0" class="list-group">
-          <app-order [orderMap]="item"></app-order>
-          <br/>
-        </div>
-      </div>
+      <!--<div class="row" *ngFor="let item of orderList | keyvalue: keyDescOrder">-->
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let order of fullOrderList | paginate: {id: 'orderPaginator',
+      itemsPerPage: 5,
+      currentPage: page,
+      totalItems: fullOrderList.length}; let cursor = index;">
+          <div *ngIf="checkMonthChange(order, cursor)">
+            <strong>{{monthNames [currentMonth - 1]}}</strong>
+          </div>
+          <app-single-order [order]="order"></app-single-order>
+        </li>
+      </ul>
+      <pagination-controls [responsive]=true class="text-center" id="orderPaginator" [maxSize]="9"
+                           (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>

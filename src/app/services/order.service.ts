@@ -15,6 +15,7 @@ export class OrderService {
   baseOrderURL = "http://localhost:4200/order"
   orderList: Subject<Order[]> = new Subject<Order[]>()
   clearCart: EventEmitter<any> = new EventEmitter<any>()
+  maxPageItemsSubject: Subject<number> = new Subject<number>();
 
   constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {
   }
