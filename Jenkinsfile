@@ -29,8 +29,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'npm build'
-                sh 'npm run sonar'
+                sh 'npm run build sonar'
             }
         }
         // stage('Test') {
