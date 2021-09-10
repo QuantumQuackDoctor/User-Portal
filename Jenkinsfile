@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'npm run build sonar'
+                sh 'npm run build'
             }
         }
         // stage('Test') {
