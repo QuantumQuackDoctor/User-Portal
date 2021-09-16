@@ -3,6 +3,7 @@ import {Order} from 'src/app/models/order/order';
 import {OrderService} from 'src/app/services/order.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from "../../../services/auth.service";
+import {OrderFilterPipe} from "../../../pipes/order-filter.pipe";
 
 @Component({
   selector: 'app-orders',
@@ -16,6 +17,8 @@ export class OrdersComponent implements OnInit {
   currentMonth: number;
   page: number = 1;
   faSearch = faSearch;
+  orderSearch: string = "";
+  minimumPrice: number = 0;
   monthNames = [
     'January',
     'February',
@@ -30,7 +33,7 @@ export class OrdersComponent implements OnInit {
     'November',
     'December',
   ];
-  constructor(private orderService: OrderService, private authService: AuthService) {
+  constructor(private orderService: OrderService, private authService: AuthService, private _orderFilter: OrderFilterPipe) {
   }
 
   ngOnInit(): void {
@@ -54,35 +57,10 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-/*  sortOrdersByMonth(orderList: Order[]): Map<number, Order[]> {
-    let map: Map<number, Order[]> = new Map();
-    orderList.sort((a, b) => {
-      let dateA = new Date(a.orderTime.restaurantAccept);
-      let dateB = new Date(b.orderTime.restaurantAccept);
-      if (dateA.getTime() < dateB.getTime()) {
-        return 1;
-      } else if (dateA.getTime() > dateB.getTime()) {
-        return -1;
-      }
-      return 0;
-    });
-    for (let order of orderList) {
-      let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;
-      if (map.has(month)) {
-        map.get(month).push(order);
-      } else {
-        map.set(month, [order]);
-      }
-    }
-    return map;
-  }*/
-
-/*  keyDescOrder = (
-    a: KeyValue<number, Order[]>,
-    b: KeyValue<number, Order[]>
-  ): number => {
-    return a.key > b.key ? -1 : b.key > a.key ? 1 : 0;
-  };*/
+  filterOrders (){
+    console.log (this.orderSearch);
+    this.fullOrderList = this._orderFilter.transform(this.fullOrderList, this.orderSearch, this.minimumPrice);
+  }
 
   checkMonthChange(order: Order, cursor: number): boolean {
     let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;
@@ -92,3 +70,5 @@ export class OrdersComponent implements OnInit {
     }else return cursor === 0;
   }
 }
+
+

@@ -37,6 +37,7 @@ export class AccountComponent implements OnInit {
           this.user = user;
           this.userService.updateUser(user);
           this.orderService.getOrders();
+          localStorage.setItem ('userEmail', user.email);
         });
       } else {
         this.router.navigate(['/home']);

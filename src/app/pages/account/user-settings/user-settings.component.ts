@@ -35,9 +35,7 @@ export class UserSettingsComponent implements OnInit {
         theme: new FormControl(this.user.settings.theme, Validators.required)
       });
       this.settingsFormGroup.disable();
-      console.log (this.user);
     });
-    console.log (this.inputsDisabled);
   }
 
   logout(): void {

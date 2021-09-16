@@ -1,8 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {Order} from "../models/order/order";
 
 @Pipe({
   name: 'orderFilter'
+})
+@Injectable({
+  providedIn: 'root',
 })
 export class OrderFilterPipe implements PipeTransform {
 
@@ -13,6 +16,7 @@ export class OrderFilterPipe implements PipeTransform {
         return order.price.food >= minPrice;
       });
     }
+
     if (!searchText) return orders;
     searchText = searchText.toLowerCase();
     return orders.filter (order => {

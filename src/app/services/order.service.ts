@@ -48,19 +48,27 @@ export class OrderService {
     );
   }
 
-  placeOrder(product) {
+  placeOrder(product: Order) {
     let parameters = new HttpParams().set("userId", Number(localStorage.getItem("userId")));
     this.http.put(this.baseOrderURL, product, {
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
       params: parameters
     }).subscribe(
       (result) => {
-        console.log(result);
+        console.log (product);
+        this.sendOrderEmail(result);
       },
       () => {
         this.errorHandler.handleError('placeOrder', null);
       },
     );
+  }
+
+  sendOrderEmail (orderResponse) {
+    this.http.post(this.baseOrderURL + '/email-order', orderResponse).subscribe(
+      (res) => {
+      console.log (res);
+    });
   }
 
   printFood(foodOrder: FoodOrder): string {

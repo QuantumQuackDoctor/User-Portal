@@ -16,7 +16,6 @@ export class RecentOrdersComponent implements OnInit {
   ngOnInit(): void {
     this.orderService.orderList.subscribe(res => {
       this.recentOrders = this.sortOrders(res);
-      console.log (res);
     });
   }
 
