@@ -42,7 +42,7 @@ export class UserService {
   }
 
   updateSettings(updatedSettings) {
-    this.http.patch('/accounts/notifications', updatedSettings).subscribe((result) => {
+    this.http.patch('/accounts/notifications', updatedSettings).subscribe(() => {
       },
       () => {
         this.errorHandler.handleError('updateSettings')
