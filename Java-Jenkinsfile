@@ -25,7 +25,6 @@ pipeline {
     stage('Install') {
       steps {
         sh 'npm install'
-        sh 'npm install --save-dev karma-phantomjs-launcher'
       }
     }
     stage('Build') {
@@ -35,7 +34,7 @@ pipeline {
     }
     stage('Test') {
         steps {
-            sh 'npm test --browsers PhantomJS --watch false'
+            sh 'npm test'
         }
     }
   }
