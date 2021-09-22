@@ -1,48 +1,49 @@
-pipeline {
-  agent any
-  tools {
-    nodejs "Node 14"
-  }
-  stages {
-    // stage('SonarQube analysis') {
-    //     steps {
-    //         script {
-    //             tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-    //             scannerHome = tool 'SonarQube Scanner 4.6'
-    //         }
-    //         withSonarQubeEnv('SonarQube') {
-    //             sh "npm install -D sonarqube-scanner"
-    //             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=User-Portal -Dsonar.sources=. -Dsonar.host.url=http://18.218.39.157:9000 -Dsonar.login=admin"
-    //         }
-    //
-    //     }
-    // }
-    // stage('Quality Gate') {
-    //     steps {
-    //         waitForQualityGate abortPipeline= true
-    //     }   
-    // }
-    stage('Install') {
-      steps {
-        sh 'npm install'
-      }
-    }
-    stage('Build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
-    stage('Test') {
-        steps {
-            sh 'npm test'
+    pipeline {
+        agent any
+        tools {
+            nodejs "Node 14"
+        }
+        stages {
+            // stage('SonarQube analysis') {
+            //     steps {
+            //         script {
+            //             tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+            //             scannerHome = tool 'SonarQube Scanner 4.6'
+            //         }
+            //         withSonarQubeEnv('SonarQube') {
+            //             sh "npm install -D sonarqube-scanner"
+            //             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=User-Portal -Dsonar.sources=. -Dsonar.host.url=http://18.218.39.157:9000 -Dsonar.login=admin"
+            //         }
+            //
+            //     }
+            // }
+            // stage('Quality Gate') {
+            //     steps {
+            //         waitForQualityGate abortPipeline= true
+            //     }   
+            // }
+            stage('Install') {
+                steps {
+                    sh 'npm install'
+                }
+            }
+            stage('Build') {
+                steps {
+                    sh 'npm run build'
+                }
+            }
+            stage('Test') {
+                steps {
+                    sh 'npm test'
+                }
+            }
+            stage('Production') {
+                steps {
+                    withAWS(region:'us-east-2', credentials:'0a8b7527-2941-4ae6-960b-47c6f7823b03'){
+                        s3Delete(bucket:'java-user-portal', path:'**/*')
+                        s3Upload(bucket:'java-user-portal', workingDir:'build', includePathPattern:'**/*');
+                    }
+                }
+            }
         }
     }
- stage('Production') {
-   steps {
-    withAWS(region:'us-east-2',credentials:'0a8b7527-2941-4ae6-960b-47c6f7823b03') {
-    s3Delete(bucket: 'java-user-portal', path:'**/*')
-    s3Upload(bucket: 'java-user-portal', workingDir:'build', includePathPattern:'**/*');
-   }
-   }
-  }
-}
