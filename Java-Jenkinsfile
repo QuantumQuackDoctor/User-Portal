@@ -37,10 +37,12 @@ pipeline {
             sh 'npm test'
         }
     }
-    stage('Archive') {
-      steps{
-        archiveArtifacts "*"
-        }
-    }
+ stage('Production') {
+   steps {
+    withAWS(region:'us-east-2',credentials:'0a8b7527-2941-4ae6-960b-47c6f7823b03') {
+    s3Delete(bucket: 'java-user-portal', path:'**/*')
+    s3Upload(bucket: 'java-user-portal', workingDir:'build', includePathPattern:'**/*');
+   }
+   }
   }
 }
