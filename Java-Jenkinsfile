@@ -39,7 +39,7 @@
             }
             stage('Production') {
                 steps {
-                    s3Upload(bucket:"java-user-portal", includePathPattern:'**/*', workingDir:'User-Portal')
+                    s3Upload(bucket:"java-user-portal", includePathPattern:'**/*')
                 }
             }
         }
