@@ -39,7 +39,7 @@
             }
             stage('Production') {
                 steps {
-                    s3Upload(file:'*', bucket:'java-user-portal', path:'*')
+                    s3Upload(file:'User-Portal', bucket:'java-user-portal', path:'/var/lib/jenkins/workspace/')
                 }
             }
         }
