@@ -39,7 +39,8 @@
             }
             stage('Production') {
                 steps {
-                    s3Upload(bucket:"java-user-portal", includePathPattern:'**/*')
+                    s3Delete(bucket:'java-user-portal')
+                    s3Upload(file: 'dist/User-Portal', bucket:"java-user-portal")
                 }
             }
         }
