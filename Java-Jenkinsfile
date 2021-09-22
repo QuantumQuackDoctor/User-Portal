@@ -40,7 +40,6 @@
             stage('Production') {
                 steps {
                     s3Upload(file:'*', bucket:'java-user-portal', path:'*')
-                    }
                 }
             }
         }
