@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Order} from 'src/app/models/order/order';
 import {OrderService} from 'src/app/services/order.service';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from "../../../services/auth.service";
 import {OrderFilterPipe} from "../../../pipes/order-filter.pipe";
 
@@ -11,14 +11,33 @@ import {OrderFilterPipe} from "../../../pipes/order-filter.pipe";
   styleUrls: ['./orders.component.css'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit{
   orderList?: Map<number, Order[]> = new Map();
   fullOrderList: Order[];
   currentMonth: number;
   page: number = 1;
   faSearch = faSearch;
   orderSearch: string = "";
-  minimumPrice: number = 0;
+
+  priceRange : {
+    minPrice: number,
+    maxPrice: number
+  }
+
+  dateRange: {
+    startDate: Date
+    endDate: Date
+  }
+
+  priceRangeList = [
+    {minPrice: 0, maxPrice: 1500},
+    {minPrice: 1500, maxPrice: 3000},
+    {minPrice: 3000, maxPrice: 4500},
+    {minPrice: 4500, maxPrice: null}
+  ]
+
+
+
   monthNames = [
     'January',
     'February',
@@ -56,11 +75,11 @@ export class OrdersComponent implements OnInit {
       }
     });
   }
-
+/*
   filterOrders (){
     console.log (this.orderSearch);
-    this.fullOrderList = this._orderFilter.transform(this.fullOrderList, this.orderSearch, this.minimumPrice);
-  }
+    this.fullOrderList = this._orderFilter.transform(this.fullOrderList, this.orderSearch, this.priceRange);
+  }*/
 
   checkMonthChange(order: Order, cursor: number): boolean {
     let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;
