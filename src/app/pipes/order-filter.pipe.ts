@@ -9,13 +9,22 @@ import {Order} from "../models/order/order";
 })
 export class OrderFilterPipe implements PipeTransform {
 
-  transform(orders: Order[], searchText: string, priceRange: { minPrice: number, maxPrice: number }): Order[] {
+  transform(orders: Order[], searchText: string, priceRange: { minPrice: number, maxPrice: number }, startDate: Date, endDate: Date): Order[] {
     if (!orders) return [];
     if (priceRange) {
       orders = orders.filter(order => {
         return (order.price.food >= priceRange.minPrice) && ((priceRange.maxPrice) ? order.price.food < priceRange.maxPrice : true)
       });
-      console.log (orders);
+    }
+
+    if (startDate || endDate){
+      orders = orders.filter (order => {
+        let orderTime = order.orderTime.restaurantAccept.getTime();
+        if (startDate)
+          return (orderTime >= startDate.getTime()) && (endDate ? endDate.getTime() > orderTime: true)
+        else
+          return (orderTime < endDate.getTime());
+      });
     }
 
     if (!searchText) return orders;

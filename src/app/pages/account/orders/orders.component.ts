@@ -24,10 +24,8 @@ export class OrdersComponent implements OnInit{
     maxPrice: number
   }
 
-  dateRange: {
     startDate: Date
     endDate: Date
-  }
 
   priceRangeList = [
     {minPrice: 0, maxPrice: 1500},
@@ -75,11 +73,12 @@ export class OrdersComponent implements OnInit{
       }
     });
   }
-/*
-  filterOrders (){
-    console.log (this.orderSearch);
-    this.fullOrderList = this._orderFilter.transform(this.fullOrderList, this.orderSearch, this.priceRange);
-  }*/
+
+  /*
+    filterOrders (){
+      console.log (this.orderSearch);
+      this.fullOrderList = this._orderFilter.transform(this.fullOrderList, this.orderSearch, this.priceRange);
+    }*/
 
   checkMonthChange(order: Order, cursor: number): boolean {
     let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;

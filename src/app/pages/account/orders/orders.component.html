@@ -32,9 +32,8 @@
         </div>
         <div class = "col">
           <label class = "me-1" for = "start">From: </label>
-          <input type="date" formControlName="DOB" id="start" tabindex="4" />
-
-          <input type="date" formControlName="DOB" id="end" tabindex="4" />
+          <input type="date" id="start" [(ngModel)]="startDate"/>
+          <input type="date" id="end" [(ngModel)]="endDate"/>
           <label class = "ms-1" for = "end"> :End</label>
         </div>
       </div>
@@ -45,7 +44,7 @@
       </div>
       <!--<div class="row" *ngFor="let item of orderList | keyvalue: keyDescOrder">-->
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let order of (fullOrderList | orderFilter: orderSearch:priceRange) | paginate: {id: 'orderPaginator',
+        <li class="list-group-item" *ngFor="let order of (fullOrderList | orderFilter: orderSearch:priceRange:startDate:endDate) | paginate: {id: 'orderPaginator',
       itemsPerPage: 5,
       currentPage: page}; let cursor = index;">
           <div *ngIf="checkMonthChange(order, cursor)">
