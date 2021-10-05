@@ -50,7 +50,7 @@
             }
             stage('Distribute'){
               steps {
-                sh 'aws cloudformation deploy --stack-name UserPortalStack --region ${AWS_REGION} --template-file userPortal.template --parameter-overrides RouteName=${params.RouteName} BaseStackName=${params.BaseStackName} --capabilities CAPABILITY_NAMED_IAM'
+                sh "aws cloudformation deploy --stack-name UserPortalStack --region ${AWS_REGION} --template-file userPortal.template --parameter-overrides RouteName=${params.RouteName} BaseStackName=${params.BaseStackName} --capabilities CAPABILITY_NAMED_IAM"
               }
             }
         }
