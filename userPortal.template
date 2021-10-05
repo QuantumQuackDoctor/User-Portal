@@ -13,7 +13,7 @@ Resources:
       DistributionConfig:
         Origins:
           - DomainName:
-              Fn::ImportValue: !Sub "${BaseStackName}-UserPortalBucketName"
+              Fn::ImportValue: !Sub "${BaseStackName}-UserPortalDomainName"
             Id: "S3-user-portal"
             S3OriginConfig:
               OriginAccessIdentity: !Join
