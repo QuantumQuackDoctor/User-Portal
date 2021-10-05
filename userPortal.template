@@ -53,7 +53,7 @@ Resources:
     Type: AWS::Route53::RecordSet
     Properties:
       Name: !Ref RouteName
-      Comment: "points to admin portal cloudfront distribution"
+      Comment: "points to user-portal cloudfront distribution"
       HostedZoneId:
         Fn::ImportValue: !Sub "${BaseStackName}-HostedZoneId"
       Type: CNAME
