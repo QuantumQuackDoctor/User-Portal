@@ -4,8 +4,6 @@ Description: "this template creates a cloudfront distribution for a bucket"
 Parameters:
   RouteName:
     Type: String
-  BaseStackName:
-    Type: String
 Resources:
   CloudfrontDistribution:
     Type: AWS::CloudFront::Distribution
