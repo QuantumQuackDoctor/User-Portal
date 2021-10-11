@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './activate-account.component.html',
   styleUrls: ['./activate-account.component.css'],
 })
-export class ActivateAccountComponent implements OnInit {
+export class ActivateAccountComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   loading = true;
   activated = false;
@@ -23,7 +23,7 @@ export class ActivateAccountComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.authService.activateAccount(params['token']).subscribe(
-        (res: string) => {
+        () => {
           this.loading = false;
           this.activated = true;
         },

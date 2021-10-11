@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Order} from "../../../../models/order/order";
 import {FoodOrder} from "../../../../models/FoodOrder/food-order";
 import {OrderService} from "../../../../services/order.service";
@@ -8,14 +8,11 @@ import {OrderService} from "../../../../services/order.service";
   templateUrl: './recent-order.component.html',
   styleUrls: ['./recent-order.component.css']
 })
-export class RecentOrderComponent implements OnInit {
+export class RecentOrderComponent {
 
   @Input() order: Order;
 
   constructor(private orderService: OrderService) { }
-
-  ngOnInit(): void {
-  }
 
   printFood (foodOrder: FoodOrder): string {
     return this.orderService.printFood(foodOrder);

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators,} from '@angular/forms';
 import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
 import {faLock} from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +13,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   templateUrl: './register-form.component.html',
   styleUrls: ['../shared.css'],
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent implements OnInit, OnDestroy {
   registerGroup: FormGroup;
   emailIcon = faEnvelope;
   passwordIcon = faLock;
@@ -115,7 +115,7 @@ export class RegisterFormComponent implements OnInit {
     if (this.registerGroup.valid && !this.hasSubmitted) {
       this.hasSubmitted = true;
       this.authService.register(this.createUser()).subscribe(
-        (res) => {
+        () => {
           this.displayError = false;
           this.router.navigate(['/account/login'], {
             queryParams: { returnUrl: this.returnUrl },

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Item} from "../../../models/item/item";
 import {CartService} from "../../../services/cart.service";
 import {ActivatedRoute} from "@angular/router";
@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './restaurant-item.component.html',
   styleUrls: ['./restaurant-item.component.css']
 })
-export class RestaurantItemComponent implements OnInit {
+export class RestaurantItemComponent {
 
   @Input() menuItem: Item
   menuId: number;
@@ -16,9 +16,6 @@ export class RestaurantItemComponent implements OnInit {
   constructor(private cartService: CartService,
               private actRoute: ActivatedRoute) {
     this.menuId = this.actRoute.snapshot.params.id;
-  }
-
-  ngOnInit(): void {
   }
 
   handleAddToCart() {

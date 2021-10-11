@@ -14,7 +14,7 @@ import {ChargeRequest} from "../../../models/charge-request";
 export class CreateTokenComponent implements OnInit {
 
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
-  @Output("clearCart") clearCart: EventEmitter<any> = new EventEmitter<any>();
+  @Output() clearCart: EventEmitter<any> = new EventEmitter<any>();
 
   cardOptions: StripeCardElementOptions = {
     style: {

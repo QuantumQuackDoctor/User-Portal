@@ -19,10 +19,10 @@ export class OrdersComponent implements OnInit{
   faSearch = faSearch;
   orderSearch: string = "";
 
-  priceRange : {
+  priceRanges : {
     minPrice: number,
     maxPrice: number
-  }
+  } [] = [];
 
     startDate: Date
     endDate: Date
@@ -33,8 +33,6 @@ export class OrdersComponent implements OnInit{
     {minPrice: 3000, maxPrice: 4500},
     {minPrice: 4500, maxPrice: null}
   ]
-
-
 
   monthNames = [
     'January',
@@ -74,11 +72,26 @@ export class OrdersComponent implements OnInit{
     });
   }
 
-  /*
-    filterOrders (){
-      console.log (this.orderSearch);
-      this.fullOrderList = this._orderFilter.transform(this.fullOrderList, this.orderSearch, this.priceRange);
-    }*/
+  updateRange (range, event){
+    if (this.priceRanges.includes(range) && !event.target.checked) {
+      this.priceRanges.splice(this.priceRanges.indexOf(range), 1);
+    }else {
+      this.priceRanges.push (range);
+    }
+    console.log (this.priceRanges)
+  }
+
+  test (event){
+    console.log (event)
+  }
+
+  updateStart (event){
+    (event) ? this.startDate = new Date (event): this.startDate = undefined;
+  }
+
+  updateEnd (event){
+    (event) ? this.endDate = new Date (event) : this.endDate = undefined;
+  }
 
   checkMonthChange(order: Order, cursor: number): boolean {
     let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;

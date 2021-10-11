@@ -1,9 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { faBars, faStar } from '@fortawesome/free-solid-svg-icons';
+import {Component} from '@angular/core';
+import {faStar} from '@fortawesome/free-solid-svg-icons';
 
-import { SearchService } from '../../services/search.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import {SearchService} from '../../services/search.service';
+import {Router} from '@angular/router';
 
 export interface Hours {
   mon: string;
@@ -35,8 +34,7 @@ export interface Restaurant {
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent implements OnInit {
-  menuIcon = faBars;
+export class SearchComponent {
   searchResults: Restaurant[];
   output: string;
   isAsc: boolean = true;
@@ -127,7 +125,7 @@ export class SearchComponent implements OnInit {
       (res) => {
         this.searchResults = res;
       },
-      (err) => {
+      () => {
         this.output = this.searchService.search;
       }
     );
@@ -148,7 +146,7 @@ export class SearchComponent implements OnInit {
       (res) => {
         this.searchResults = res;
       },
-      (err) => {
+      () => {
         this.output = this.searchService.search;
       }
     );
@@ -160,7 +158,7 @@ export class SearchComponent implements OnInit {
       (res) => {
         this.searchResults = res;
       },
-      (err) => {
+      () => {
         this.output = this.searchService.search;
       }
     );
@@ -183,6 +181,4 @@ export class SearchComponent implements OnInit {
   openRestaurant(restaurant: Restaurant) {
     this.router.navigate([`/restaurant/${restaurant.id}`]);
   }
-
-  ngOnInit(): void {}
 }

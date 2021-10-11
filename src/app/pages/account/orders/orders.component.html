@@ -3,7 +3,7 @@
 <div class="bg-bg-main p-1" style="min-height: 100%">
   <div class="bg-white m-2 p-4 rounded row">
     <h3><u>Orders</u></h3>
-    <div class="row">
+    <div class="row overflow-hidden">
       <div class="input-group col-1">
         <fa-icon class="input-group-text" [icon]="faSearch"></fa-icon>
         <input
@@ -16,24 +16,24 @@
         <div class="col ms-1">
           Price Range:
           <form>
-            <input class = "ms-3" type="radio" id = "$" name = "priceRange" [value] = "priceRangeList[0]"
-                   [(ngModel)]="priceRange">
+            <input class = "ms-3" type="checkbox" id = "$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[0], $event)" >
             <label class = "ms-1" for = "$">$</label>
-            <input class = "ms-3" type="radio" id = "$$" name = "priceRange" [value] = "priceRangeList[1]"
-                   [(ngModel)]="priceRange">
+            <input class = "ms-3" type="checkbox" id = "$$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[1], $event)">
             <label class = "ms-1" for = "$$">$$</label>
-            <input class = "ms-3" type="radio" id = "$$$" name = "priceRange" [value] = "priceRangeList[2]"
-                   [(ngModel)]="priceRange">
+            <input class = "ms-3" type="checkbox" id = "$$$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[2], $event)">
             <label class = "ms-1" for = "$$$">$$$</label>
-            <input class = "ms-3" type="radio" id = "$$$$" name = "priceRange" [value] = "priceRangeList[3]"
-                   [(ngModel)]="priceRange">
+            <input class = "ms-3" type="checkbox" id = "$$$$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[3], $event)">
             <label class = "ms-1" for = "$$$$">$$$$</label>
           </form>
         </div>
         <div class = "col">
           <label class = "me-1" for = "start">From: </label>
-          <input type="date" id="start" [(ngModel)]="startDate"/>
-          <input type="date" id="end" [(ngModel)]="endDate"/>
+          <input type="date" id="start" (ngModelChange)="updateStart($event)" [ngModel]="startDate | date:'yyyy-MM-dd'"/>
+          <input type="date" id="end" (ngModelChange)="updateEnd ($event)" [ngModel]="endDate | date:'yyyy-MM-dd'"/>
           <label class = "ms-1" for = "end"> :End</label>
         </div>
       </div>
@@ -44,7 +44,7 @@
       </div>
       <!--<div class="row" *ngFor="let item of orderList | keyvalue: keyDescOrder">-->
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let order of (fullOrderList | orderFilter: orderSearch:priceRange:startDate:endDate) | paginate: {id: 'orderPaginator',
+        <li class="list-group-item" *ngFor="let order of (fullOrderList | orderFilter: orderSearch:priceRanges:startDate:endDate) | paginate: {id: 'orderPaginator',
       itemsPerPage: 5,
       currentPage: page}; let cursor = index;">
           <div *ngIf="checkMonthChange(order, cursor)">
