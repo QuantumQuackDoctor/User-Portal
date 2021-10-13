@@ -4,29 +4,12 @@
           string(name: 'RouteName', description: 'cloudfront distribution name', defaultValue: params.RouteName ?: 'user-portal')
           string(name: 'BaseStackName', description: 'base infrastructure stack name', defaultValue: params.BaseStackName ?: 'BaseInfrastructure')
           string(name: 'BucketName', description: 'name of bucket to upload to', defaultValue: params.BucketName ?: '')
+          string(name: 'Environment', defaultValue: params.Environment ?: 'dev')
         }
         tools {
             nodejs "Node 14"
         }
         stages {
-            // stage('SonarQube analysis') {
-            //     steps {
-            //         script {
-            //             tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-            //             scannerHome = tool 'SonarQube Scanner 4.6'
-            //         }
-            //         withSonarQubeEnv('SonarQube') {
-            //             sh "npm install -D sonarqube-scanner"
-            //             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=User-Portal -Dsonar.sources=. -Dsonar.host.url=http://18.218.39.157:9000 -Dsonar.login=admin"
-            //         }
-            //
-            //     }
-            // }
-            // stage('Quality Gate') {
-            //     steps {
-            //         waitForQualityGate abortPipeline= true
-            //     }
-            // }
             stage('Install') {
                 steps {
                     sh 'npm install'
@@ -50,7 +33,7 @@
             }
             stage('Distribute'){
               steps {
-                sh "aws cloudformation deploy --stack-name UserPortalStack --region ${AWS_REGION} --template-file userPortal.template --parameter-overrides RouteName=${params.RouteName} --capabilities CAPABILITY_NAMED_IAM"
+                sh "aws cloudformation deploy --stack-name UserPortalStack --region ${AWS_REGION} --template-file userPortal.template --parameter-overrides RouteName=${params.RouteName} Environment=${params.Environment} --capabilities CAPABILITY_NAMED_IAM"
               }
             }
         }
