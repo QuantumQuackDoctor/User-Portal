@@ -15,6 +15,17 @@
                     sh 'npm install'
                 }
             }
+            stage('Lint'){
+                steps {
+                    sh 'ng lint --silent --format checkstyle > checkstyle-result.xml'
+                }
+                post {
+                    always {
+                        recordIssues tool: esLint(pattern: 'checkstyle-result.xml'),
+                            enableForFailure: true
+                    }
+                }
+            }
             stage('Build') {
                 steps {
                     sh 'npm run build'
