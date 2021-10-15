@@ -44,7 +44,7 @@
             }
             stage('Distribute'){
               steps {
-                sh "aws cloudformation deploy --stack-name UserPortalStack --region ${AWS_REGION} --template-file userPortal.template --parameter-overrides RouteName=${params.RouteName} Environment=${params.Environment} --capabilities CAPABILITY_NAMED_IAM"
+                sh "aws cloudformation deploy --stack-name UserPortalStack --region ${AWS_REGION} --template-file userPortal.template --parameter-overrides RouteName=${params.RouteName} Environment=${params.Environment} --capabilities CAPABILITY_NAMED_IAM --no-fail-on-empty-changeset"
               }
             }
         }
