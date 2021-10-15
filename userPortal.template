@@ -12,6 +12,23 @@ Parameters:
       - "dev"
       - "test"
 Resources:
+  CachePolicy:
+    Type: AWS::CloudFront::CachePolicy
+    Properties:
+      CachePolicyConfig:
+        DefaultTTL: 10
+        MaxTTL: 60
+        MinTTL: 5
+        Name: !Sub "UserPortalCachePolicy-${Environment}"
+        ParametersInCacheKeyAndForwardedToOrigin:
+          EnableAcceptEncodingGzip: true
+          EnableAcceptEncodingBrotli: true
+          CookiesConfig:
+            CookieBehavior: none
+          HeadersConfig:
+            HeaderBehavior: none
+          QueryStringsConfig:
+            QueryStringBehavior: none
   CloudfrontDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
@@ -32,8 +49,7 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
-          ForwardedValues:
-            QueryString: true
+          CachePolicyId: !Ref CachePolicy
           TargetOriginId: "S3-user-portal"
           ViewerProtocolPolicy: redirect-to-https
         Aliases:
@@ -49,6 +65,7 @@ Resources:
           AcmCertificateArn: !Sub "{{resolve:secretsmanager:CertificateARN-${Environment}}}"
           MinimumProtocolVersion: TLSv1.2_2018
           SslSupportMethod: "sni-only"
+
       Tags:
         - Key: name
           Value: "UserDistribution"
