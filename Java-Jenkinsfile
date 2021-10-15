@@ -17,7 +17,7 @@
             }
             stage('Lint'){
                 steps {
-                    sh 'ng lint --silent --format checkstyle > checkstyle-result.xml'
+                    sh 'npm run-script --silent -- ng lint --format checkstyle > checkstyle-result.xml'
                 }
                 post {
                     always {
