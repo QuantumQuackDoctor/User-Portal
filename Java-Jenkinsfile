@@ -22,7 +22,7 @@
                 post {
                     always {
                         recordIssues tool: esLint(pattern: 'checkstyle-result.xml'),
-                            enableForFailure: true
+                            enabledForFailure: true
                     }
                 }
             }
