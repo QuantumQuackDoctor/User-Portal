@@ -51,7 +51,7 @@
         </div>
         <div class="OrderOptions col-3">
           <ng-template #popoverContentPending><p *ngFor="let orderFood of order.food">{{orderFood.restaurantName}}
-            : {{printFood(orderFood)}}</p>Price: ${{order.price.food / 100}}</ng-template>
+            : {{printFood(orderFood)}}</p><strong>Price: </strong>${{order.price.food / 100}}</ng-template>
           <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
                   [ngbPopover]="popoverContentPending" popoverTitle="Order Items: ">
             Details
