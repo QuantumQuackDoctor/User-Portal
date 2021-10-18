@@ -38,14 +38,4 @@ describe('OrdersComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should sort', () => {
-    let orderList = sampleOrderList([], 5);
-    let map = component.sortOrdersByMonth(orderList);
-    map.forEach((value: Order[], key: number) => {
-      value.forEach((order: Order) => {
-        expect(key === order.orderTime.restaurantAccept.getMonth() + 1).toBe(true);
-      })
-    })
-  });
 });

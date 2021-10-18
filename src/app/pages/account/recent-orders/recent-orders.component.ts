@@ -36,6 +36,7 @@ export class RecentOrdersComponent implements OnInit {
       if (!orders[i]) break;
       topFive.push(orders[i]);
     }
+    console.log (topFive);
     return topFive;
   }
 
