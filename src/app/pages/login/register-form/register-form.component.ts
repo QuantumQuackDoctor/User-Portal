@@ -138,6 +138,10 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 
   private createUser(): User {
     const formValue = this.registerGroup.value;
+    let defaultEmailOptions: boolean = false;
+    if (formValue.emailNotifications){
+      defaultEmailOptions = true;
+    }
     return {
       email: formValue.email,
       password: formValue.password,
@@ -150,6 +154,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
       settings: {
         notifications: {
           email: formValue.emailNotifications,
+          emailOrder: defaultEmailOptions,
+          emailDelivery: defaultEmailOptions,
           text: formValue.textNotifications,
         },
         theme: formValue.theme,

@@ -15,7 +15,6 @@ export class OrderService {
   baseOrderURL = "http://localhost:4200/order"
   orderList: Subject<Order[]> = new Subject<Order[]>()
   clearCart: EventEmitter<any> = new EventEmitter<any>()
-  maxPageItemsSubject: Subject<number> = new Subject<number>();
 
   constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {
   }
@@ -55,8 +54,9 @@ export class OrderService {
       params: parameters
     }).subscribe(
       (result) => {
-        console.log (product);
-        this.sendOrderEmail(result);
+        let orderNotification = JSON.parse(localStorage.getItem('emailOrder'));
+        if (orderNotification)
+          this.sendOrderEmail(result);
       },
       () => {
         this.errorHandler.handleError('placeOrder', null);
@@ -64,20 +64,20 @@ export class OrderService {
     );
   }
 
-  sendOrderEmail (orderResponse) {
+  sendOrderEmail(orderResponse) {
     this.http.post(this.baseOrderURL + '/email-order', orderResponse).subscribe(
       (res) => {
-      console.log (res);
-    });
+        console.log(res);
+      });
   }
 
   printFood(foodOrder: FoodOrder): string {
     let items: string = '';
     if (foodOrder) {
-      for (let index = 0; index < foodOrder.items.length; index ++) {
-        if (index === foodOrder.items.length - 1){
+      for (let index = 0; index < foodOrder.items.length; index++) {
+        if (index === foodOrder.items.length - 1) {
           items += foodOrder.items[index].name;
-        }else{
+        } else {
           items += foodOrder.items[index].name + ', ';
         }
       }

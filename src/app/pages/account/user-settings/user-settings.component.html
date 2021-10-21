@@ -2,7 +2,7 @@
 <form
   *ngIf="user"
   [formGroup]="settingsFormGroup"
-  (keyup) = "settingsFormGroup.updateValueAndValidity()"
+  (keyup)="settingsFormGroup.updateValueAndValidity()"
   (ngSubmit)="updateSettings()"
 >
   <div class="container-fluid p-0">
@@ -30,18 +30,36 @@
           />
           <label for="email" class="form-check-label">Email Notifications</label>
         </div>
+        <div class="form-check ms-2" *ngIf = "this.settingsFormGroup.enabled && this.settingsFormGroup.value.email">
+          <input
+            type="checkbox"
+            id="emailOrder"
+            class="form-check-input"
+            formControlName="emailOrder"
+            [checked]="user?.settings?.notifications?.emailOrder">
+          <label for="emailOrder" class="form-check-label">Order Details</label>
+        </div>
+        <div class="form-check ms-2" *ngIf = "this.settingsFormGroup.enabled && this.settingsFormGroup.value.email">
+          <input
+            type="checkbox"
+            id="emailDelivery"
+            class="form-check-input"
+            formControlName="emailDelivery"
+            [checked]="user?.settings?.notifications?.emailDelivery">
+          <label for="emailOrder" class="form-check-label">Delivery</label>
+        </div>
       </div>
       <div class="col-md-11">
         <div class="input-group mb-3">
           <label class="input-group-text" for="theme">Theme</label>
-          <select class="form-select" formControlName="theme" id="theme" [value] = "user?.settings?.theme">
+          <select class="form-select" formControlName="theme" id="theme" [value]="user?.settings?.theme">
             <option selected value="dark">Dark</option>
             <option value="light">Light</option>
           </select>
         </div>
       </div>
       <div class="col-md-1">
-        <button class="btn btn-secondary" type = "button">
+        <button class="btn btn-secondary" type="button">
           <fa-icon [icon]="faPen" (click)="toggleInput()"></fa-icon>
         </button>
       </div>

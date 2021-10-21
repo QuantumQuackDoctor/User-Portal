@@ -15,7 +15,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class UserSettingsComponent implements OnInit {
   user: User;
-  inputsDisabled: boolean = true;
   faPen = faPen;
   settingsFormGroup: FormGroup;
 
@@ -32,6 +31,8 @@ export class UserSettingsComponent implements OnInit {
       this.settingsFormGroup = new FormGroup({
         text: new FormControl (this.user.settings.notifications.text, Validators.required),
         email: new FormControl (this.user.settings.notifications.email, Validators.required),
+        emailOrder: new FormControl(this.user.settings.notifications.emailOrder, Validators.required),
+        emailDelivery: new FormControl(this.user.settings.notifications.emailDelivery, Validators.required),
         theme: new FormControl(this.user.settings.theme, Validators.required)
       });
       this.settingsFormGroup.disable();
@@ -63,6 +64,8 @@ export class UserSettingsComponent implements OnInit {
     let updatedSettings = {
       notifications: {
         email: formValues.email,
+        emailOrder: formValues.emailOrder,
+        emailDelivery: formValues.emailDelivery,
         text: formValues.text
       },
       theme: formValues.theme

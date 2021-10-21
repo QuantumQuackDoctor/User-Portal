@@ -46,7 +46,6 @@ export class CartComponent implements OnInit {
       this.foodOrders = foodOrders;
       this.cartTotal = this.cartService.cartTotal;
     });
-
   }
 
   clearCart() {

@@ -12,6 +12,8 @@ export interface User {
   settings: {
     notifications: {
       email: boolean;
+      emailOrder: boolean;
+      emailDelivery: boolean;
       text: boolean;
     };
     theme: 'dark' | 'light';

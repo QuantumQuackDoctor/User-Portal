@@ -37,7 +37,8 @@ export class AccountComponent implements OnInit, OnDestroy {
           this.user = user;
           this.userService.updateUser(user);
           this.orderService.getOrders();
-          localStorage.setItem ('userEmail', user.email);
+          localStorage.setItem ('emailOrder', JSON.stringify(user.settings.notifications.emailOrder));
+          localStorage.setItem ('emailDelivery', JSON.stringify(user.settings.notifications.emailDelivery));
         });
       } else {
         this.router.navigate(['/home']);

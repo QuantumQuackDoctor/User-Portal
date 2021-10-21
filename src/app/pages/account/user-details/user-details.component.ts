@@ -109,6 +109,9 @@ export class UserDetailsComponent implements OnInit {
   }
 
   toggleInput() {
+    if (!this.inputsDisabled){
+      location.reload();
+    }
     this.inputsDisabled = !this.inputsDisabled;
   }
 }
