@@ -53,7 +53,7 @@
           <app-single-order [order]="order"></app-single-order>
         </li>
       </ul>
-      <pagination-controls [responsive]=true class="text-center" id="orderPaginator" [maxSize]="9"
+      <pagination-controls [responsive]=true class="text-center" id="orderPaginator" [maxSize]="9" [autoHide]="true"
                            (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>

@@ -23,7 +23,6 @@ export class RecentOrderComponent {
         this.cartService.addToCart(item, foodOrder.restaurantId);
       }
     }
-
   }
 
   orderDetails(content) {
