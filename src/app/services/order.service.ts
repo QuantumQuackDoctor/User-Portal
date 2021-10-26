@@ -76,9 +76,9 @@ export class OrderService {
     if (foodOrder) {
       for (let index = 0; index < foodOrder.items.length; index++) {
         if (index === foodOrder.items.length - 1) {
-          items += foodOrder.items[index].name;
+          items += foodOrder.items[index].name + " x " + foodOrder.items[index].quantity;
         } else {
-          items += foodOrder.items[index].name + ', ';
+          items += foodOrder.items[index].name + " x " + foodOrder.items[index].quantity + ', ';
         }
       }
     }

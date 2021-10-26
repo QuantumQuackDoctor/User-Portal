@@ -8,7 +8,6 @@ import { FoodOrder } from '../models/FoodOrder/food-order';
 })
 export class CartService {
   currentCart: FoodOrder[] = [];
-  cartItemHolder: Item[] = [];
   cartTotal = 0;
 
   cartSubject = new BehaviorSubject<FoodOrder[]>([]);
@@ -73,11 +72,6 @@ export class CartService {
     });
   }
 
-  updateCartTotal() {
-    let currentCart: FoodOrder[] = JSON.parse(localStorage.getItem('cart'));
-    this.cartTotal = this.calculateCartTotal(currentCart);
-  }
-
   private calculateCartTotal(cart: FoodOrder[]) {
     let total = 0;
     cart.forEach((foodOrder: FoodOrder) => {
@@ -113,17 +107,6 @@ export class CartService {
     matchingOrder.quantity = Math.max(matchingOrder.quantity + amount, 1);
     this.setCart(this.currentCart);
   }
-
-  /*  remove(item: Item) {
-      for (let index in this.placeHolder) {
-        if (this.placeHolder[index].id === item.id) {
-          this.placeHolder[index].quantity--
-          if (this.placeHolder[index].quantity <= 0) {
-            delete this.placeHolder[index]
-          }
-        }
-      }
-    }*/
 
   removeItem(restaurantId: number, itemId: number) {
     let foodOrder = this.currentCart.find(

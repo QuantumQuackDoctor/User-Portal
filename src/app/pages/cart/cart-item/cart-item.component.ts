@@ -20,11 +20,6 @@ export class CartItemComponent {
     private cartService: CartService
   ) {}
 
-  /*  remove (item : Item){
-    this.cartService.remove(item)
-    this.msg.sendMsg(item)
-  }*/
-
   incrementQuantity(amount: number) {
     this.cartService.incrementItem(
       this.orderItem.id,

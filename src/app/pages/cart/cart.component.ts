@@ -4,7 +4,6 @@ import {Order} from '../../models/order/order';
 import {Price} from '../../models/price/price';
 import {FoodOrder} from '../../models/FoodOrder/food-order';
 import {OrderTime} from '../../models/OrderTime/order-time';
-import {OrderService} from "../../services/order.service";
 import {CreateTokenComponent} from "./create-token/create-token.component";
 
 @Component({
@@ -14,23 +13,23 @@ import {CreateTokenComponent} from "./create-token/create-token.component";
 })
 export class CartComponent implements OnInit {
 
-  @ViewChild (CreateTokenComponent) createToken: CreateTokenComponent;
+  @ViewChild(CreateTokenComponent) createToken: CreateTokenComponent;
 
   selectedTime = 'Select Delivery Time';
   selectedDelivery = 'Select Delivery or Pickup';
   address = '';
 
   deliveryTypeList = [
-    { type: 'Select Delivery or Pickup' },
-    { type: 'Delivery' },
-    { type: 'Pickup' },
+    {type: 'Select Delivery or Pickup'},
+    {type: 'Delivery'},
+    {type: 'Pickup'},
   ];
 
   deliveryTimeList = [
-    { type: 'Select Delivery Time' },
-    { type: '15 Min (Fastest)' },
-    { type: '30 Min' },
-    { type: '45 Min' },
+    {type: 'Select Delivery Time'},
+    {type: '15 Min (Fastest)'},
+    {type: '30 Min'},
+    {type: '45 Min'},
   ];
 
   foodOrders: FoodOrder[] = [];
@@ -38,13 +37,14 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private orderService: OrderService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.cartService.cartSubject.subscribe((foodOrders: FoodOrder[]) => {
       this.foodOrders = foodOrders;
       this.cartTotal = this.cartService.cartTotal;
+      console.log (foodOrders);
     });
   }
 

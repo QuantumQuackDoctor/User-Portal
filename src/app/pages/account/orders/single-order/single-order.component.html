@@ -1,4 +1,24 @@
 
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Order Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <p *ngFor="let orderFood of order.food">{{orderFood.restaurantName}}
+      : {{printFood(orderFood)}}</p><strong>Price: </strong> ${{order.price.food / 100}}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" [routerLink]= "['/cart']" (click)="reOrder(); modal.close ('Close click')">
+      Re-Order
+    </button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">
+      Close
+    </button>
+  </div>
+</ng-template>
+
   <div class="row" *ngIf="order.orderTime.delivered !== null">
     <div class="orderImage col-2">
       <img class="img" width="auto" style="max-height: 75px;"
@@ -17,15 +37,12 @@
       </div>
     </div>
     <div class="OrderOptions col-3">
-      <ng-template #popoverContent><p *ngFor="let orderFood of order.food">{{orderFood.restaurantName}}
-        : {{printFood(orderFood)}}</p><strong>Price: </strong>${{order.price.food / 100}}</ng-template>
       <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
-              [ngbPopover]="popoverContent" popoverTitle="Order Items: ">
+              (click) = "orderDetails(modalContent)">
         Details
       </button>
     </div>
   </div>
-
 
   <div class="row" *ngIf="order.orderTime.delivered === null">
     <div class="orderImage col-2 text-danger">
@@ -48,7 +65,7 @@
       <ng-template #popoverContentPending><p *ngFor="let orderFood of order.food">{{orderFood.restaurantName}}
         : {{printFood(orderFood)}}</p><strong>Price: </strong>${{order.price.food / 100}}</ng-template>
       <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
-              [ngbPopover]="popoverContentPending" popoverTitle="Order Items: ">
+              (click) = "orderDetails(modalContent)">
         Details
       </button>
     </div>
