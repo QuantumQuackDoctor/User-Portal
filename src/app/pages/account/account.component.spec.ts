@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccountComponent } from './account.component';
-import { HeaderStud } from 'src/app/shared/header/header.stub';
+import { HeaderStudComponent } from 'src/app/shared/header/header.stub';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ describe('AccountComponent without authenticated user', () => {
       imports: [HttpClientTestingModule],
       declarations: [AccountComponent],
       providers: [
-        HeaderStud,
+        HeaderStudComponent,
         { provide: AuthService, useValue: mockAuthService },
         { provide: Router, useValue: routerspy },
         UserService,
@@ -64,7 +64,7 @@ describe('AccountComponent with authenticated user', () => {
       imports: [HttpClientTestingModule],
       declarations: [AccountComponent],
       providers: [
-        HeaderStud,
+        HeaderStudComponent,
         { provide: AuthService, useValue: mockAuthService },
         { provide: Router, useValue: routerspy },
         UserService,
