@@ -12,7 +12,7 @@ export class OrderFilterPipe implements PipeTransform {
 
   transform(orders: Order[], searchText: string, priceRanges: { minPrice: number, maxPrice: number }[], startDate: Date, endDate: Date): Order[] {
     if (!orders) return [];
-    if (priceRanges.length > 0) {
+    if (priceRanges) {
       orders = orders.filter(order => {
         for (let priceRange of priceRanges) {
           if ((order.price.food >= priceRange.minPrice) && ((priceRange.maxPrice) ? order.price.food < priceRange.maxPrice : true))

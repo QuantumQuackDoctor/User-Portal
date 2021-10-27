@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { HeaderStudComponent } from 'src/app/shared/header/header.stub';
+import { HeaderStud } from 'src/app/shared/header/header.stub';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('HomeComponent', () => {
@@ -11,7 +11,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      providers: [HeaderStudComponent],
+      providers: [HeaderStud],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });

@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from 'src/app/services/auth.service';
-import {HeaderStudComponent} from 'src/app/shared/header/header.stub';
+import {HeaderStud} from 'src/app/shared/header/header.stub';
 
 import {LoginComponent} from './login.component';
 
@@ -17,7 +17,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent, HeaderStudComponent],
+      declarations: [LoginComponent, HeaderStud],
       imports: [ReactiveFormsModule],
       providers: [
         { provide: AuthService, useValue: mockAuthService },

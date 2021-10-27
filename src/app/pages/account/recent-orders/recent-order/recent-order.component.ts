@@ -26,7 +26,6 @@ export class RecentOrderComponent {
   }
 
   orderDetails(content) {
-    console.log (this.order);
     this.modalService.open(content, {centered: true})
   }
 

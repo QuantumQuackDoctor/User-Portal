@@ -13,7 +13,7 @@ import {OrderFilterPipe} from "../../../pipes/order-filter.pipe";
 })
 export class OrdersComponent implements OnInit{
   orderList?: Map<number, Order[]> = new Map();
-  fullOrderList: Order[];
+  fullOrderList: Order[] = [];
   currentMonth: number;
   page: number = 1;
   faSearch = faSearch;

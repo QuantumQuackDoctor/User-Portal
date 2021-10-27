@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecentOrdersComponent } from './recent-orders.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('RecentOrdersComponent', () => {
   let component: RecentOrdersComponent;
@@ -8,6 +9,7 @@ describe('RecentOrdersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [ RecentOrdersComponent ]
     })
     .compileComponents();
@@ -22,4 +24,5 @@ describe('RecentOrdersComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

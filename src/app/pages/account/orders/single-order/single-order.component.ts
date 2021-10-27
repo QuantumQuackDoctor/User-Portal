@@ -21,7 +21,6 @@ export class SingleOrderComponent {
   }
 
   orderDetails(content) {
-    console.log (this.order);
     this.modalService.open(content, {centered: true})
   }
 
@@ -31,6 +30,5 @@ export class SingleOrderComponent {
         this.cartService.addToCart(item, foodOrder.restaurantId);
       }
     }
-
   }
 }

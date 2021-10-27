@@ -215,6 +215,8 @@ describe('RegisterFormComponent', () => {
       phone: '',
       textNotifications: false,
       emailNotifications: true,
+      emailOrder: true,
+      emailDelivery: true,
       theme: 'dark',
       DOB: '2000-02-08',
       veteranStatus: false,
@@ -236,11 +238,13 @@ describe('RegisterFormComponent', () => {
         notifications: {
           email: true,
           text: false,
+          emailOrder: true,
+          emailDelivery: true,
         },
         theme: 'dark',
       },
       DOB: '2000-02-08',
-      veteranStatus: false,
+      isVeteran: false,
       orders: [],
     };
 

@@ -88,6 +88,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
       emailNotifications: new FormControl(false, {
         validators: [Validators.required],
       }),
+      emailOrder: new FormControl(false, {validators: [Validators.required]}),
+      emailDelivery: new FormControl(false, {validators: [Validators.required]}),
       theme: new FormControl(false, {
         validators: [Validators.required, Validators.pattern(/^(dark|light)$/)],
       }),
