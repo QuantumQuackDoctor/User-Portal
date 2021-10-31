@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -19,7 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './register-form.component.html',
   styleUrls: ['../shared.css'],
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent implements OnInit, OnDestroy {
   registerGroup: FormGroup;
   emailIcon = faEnvelope;
   passwordIcon = faLock;

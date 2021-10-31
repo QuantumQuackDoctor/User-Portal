@@ -26,16 +26,16 @@
                     }
                 }
             }
+            stage('Test') {
+               steps {
+                   sh 'npm test'
+               }
+            }
             stage('Build') {
                 steps {
                     sh 'npm run build'
                 }
             }
-            //stage('Test') {
-               // steps {
-                //    sh 'npm test'
-               // }
-           // }
             stage('Production') {
                 steps {
                     s3Delete(bucket:"${params.BucketName}", path:'')

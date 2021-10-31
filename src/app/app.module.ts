@@ -38,6 +38,8 @@ import {RouterModule} from "@angular/router";
 import {UserErrorHandlerService} from "./services/user-error-handler.service";
 import { RestaurantDisplayComponent } from './pages/search/restaurant-display/restaurant-display.component';
 import { StarComponent } from './shared/star/star.component';
+import { ForgotPasswordComponent } from './pages/login/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/login/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { StarComponent } from './shared/star/star.component';
     CartDropdownComponent,
     RestaurantDisplayComponent,
     StarComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

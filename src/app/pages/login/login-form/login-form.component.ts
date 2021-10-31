@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './login-form.component.html',
   styleUrls: ['../shared.css'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
   loginGroup: FormGroup;
   emailIcon = faEnvelope;
   passwordIcon = faLock;
@@ -37,8 +37,6 @@ export class LoginFormComponent implements OnInit {
       this.returnUrl = map.get('returnUrl') || '/';
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     if (this.loginGroup.valid) {
