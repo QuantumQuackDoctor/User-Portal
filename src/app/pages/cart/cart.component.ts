@@ -44,7 +44,6 @@ export class CartComponent implements OnInit {
     this.cartService.cartSubject.subscribe((foodOrders: FoodOrder[]) => {
       this.foodOrders = foodOrders;
       this.cartTotal = this.cartService.cartTotal;
-      console.log (foodOrders);
     });
   }
 
@@ -91,12 +90,26 @@ export class CartComponent implements OnInit {
     }
   }
 
+  convertToUTC (date: Date): Date{
+    date.setFullYear(date.getUTCFullYear());
+    date.setMonth(date.getUTCMonth());
+    date.setDate(date.getUTCDate());
+    date.setHours(date.getUTCHours());
+    date.setMinutes(date.getUTCMinutes());
+    date.setSeconds(date.getUTCSeconds());
+    date.setMilliseconds(date.getUTCMilliseconds());
+
+    return date;
+  }
+
   placeOrder() {
     if (this.checkRequiredFields()) {
-      let deliveryTime = this.getDeliveryTime();
+      let deliveryTime: Date = this.convertToUTC(this.getDeliveryTime());
+      let currentUTC: Date = this.convertToUTC(new Date());
+
       let orderTime = new OrderTime(
         null,
-        new Date(Date.now()),
+        currentUTC,
         null,
         null,
         null,

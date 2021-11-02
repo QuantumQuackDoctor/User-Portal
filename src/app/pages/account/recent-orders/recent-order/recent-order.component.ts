@@ -4,6 +4,7 @@ import {FoodOrder} from "../../../../models/FoodOrder/food-order";
 import {OrderService} from "../../../../services/order.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CartService} from "../../../../services/cart.service";
+import {RestaurantService} from "../../../../services/restaurant.service";
 
 @Component({
   selector: 'app-recent-order',
@@ -14,13 +15,16 @@ export class RecentOrderComponent {
 
   @Input() order: Order;
 
-  constructor(private orderService: OrderService, private modalService: NgbModal, private cartService: CartService) {
+  constructor(private orderService: OrderService, private modalService: NgbModal, private cartService: CartService,
+              private restaurantService: RestaurantService) {
   }
 
-  reOrder (){
+  reOrder() {
     for (let foodOrder of this.order.food) {
-      for (let item of foodOrder.items){
-        this.cartService.addToCart(item, foodOrder.restaurantId);
+      for (let item of foodOrder.items) {
+        this.cartService.addToCart(this.restaurantService.getItems(foodOrder.restaurantId)
+            .find (element => element.id == item.id),
+          foodOrder.restaurantId);
       }
     }
   }
