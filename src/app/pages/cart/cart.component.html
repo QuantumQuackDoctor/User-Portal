@@ -1,4 +1,35 @@
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Order Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.close('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="this.orderDetails.enabled"
+          [formGroup]="orderDetails"
+          (keyup)="orderDetails.updateValueAndValidity()">
+      <div class="form-group">
+        <label for="restaurantNote">Restaurant Note</label>
+        <input type="text" class="form-control" id="restaurantNote" formControlName="restaurantNote">
+      </div>
+      <div class="form-group">
+        <label for="driverNote">Delivery Instructions</label>
+        <input type="text" class="form-control" id="driverNote" formControlName="driverNote">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success me-auto" (click)="placeOrder(); modal.close ('Close click')">
+      Place Order
+    </button>
+    <button type="button" class="btn btn-light" (click)="modal.dismiss('dismiss click')">
+      Close
+    </button>
+  </div>
+</ng-template>
+
 <app-header></app-header>
+
 <div class="p-0 bg-white p-2">
   <div *ngIf="foodOrders.length === 0" class="alert alert-info">
     Your Cart is Empty.
@@ -69,7 +100,7 @@
           <button
             type="submit"
             class="btn btn-sm btn-success"
-            (click)="placeOrder()"
+            (click)="openModal(modalContent)"
           >
             Checkout
           </button>

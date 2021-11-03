@@ -5,6 +5,8 @@ import {Price} from '../../models/price/price';
 import {FoodOrder} from '../../models/FoodOrder/food-order';
 import {OrderTime} from '../../models/OrderTime/order-time';
 import {CreateTokenComponent} from "./create-token/create-token.component";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +16,8 @@ import {CreateTokenComponent} from "./create-token/create-token.component";
 export class CartComponent implements OnInit {
 
   @ViewChild(CreateTokenComponent) createToken: CreateTokenComponent;
+
+  orderDetails: FormGroup;
 
   selectedTime = 'Select Delivery Time';
   selectedDelivery = 'Select Delivery or Pickup';
@@ -36,8 +40,13 @@ export class CartComponent implements OnInit {
   cartTotal = 0;
 
   constructor(
+    private modalService: NgbModal,
     private cartService: CartService,
   ) {
+    this.orderDetails = new FormGroup({
+      driverNote: new FormControl("", Validators.required),
+      restaurantNote: new FormControl("", Validators.required)
+    });
   }
 
   ngOnInit() {
@@ -45,6 +54,10 @@ export class CartComponent implements OnInit {
       this.foodOrders = foodOrders;
       this.cartTotal = this.cartService.cartTotal;
     });
+  }
+
+  openModal(content) {
+    this.modalService.open(content, {centered: true})
   }
 
   clearCart() {
@@ -103,13 +116,15 @@ export class CartComponent implements OnInit {
   }
 
   placeOrder() {
+    this.orderDetails.updateValueAndValidity();
+    let formValues = this.orderDetails.value;
     if (this.checkRequiredFields()) {
       let deliveryTime: Date = this.convertToUTC(this.getDeliveryTime());
       let currentUTC: Date = this.convertToUTC(new Date());
 
       let orderTime = new OrderTime(
-        null,
         currentUTC,
+        null,
         null,
         null,
         null,
@@ -136,6 +151,12 @@ export class CartComponent implements OnInit {
         new Price(this.cartTotal * 100, null, null),
         foodOrders
       );
+
+      orderDTO.restaurantNote = formValues.restaurantNote;
+      orderDTO.driverNote = formValues.driverNote;
+
+      console.log (orderDTO);
+
       this.createToken.createToken(orderDTO);
     }
   }

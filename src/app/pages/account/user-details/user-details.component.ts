@@ -110,7 +110,7 @@ export class UserDetailsComponent implements OnInit {
 
   toggleInput() {
     if (!this.inputsDisabled){
-      location.reload();
+      this.userService.getUserDetails();
     }
     this.inputsDisabled = !this.inputsDisabled;
   }

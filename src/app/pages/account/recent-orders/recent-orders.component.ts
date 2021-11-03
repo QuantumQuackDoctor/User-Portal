@@ -22,8 +22,8 @@ export class RecentOrdersComponent implements OnInit {
   sortOrders(orders: Order[]): Order[] {
     let topFive: Order[] = [];
     orders.sort((a, b) => {
-      let dateA = new Date(a.orderTime.restaurantAccept);
-      let dateB = new Date(b.orderTime.restaurantAccept);
+      let dateA = new Date(a.orderTime.orderPlaced);
+      let dateB = new Date(b.orderTime.orderPlaced);
       if (dateA.getTime() < dateB.getTime()) {
         return 1;
       } else if (dateA.getTime() > dateB.getTime()) {

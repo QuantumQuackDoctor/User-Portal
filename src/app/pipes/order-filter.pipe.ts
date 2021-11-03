@@ -23,7 +23,7 @@ export class OrderFilterPipe implements PipeTransform {
     }
     if (startDate != undefined || endDate != undefined) {
       orders = orders.filter(order => {
-        let orderTime: number = new Date(order.orderTime.restaurantAccept).getTime();
+        let orderTime: number = new Date(order.orderTime.orderPlaced).getTime();
         if (startDate != undefined) {
           return (orderTime >= startDate.getTime()) && (endDate ? endDate.getTime() > orderTime : true);
         } else {

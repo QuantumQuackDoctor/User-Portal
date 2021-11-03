@@ -54,8 +54,8 @@ export class OrdersComponent implements OnInit{
   ngOnInit(): void {
     this.orderService.orderList.subscribe((res) => {
       this.fullOrderList = res.sort((a, b) => {
-        let dateA = new Date(a.orderTime.restaurantAccept);
-        let dateB = new Date(b.orderTime.restaurantAccept);
+        let dateA = new Date(a.orderTime.orderPlaced);
+        let dateB = new Date(b.orderTime.orderPlaced);
         if (dateA.getTime() < dateB.getTime()) {
           return 1;
         } else if (dateA.getTime() > dateB.getTime()) {
@@ -94,7 +94,7 @@ export class OrdersComponent implements OnInit{
   }
 
   checkMonthChange(order: Order, cursor: number): boolean {
-    let month = new Date(order.orderTime.restaurantAccept).getMonth() + 1;
+    let month = new Date(order.orderTime.orderPlaced).getMonth() + 1;
     if (this.currentMonth != month) {
       this.currentMonth = month;
       return true;

@@ -19,6 +19,24 @@ export class OrderService {
   constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {
   }
 
+  cancelOrder(order: Order) {
+    let deleteParams = new HttpParams().set ('id', order?.id);
+    this.http.delete(this.baseOrderURL + '/user', {
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      params: deleteParams
+    }).subscribe(() =>{
+
+      });
+  }
+
+  updateOrderDetail(order: Order) {
+    this.http.patch(this.baseOrderURL + '/details', order, {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }).subscribe(() => {
+      this.getOrders();
+    })
+  }
+
   getOrders() {
     this.http.get <Order[]>(this.baseOrderURL + "/user").subscribe(
       res => {
@@ -48,10 +66,8 @@ export class OrderService {
   }
 
   placeOrder(product: Order) {
-    let parameters = new HttpParams().set("userId", Number(localStorage.getItem("userId")));
     this.http.put(this.baseOrderURL, product, {
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      params: parameters
     }).subscribe(
       (result) => {
         let orderNotification = JSON.parse(localStorage.getItem('emailOrder'));
