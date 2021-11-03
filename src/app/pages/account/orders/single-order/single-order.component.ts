@@ -30,7 +30,7 @@ export class SingleOrderComponent {
 
   cancelOrder(){
     this.orderService.cancelOrder (this.order);
-    this.orderService.getOrders();
+    location.reload();
   }
 
   closeModals(){
