@@ -109,6 +109,9 @@ export class UserDetailsComponent implements OnInit {
   }
 
   toggleInput() {
+    if (!this.inputsDisabled){
+      this.userService.getUserDetails();
+    }
     this.inputsDisabled = !this.inputsDisabled;
   }
 }

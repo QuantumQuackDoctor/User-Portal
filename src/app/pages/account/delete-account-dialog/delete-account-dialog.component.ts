@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user-service.service';
+import {Component} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/services/auth.service';
+import {UserService} from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-delete-account-dialog',
   templateUrl: './delete-account-dialog.component.html',
   styleUrls: ['./delete-account-dialog.component.css'],
 })
-export class DeleteAccountDialogComponent implements OnInit {
+export class DeleteAccountDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<DeleteAccountDialogComponent>,
     private userService: UserService,
@@ -17,11 +17,9 @@ export class DeleteAccountDialogComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
-
   delete(): void {
     this.dialogRef.close();
-    this.userService.deleteUser().subscribe((res) => {
+    this.userService.deleteUser().subscribe(() => {
       this.authService.logout();
       this.router.navigate(['/home']);
     });

@@ -10,7 +10,7 @@ describe('CartItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, ],
       providers: [MessengerService],
       declarations: [ CartItemComponent ]
     })

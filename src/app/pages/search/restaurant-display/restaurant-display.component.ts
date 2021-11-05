@@ -7,7 +7,7 @@ import { Restaurant } from 'src/app/models/Restaurant';
   templateUrl: './restaurant-display.component.html',
   styleUrls: ['./restaurant-display.component.css'],
 })
-export class RestaurantDisplayComponent implements OnInit {
+export class RestaurantDisplayComponent {
   @Input() restaurant: Restaurant = {
     id: 1,
     name: 'Restaurant',
@@ -31,9 +31,7 @@ export class RestaurantDisplayComponent implements OnInit {
     ratings: [],
   };
   iconImage = null;
-  faStar = faStar;
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor() {
+  }
 }

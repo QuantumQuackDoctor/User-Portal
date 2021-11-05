@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
+import {faLock} from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from 'src/app/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -41,7 +41,7 @@ export class LoginFormComponent {
   onSubmit() {
     if (this.loginGroup.valid) {
       this.authService.login(this.loginGroup.value).subscribe(
-        (res) => {
+        () => {
           this.loginError = false;
           this.router.navigate([this.returnUrl]);
         },

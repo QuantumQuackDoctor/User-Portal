@@ -61,7 +61,7 @@ export class RestaurantComponent implements OnInit {
     el.scrollIntoView();
   }
 
-  encodedAdress() {
+  encodedAddress() {
     return encodeURIComponent(this.restaurant.address);
   }
 }
