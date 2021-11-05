@@ -55,7 +55,7 @@ export class OrderService {
           alert(chargeResponse.error);
         } else {
           alert("Thanks for the money");
-          this.placeOrder(orderDTO);
+          this.placeOrder(orderDTO, JSON.parse(chargeResponse.charge).id);
           this.clearCart.next();
         }
       },
@@ -65,9 +65,11 @@ export class OrderService {
     );
   }
 
-  placeOrder(product: Order) {
+  placeOrder(product: Order, chargeId: string) {
+    let orderParams = new HttpParams().set ('chargeId', chargeId);
     this.http.put(this.baseOrderURL, product, {
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      params: orderParams
     }).subscribe(
       (result) => {
         let orderNotification = JSON.parse(localStorage.getItem('emailOrder'));

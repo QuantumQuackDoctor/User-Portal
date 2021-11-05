@@ -29,6 +29,7 @@ export class SingleOrderComponent {
   }
 
   cancelOrder(){
+    console.log (this.order);
     this.orderService.cancelOrder (this.order);
     location.reload();
   }
