@@ -8,13 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
-    "lint": "gts lint",
-    "clean": "gts clean",
-    "compile": "tsc",
-    "fix": "gts fix",
-    "prepare": "npm.cmd run compile",
-    "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run lint"
+    "sonar": "sonar-scanner",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +36,7 @@
     "font-awesome": "^4.7.0",
     "ngx-pagination": "^5.1.1",
     "ngx-stripe": "^12.4.0",
+    "puppeteer": "^10.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "use-places-autocomplete": "^1.10.0",
@@ -64,10 +60,11 @@
     "eslint": "^7.26.0",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
-    "karma-chrome-launcher": "~3.1.0",
+    "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "sonar-scanner": "^3.1.0",
     "typescript": "~4.3.2"
   }
 }

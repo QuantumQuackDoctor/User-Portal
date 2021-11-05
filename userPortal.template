@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "this template creates a cloudfront distribution for a bucket"
+
+Parameters:
+  RouteName:
+    Type: String
+  Environment:
+    Type: String
+    Default: prod
+    AllowedValues:
+      - "prod"
+      - "dev"
+      - "test"
+Resources:
+  CachePolicy:
+    Type: AWS::CloudFront::CachePolicy
+    Properties:
+      CachePolicyConfig:
+        DefaultTTL: 10
+        MaxTTL: 60
+        MinTTL: 5
+        Name: !Sub "UserPortalCachePolicy-${Environment}"
+        ParametersInCacheKeyAndForwardedToOrigin:
+          EnableAcceptEncodingGzip: true
+          EnableAcceptEncodingBrotli: true
+          CookiesConfig:
+            CookieBehavior: none
+          HeadersConfig:
+            HeaderBehavior: none
+          QueryStringsConfig:
+            QueryStringBehavior: none
+  CloudfrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !Sub "{{resolve:secretsmanager:UserPortalDomainName-${Environment}}}"
+            Id: "S3-user-portal"
+            S3OriginConfig:
+              OriginAccessIdentity: !Join
+                - ""
+                - - "origin-access-identity/cloudfront/"
+                  - !Sub "{{resolve:secretsmanager:S3AccessIdentity-${Environment}}}"
+        IPV6Enabled: false
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          CachePolicyId: !Ref CachePolicy
+          TargetOriginId: "S3-user-portal"
+          ViewerProtocolPolicy: redirect-to-https
+        Aliases:
+          - !Ref RouteName
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        DefaultRootObject: index.html
+        Enabled: true
+        HttpVersion: http2
+        ViewerCertificate:
+          AcmCertificateArn: !Sub "{{resolve:secretsmanager:CertificateARN-${Environment}}}"
+          MinimumProtocolVersion: TLSv1.2_2018
+          SslSupportMethod: "sni-only"
+
+      Tags:
+        - Key: name
+          Value: "UserDistribution"
+  RecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: !Ref RouteName
+      Comment: "points to user-portal cloudfront distribution"
+      HostedZoneId: !Sub "{{resolve:secretsmanager:HostedZoneId-${Environment}}}"
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - !GetAtt CloudfrontDistribution.DomainName

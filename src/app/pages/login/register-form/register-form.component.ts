@@ -1,12 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators,} from '@angular/forms';
-import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
-import {faLock} from '@fortawesome/free-solid-svg-icons';
-import {AuthService} from 'src/app/services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {User} from 'src/app/models/User';
-import {Subscription} from 'rxjs';
-import {HttpErrorResponse} from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/User';
+import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-form',
@@ -67,7 +73,7 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
           },
         ],
       }),
-      veteranStatus: new FormControl(false, Validators.required),
+      isVeteran: new FormControl(false, Validators.required),
       textNotifications: new FormControl(false, {
         validators: [
           Validators.required,
@@ -150,7 +156,7 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       phone: formValue.phone,
-      isVeteran: formValue.veteranStatus,
+      isVeteran: formValue.isVeteran,
       DOB: formValue.DOB,
       orders: [],
       settings: {

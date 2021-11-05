@@ -1,21 +1,23 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {User} from '../models/User';
-import {UserErrorHandlerService} from "./user-error-handler.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { User } from '../models/User';
+import { UserErrorHandlerService } from './user-error-handler.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-
   userDetails: Subject<User> = new Subject<User>();
 
-  constructor(private http: HttpClient, private errorHandler: UserErrorHandlerService) {
-  }
+  constructor(
+    private http: HttpClient,
+    private errorHandler: UserErrorHandlerService
+  ) {}
 
   public getUserDetails(): Observable<User> {
-    return this.http.get<User>('/accounts/user');
+    return this.http.get<User>(environment.baseURL + '/accounts/user');
   }
 
   /**
@@ -23,7 +25,9 @@ export class UserService {
    * @returns
    */
   public deleteUser(): Observable<string> {
-    return this.http.delete('/accounts/user', {responseType: 'text'});
+    return this.http.delete(environment.baseURL + '/accounts/user', {
+      responseType: 'text',
+    });
   }
 
   updateUser(user: User) {
@@ -48,5 +52,4 @@ export class UserService {
         this.errorHandler.handleError('updateSettings')
       });
   }
-
 }

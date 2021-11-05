@@ -94,4 +94,19 @@ export class AuthService {
     this.http.get(`${this.baseUrl}/accounts/authenticated`);
     //LoginErrorInterceptor handles logout
   }
+
+  requestReset(email: string) {
+    return this.http.get(
+      `${this.baseUrl}/accounts/reset-password/user/${email}`
+    );
+  }
+
+  resetPassword(request: PasswordResetRequest) {
+    return this.http.post(`${this.baseUrl}/accounts/reset-password`, request);
+  }
+}
+
+interface PasswordResetRequest {
+  email: string;
+  token: string;
 }

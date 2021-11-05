@@ -44,6 +44,8 @@ import { RecentOrderComponent } from './pages/account/recent-orders/recent-order
 import { NgxPaginationModule } from "ngx-pagination";
 import { SingleOrderComponent } from './pages/account/orders/single-order/single-order.component';
 import { OrderFilterPipe } from './pipes/order-filter.pipe';
+import { ForgotPasswordComponent } from './pages/login/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/login/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { OrderFilterPipe } from './pipes/order-filter.pipe';
     RecentOrderComponent,
     SingleOrderComponent,
     OrderFilterPipe,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

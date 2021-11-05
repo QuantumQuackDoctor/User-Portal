@@ -40,7 +40,9 @@ export class SearchService {
       .append('page', this._page)
       .append('size', this._size);
 
-    return this.http.get(this.baseUrl + '/restaurants', { params: params });
+    return this.http.get(this.baseUrl + `/restaurants/search`, {
+      params: params,
+    });
   }
 
   get search(): string {

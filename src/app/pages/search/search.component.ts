@@ -1,33 +1,9 @@
-import {Component} from '@angular/core';
-import {faStar} from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit } from '@angular/core';
+import { faBars, faStar } from '@fortawesome/free-solid-svg-icons';
 
-import {SearchService} from '../../services/search.service';
-import {Router} from '@angular/router';
-
-export interface Hours {
-  mon: string;
-  tue: string;
-  wed: string;
-  thu: string;
-  fri: string;
-  sat: string;
-  sun: string;
-}
-
-export interface Restaurant {
-  id: number;
-  name: string;
-  iconId: string;
-  backgroundId: string;
-  averageTime: number;
-  averageRating: number;
-  priceRating: number;
-  address: string;
-  hours: Hours;
-  search: string;
-  menu: string;
-  ratings: Array<any>;
-}
+import { SearchService } from '../../services/search.service';
+import { Router } from '@angular/router';
+import { Restaurant } from 'src/app/models/Restaurant';
 
 @Component({
   selector: 'app-search',
@@ -43,52 +19,6 @@ export class SearchComponent {
 
   constructor(private searchService: SearchService, public router: Router) {
     // this.searchResults = this.EXAMPLE_DATA.slice();
-    this.searchResults = [
-      {
-        id: 1,
-        name: 'Restaurant',
-        iconId: '2',
-        backgroundId: '2',
-        averageTime: 10,
-        averageRating: 5,
-        priceRating: 4,
-        address: 'address',
-        hours: {
-          mon: '',
-          tue: '',
-          wed: '',
-          thu: '',
-          fri: '',
-          sat: '',
-          sun: '',
-        },
-        search: 'restaurant',
-        menu: '',
-        ratings: [],
-      },
-      {
-        id: 2,
-        name: 'Restaurant2',
-        iconId: '2',
-        backgroundId: '2',
-        averageTime: 2,
-        averageRating: 5,
-        priceRating: 4,
-        address: 'address',
-        hours: {
-          mon: '',
-          tue: '',
-          wed: '',
-          thu: '',
-          fri: '',
-          sat: '',
-          sun: '',
-        },
-        search: 'tar',
-        menu: '',
-        ratings: [],
-      },
-    ];
     this.output = '';
   }
 
