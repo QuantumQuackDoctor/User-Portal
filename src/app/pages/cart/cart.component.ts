@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {CartService} from 'src/app/services/cart.service';
 import {Order} from '../../models/order/order';
 import {Price} from '../../models/price/price';
@@ -13,11 +13,13 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
 
   @ViewChild(CreateTokenComponent) createToken: CreateTokenComponent;
 
   orderDetails: FormGroup;
+
+  loading: boolean = false;
 
   selectedTime = 'Select Delivery Time';
   selectedDelivery = 'Select Delivery or Pickup';
@@ -47,9 +49,6 @@ export class CartComponent implements OnInit {
       driverNote: new FormControl("", Validators.required),
       restaurantNote: new FormControl("", Validators.required)
     });
-  }
-
-  ngOnInit() {
     this.cartService.cartSubject.subscribe((foodOrders: FoodOrder[]) => {
       this.foodOrders = foodOrders;
       this.cartTotal = this.cartService.cartTotal;
@@ -61,7 +60,9 @@ export class CartComponent implements OnInit {
   }
 
   clearCart() {
+    this.modalService.dismissAll();
     this.cartService.clearCart();
+    this.loading = false;
     this.foodOrders = [];
     this.cartTotal = this.cartService.cartTotal;
   }
@@ -154,8 +155,6 @@ export class CartComponent implements OnInit {
 
       orderDTO.restaurantNote = formValues.restaurantNote;
       orderDTO.driverNote = formValues.driverNote;
-
-      console.log (orderDTO);
 
       this.createToken.createToken(orderDTO);
     }

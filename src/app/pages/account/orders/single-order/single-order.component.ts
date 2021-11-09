@@ -7,6 +7,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {RestaurantService} from "../../../../services/restaurant.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {faPen} from '@fortawesome/free-solid-svg-icons';
+import {Restaurant} from "../../../../models/Restaurant";
 
 @Component({
   selector: 'app-single-order',
@@ -19,8 +20,13 @@ export class SingleOrderComponent {
   faPen = faPen;
   orderNotes: FormGroup;
 
+  restaurants: Restaurant[] = [];
+
   constructor(private orderService: OrderService, private cartService: CartService, private modalService: NgbModal,
               private restaurantService: RestaurantService) {
+    this.restaurantService.restaurantSubject.subscribe((restaurant: Restaurant) => {
+      this.restaurants.push(restaurant);
+    });
     this.orderNotes = new FormGroup({
       driverNote: new FormControl(this.order?.driverNote, Validators.required),
       restaurantNote: new FormControl(this.order?.restaurantNote, Validators.required)
@@ -28,54 +34,56 @@ export class SingleOrderComponent {
     this.orderNotes.disable();
   }
 
-  cancelOrder(){
-    console.log (this.order);
-    this.orderService.cancelOrder (this.order);
+
+  cancelOrder() {
+    this.orderService.cancelOrder(this.order);
     location.reload();
   }
 
-  closeModals(){
+  closeModals() {
     this.modalService.dismissAll();
   }
 
-  printFood (foodOrder: FoodOrder): string{
+  printFood(foodOrder: FoodOrder): string {
     return this.orderService.printFood(foodOrder);
   }
 
-  checkDeliverySlot (slot: Date): boolean{
-    if (slot == null){
+  checkDeliverySlot(slot: Date): boolean {
+    if (slot == null) {
       return false;
     }
-    let timeSlot: Date = new Date (slot);
-    let currentTime: Date = new Date ();
+    let timeSlot: Date = new Date(slot);
+    let currentTime: Date = new Date();
     return ((timeSlot.getTime() - currentTime.getTime()) / (1000 * 60)) > 10;
   }
 
   orderDetails(content) {
+    if (this.restaurants.length === 0){
+      for (let foodOrder of this.order.food) {
+        this.restaurantService.getRestaurant(foodOrder.restaurantId);
+      }
+    }
     this.modalService.open(content, {centered: true})
-    console.log (this.order);
   }
 
-  reOrder (){
+  reOrder() {
     for (let foodOrder of this.order.food) {
-      for (let item of foodOrder.items){
-        this.cartService.addToCart(this.restaurantService.getItems(foodOrder.restaurantId)
-            .find (element => element.id == item.id),
-          foodOrder.restaurantId);
+      for (let item of foodOrder.items) {
+        this.cartService.addToCart(item, foodOrder.restaurantId);
       }
     }
   }
 
-  toggleNoteInput (){
+  toggleNoteInput() {
     this.orderNotes.updateValueAndValidity();
-    if (this.orderNotes.disabled){
+    if (this.orderNotes.disabled) {
       this.orderNotes.enable();
-    }else{
+    } else {
       this.orderNotes.disable();
     }
   }
 
-  submitNoteUpdate (){
+  submitNoteUpdate() {
     //Update Order with notes;
     this.orderNotes.updateValueAndValidity();
     let formValues = this.orderNotes.value;

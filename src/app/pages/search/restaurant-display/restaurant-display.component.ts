@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { Restaurant } from 'src/app/models/Restaurant';
+import {Component, Input} from '@angular/core';
+import {Restaurant} from 'src/app/models/Restaurant';
 
 @Component({
   selector: 'app-restaurant-display',
@@ -8,7 +7,8 @@ import { Restaurant } from 'src/app/models/Restaurant';
   styleUrls: ['./restaurant-display.component.css'],
 })
 export class RestaurantDisplayComponent {
-  @Input() restaurant: Restaurant = {
+  @Input() restaurant: Restaurant;
+  /* = {
     id: 1,
     name: 'Restaurant',
     iconId: '2',
@@ -29,7 +29,7 @@ export class RestaurantDisplayComponent {
     search: 'restaurant',
     menu: [],
     ratings: [],
-  };
+  };*/
   iconImage = null;
 
   constructor() {

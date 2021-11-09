@@ -7,6 +7,7 @@ import {CartService} from "../../../../services/cart.service";
 import {RestaurantService} from "../../../../services/restaurant.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {faPen} from '@fortawesome/free-solid-svg-icons';
+import {Restaurant} from "../../../../models/Restaurant";
 
 @Component({
   selector: 'app-recent-order',
@@ -19,6 +20,8 @@ export class RecentOrderComponent {
   faPen = faPen;
   orderNotes: FormGroup;
 
+  restaurants: Restaurant[]
+
   constructor(private orderService: OrderService,
               private modalService: NgbModal,
               private cartService: CartService,
@@ -28,6 +31,9 @@ export class RecentOrderComponent {
       restaurantNote: new FormControl(this.order?.restaurantNote, Validators.required)
     });
     this.orderNotes.disable();
+    this.restaurantService.restaurantSubject.subscribe((restaurant:Restaurant) => {
+      this.restaurants.push (restaurant);
+    });
   }
 
   cancelOrder(){
@@ -60,9 +66,7 @@ export class RecentOrderComponent {
   reOrder() {
     for (let foodOrder of this.order.food) {
       for (let item of foodOrder.items) {
-        this.cartService.addToCart(this.restaurantService.getItems(foodOrder.restaurantId)
-            .find(element => element.id == item.id),
-          foodOrder.restaurantId);
+        this.cartService.addToCart(item, foodOrder.restaurantId);
       }
     }
   }

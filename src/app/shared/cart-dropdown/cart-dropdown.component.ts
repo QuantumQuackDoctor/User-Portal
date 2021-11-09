@@ -21,7 +21,9 @@ export class CartDropdownComponent implements OnDestroy {
     this.cartSubscription = cartService.cartSubject.subscribe((cart) => {
       this.currentCart = cart;
       this.numItems = this.countItems(cart);
-      if (this.dropdown) this.openDelayed();
+      if (this.dropdown) {
+        this.openDelayed();
+      }
     });
   }
 

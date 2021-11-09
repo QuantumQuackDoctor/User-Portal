@@ -73,10 +73,10 @@ export class CartService {
   }
 
   private calculateCartTotal(cart: FoodOrder[]) {
-    let total = 0;
+    let total: number = 0;
     cart.forEach((foodOrder: FoodOrder) => {
       foodOrder.items.forEach((item) => {
-        total += item.quantity * item.price;
+        total += (item.quantity * item.price);
       });
     });
     return total;

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Item } from '../../../models/item/item';
 import { CartService } from '../../../services/cart.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +20,7 @@ export class RestaurantItemComponent {
   ) {
     this.menuId = this.actRoute.snapshot.params.id;
   }
-  
+
   handleAddToCart() {
     this.menuItem.quantity = 1;
     this.cartService.addToCart(this.menuItem, this.menuId);

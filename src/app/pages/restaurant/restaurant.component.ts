@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RestaurantService } from '../../services/restaurant.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { Restaurant } from '../../models/Restaurant';
+import {Component, OnInit} from '@angular/core';
+import {RestaurantService} from '../../services/restaurant.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Restaurant} from '../../models/Restaurant';
 
 @Component({
   selector: 'app-restaurant',
@@ -31,7 +30,6 @@ export class RestaurantComponent implements OnInit {
     },
     ratings: [],
   };
-  starIcon = faStar;
   days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
   constructor(
@@ -40,19 +38,19 @@ export class RestaurantComponent implements OnInit {
     private router: Router
   ) {
     this.menuId = this.actRoute.snapshot.params.id;
-  }
-
-  ngOnInit() {
-    this.restaurantService.getRestaurant(this.menuId).subscribe(
-      (restuarant: Restaurant) => {
-        this.restaurant = restuarant;
+    this.restaurantService.restaurantSubject.subscribe(
+      (restaurant: Restaurant) => {
+        this.restaurant = restaurant;
       },
-      (err) => {
+      () => {
         this.router.navigate(['/home']);
       }
     );
   }
 
+  ngOnInit() {
+    this.restaurantService.getRestaurant(this.menuId);
+  }
   createRange(length: number): Array<number> {
     return new Array(length);
   }

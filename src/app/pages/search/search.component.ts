@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { faBars, faStar } from '@fortawesome/free-solid-svg-icons';
+import {Component} from '@angular/core';
+import {faStar} from '@fortawesome/free-solid-svg-icons';
 
-import { SearchService } from '../../services/search.service';
-import { Router } from '@angular/router';
-import { Restaurant } from 'src/app/models/Restaurant';
+import {SearchService} from '../../services/search.service';
+import {Router} from '@angular/router';
+import {Restaurant} from 'src/app/models/Restaurant';
 
 @Component({
   selector: 'app-search',
@@ -11,6 +11,7 @@ import { Restaurant } from 'src/app/models/Restaurant';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent {
+
   searchResults: Restaurant[];
   output: string;
   isAsc: boolean = true;
@@ -19,6 +20,53 @@ export class SearchComponent {
 
   constructor(private searchService: SearchService, public router: Router) {
     // this.searchResults = this.EXAMPLE_DATA.slice();
+    /*this.output = '';*/
+    this.searchResults = [
+      {
+        id: 1,
+        name: 'Restaurant',
+        iconId: '2',
+        backgroundId: '2',
+        averageTime: 10,
+        averageRating: 5,
+        priceRating: 4,
+        address: 'address',
+        hours: {
+          MON: '',
+          TUE: '',
+          WED: '',
+          THU: '',
+          FRI: '',
+          SAT: '',
+          SUN: '',
+        },
+        search: 'restaurant',
+        menu: [],
+        ratings: [],
+      },
+      {
+        id: 2,
+        name: 'Restaurant2',
+        iconId: '2',
+        backgroundId: '2',
+        averageTime: 2,
+        averageRating: 5,
+        priceRating: 4,
+        address: 'address',
+        hours: {
+          MON: '',
+          TUE: '',
+          WED: '',
+          THU: '',
+          FRI: '',
+          SAT: '',
+          SUN: '',
+        },
+        search: 'tar',
+        menu: [],
+        ratings: [],
+      },
+    ];
     this.output = '';
   }
 

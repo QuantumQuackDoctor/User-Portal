@@ -78,11 +78,6 @@ export class OrdersComponent implements OnInit{
     }else {
       this.priceRanges.push (range);
     }
-    console.log (this.priceRanges)
-  }
-
-  test (event){
-    console.log (event)
   }
 
   updateStart (event){

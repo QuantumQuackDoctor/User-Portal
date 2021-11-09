@@ -7,34 +7,34 @@
     alt=""
   />
   <div class="bg-white border p-3">
-    <div class="container">
-      <h2 id="title">{{ restaurant?.name }}</h2>
-      <div>{{ restaurant?.address }}</div>
-      <div class="d-flex gap-3">
-        <!-- Stars and dollar signs are bound to restaurant.rating and restaurant.priceRating, the restaurant object is currently a placeholder -->
-        <span>
-          <app-star [stars]="restaurant.averageRating"></app-star>
-          <span class="text-secondary mx-1">{{
-            restaurant.ratings.length
-          }}</span>
-        </span>
-        <span>
-          <span
-            class="text-dark"
-            *ngFor="let index of createRange(restaurant?.priceRating)"
-            >$</span
-          >
-          <span
-            class="text-secondary"
-            *ngFor="let index of createRange(5 - restaurant?.priceRating)"
-            >$</span
-          >
-        </span>
-        <span class="text-secondary"
-          >{{ restaurant?.averageTime }} minutes</span
-        >
-      </div>
-    </div>
+        <div class="container">
+          <h2 id="title">{{ restaurant?.name }}</h2>
+          <div>{{ restaurant?.address }}</div>
+          <div class="d-flex gap-3">
+            <!-- Stars and dollar signs are bound to restaurant.rating and restaurant.priceRating, the restaurant object is currently a placeholder -->
+            <span>
+              <app-star [stars]="restaurant.averageRating"></app-star>
+              <span class="text-secondary mx-1">{{
+                restaurant.ratings.length
+              }}</span>
+            </span>
+            <span>
+              <span
+                class="text-dark"
+                *ngFor="let index of createRange(restaurant?.priceRating)"
+                >$</span
+              >
+              <span
+                class="text-secondary"
+                *ngFor="let index of createRange(5 - restaurant?.priceRating)"
+                >$</span
+              >
+            </span>
+            <span class="text-secondary"
+              >{{ restaurant?.averageTime }} minutes</span
+            >
+          </div>
+        </div>
   </div>
   <div class="bg-color-main border p-3">
     <div class="container">
@@ -43,19 +43,19 @@
           (click)="scroll(menu)"
           role="button"
           class="text-decoration-none link-secondary"
-          >Menu</a
+        >Menu</a
         >
         <a
           (click)="scroll(description)"
           role="button"
           class="text-decoration-none link-secondary"
-          >About</a
+        >About</a
         >
         <a
           (click)="scroll(reviews)"
           role="button"
           class="text-decoration-none link-secondary"
-          >Reviews</a
+        >Reviews</a
         >
       </div>
     </div>
@@ -73,22 +73,22 @@
     <div class="container">
       <!-- About restaurant -->
       <div class="row gy-3 border-bottom border-dark py-4" #description>
-        <div class="col-12">
-          <h3>Restaurant name</h3>
-          <div class="text-primary">Tags, Tags, Tags, Tags,</div>
-          <div>
-            <span
-              class="text-dark"
-              *ngFor="let index of createRange(restaurant?.priceRating)"
-              >$</span
-            >
-            <span
-              class="text-secondary"
-              *ngFor="let index of createRange(5 - restaurant?.priceRating)"
-              >$</span
-            >
-          </div>
-        </div>
+                <div class="col-12">
+                  <h3>Restaurant name</h3>
+                  <div class="text-primary">Tags, Tags, Tags, Tags,</div>
+                  <div>
+                    <span
+                      class="text-dark"
+                      *ngFor="let index of createRange(restaurant?.priceRating)"
+                      >$</span
+                    >
+                    <span
+                      class="text-secondary"
+                      *ngFor="let index of createRange(5 - restaurant?.priceRating)"
+                      >$</span
+                    >
+                  </div>
+                </div>
         <div class="col-md-6">
           <div class="bg-light p-2 rounded">Address</div>
           <a
@@ -99,7 +99,7 @@
             class="d-flex p-2 border-bottom"
             target="_blank"
             rel="noopener noreferrer"
-            >{{ restaurant?.address }}</a
+          >{{ restaurant?.address }}</a
           >
         </div>
         <div class="col-md-6">
