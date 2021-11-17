@@ -26,8 +26,9 @@ export interface Restaurant {
 }
 
 export interface RestaurantReview {
-  username: string;
-  imageURL: string;
-  stars: number;
-  description: string;
+  username?: string;
+  restaurant?: number;
+  imageURL?: string;
+  stars?: number;
+  description?: string;
 }

@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {Restaurant} from '../models/Restaurant';
+import {Restaurant, RestaurantReview} from '../models/Restaurant';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +37,12 @@ export class RestaurantService {
           restaurant.hours = this.hours;
         this.restaurantSubject.next(restaurant);
       });
+  }
+
+  submitReview(review: RestaurantReview){
+    console.log (review);
+    this.http.put (environment.baseURL + '/restaurants/rating', review).subscribe((res) => {
+      console.log (res);
+    })
   }
 }

@@ -66,13 +66,11 @@
   </div>
   <div class="modal-body">
 
-    <ngb-rating [rate]=3>
+    <ngb-rating [(rate)] = this.currentStars>
       <ng-template let-fill="fill" let-index="index">
-
         <span [class.filled]="fill === 100">
           <fa-icon
             [icon]="faStar"
-
           ></fa-icon>
         </span>
 
@@ -101,8 +99,8 @@
             (click)="toggleNoteInput()">
       <fa-icon [icon]="faPen"></fa-icon>
     </button>
-    <button type="button" class="btn btn-outline-success me-auto" [routerLink]="['/cart']"
-            (click)="reviewModal.close ('Close click'); orderNotes.disable()">
+    <button type="button" class="btn btn-outline-success me-auto"
+            (click)="submitReview(); reviewModal.close ('Close click');">
       Submit
     </button>
     <button type="button" class="btn btn-light" (click)="reviewModal.close('Close click'); orderNotes.disable()">

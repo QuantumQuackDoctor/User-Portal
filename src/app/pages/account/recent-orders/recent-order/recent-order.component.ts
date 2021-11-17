@@ -7,7 +7,7 @@ import {CartService} from "../../../../services/cart.service";
 import {RestaurantService} from "../../../../services/restaurant.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {faPen, faStar} from '@fortawesome/free-solid-svg-icons';
-import {Restaurant} from "../../../../models/Restaurant";
+import {Restaurant, RestaurantReview} from "../../../../models/Restaurant";
 
 @Component({
   selector: 'app-recent-order',
@@ -27,6 +27,7 @@ export class RecentOrderComponent {
   faStar = faStar;
   orderNotes: FormGroup;
   reviewForm: FormGroup;
+  currentStars: number = 0;
 
   restaurants: Restaurant[]
 
@@ -44,12 +45,25 @@ export class RecentOrderComponent {
       this.restaurants.push (restaurant);
     });
     this.reviewForm = new FormGroup(({
-      reviewBody: new FormControl("", Validators.required)
+      reviewBody: new FormControl("", Validators.required),
     }));
     this.reviewForm.enable();
     config.max = 5;
   }
 
+  submitReview (){
+    this.reviewForm.updateValueAndValidity();
+    let formValues = this.reviewForm.value;
+    let review: RestaurantReview = {
+      description: formValues.reviewBody,
+      stars: this.currentStars,
+      imageURL: '',
+      restaurant: this.order.food.pop().restaurantId
+    }
+
+    this.restaurantService.submitReview (review);
+
+  }
 
   cancelOrder(){
     this.orderService.cancelOrder (this.order);
