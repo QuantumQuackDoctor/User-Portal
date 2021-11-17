@@ -1,7 +1,7 @@
 <ng-template #modalContent let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Order Details</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.close('Cross click')">
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.close('Cross click'); loading = false;">
     </button>
   </div>
   <div class="modal-body">
@@ -19,16 +19,17 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button *ngIf = "loading != true" type="button" class="btn btn-success me-auto"
+    <button *ngIf="loading != true" type="button" class="btn btn-success me-auto"
             (click)="placeOrder(); loading = true;">
       Place Order
     </button>
-    <button *ngIf = "loading == true" type="button" disabled
+    <button *ngIf="loading == true" type="button" disabled
             class="btn btn-success me-auto">
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       <span> Loading...</span>
     </button>
-    <button type="button" class="btn btn-light" (click)="modal.dismiss('dismiss click')">
+    <button type="button" class="btn btn-light"
+            (click)="modal.dismiss('dismiss click'); loading = false;">
       Close
     </button>
   </div>
@@ -90,8 +91,12 @@
         >
           <label for="address" class="input-group-text">Address</label>
           <input
-            type="text"
-            [(ngModel)]="address"
+            matInput
+            matGoogleMapsAutocomplete
+            [(ngModel)]="addressInput"
+            (ngModelChange)="this.addressValid = false;"
+            [country]="['us']"
+            (onAutocompleteSelected)="onAutoCompleteSelected ($event)"
             class="form-control"
             id="address"
           />

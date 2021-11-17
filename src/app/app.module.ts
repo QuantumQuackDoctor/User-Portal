@@ -46,6 +46,9 @@ import { SingleOrderComponent } from './pages/account/orders/single-order/single
 import { OrderFilterPipe } from './pipes/order-filter.pipe';
 import { ForgotPasswordComponent } from './pages/login/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/login/reset-password/reset-password.component';
+import {AgmCoreModule} from "@agm/core";
+import {MatGoogleMapsAutocompleteModule} from "@angular-material-extensions/google-maps-autocomplete";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -92,6 +95,12 @@ import { ResetPasswordComponent } from './pages/login/reset-password/reset-passw
     RouterModule,
     NgxStripeModule.forRoot('pk_test_51JUCrpATHQZZA29u2Z9T83a5jPQIPVHCa0wooyuyiaj561uWh4iNt9ZhocS0nSPWTft9rCbksrjq3Dk8pqKSLad100ZrRTjE9z'),
     NgxPaginationModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCIXdo9Te7uZv_DwombQG4varVXRlyNsmo',
+      libraries: ['places']
+    }),
+    MatGoogleMapsAutocompleteModule,
+    MatInputModule,
   ],
   providers: [
     {

@@ -28,13 +28,13 @@ export class RestaurantService {
 
   }
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getRestaurant(id) {
     this.http.get<Restaurant>(environment.baseURL + `/restaurants/${id}`)
       .subscribe((restaurant) => {
-        restaurant.hours = this.hours;
+        if (!restaurant.hours)
+          restaurant.hours = this.hours;
         this.restaurantSubject.next(restaurant);
       });
   }

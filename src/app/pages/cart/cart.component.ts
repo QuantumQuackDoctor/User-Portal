@@ -1,3 +1,5 @@
+/// <reference types="@types/googlemaps" />
+
 import {Component, ViewChild} from '@angular/core';
 import {CartService} from 'src/app/services/cart.service';
 import {Order} from '../../models/order/order';
@@ -20,10 +22,11 @@ export class CartComponent {
   orderDetails: FormGroup;
 
   loading: boolean = false;
+  addressValid: boolean = false;
 
   selectedTime = 'Select Delivery Time';
   selectedDelivery = 'Select Delivery or Pickup';
-  address = '';
+  addressInput: string = '';
 
   deliveryTypeList = [
     {type: 'Select Delivery or Pickup'},
@@ -55,8 +58,15 @@ export class CartComponent {
     });
   }
 
+  onAutoCompleteSelected(event) {
+    console.log (event.types);
+    this.addressValid = event.types.includes('street_address');
+  }
+
   openModal(content) {
-    this.modalService.open(content, {centered: true})
+    if (this.checkRequiredFields()){
+      this.modalService.open(content, {centered: true})
+    }
   }
 
   clearCart() {
@@ -83,12 +93,12 @@ export class CartComponent {
       checkVar = false;
     }
 
-    if (this.address === '' && this.selectedDelivery === 'Delivery') {
-      alert('Please give a delivery address!');
+    if (!this.addressValid && this.selectedDelivery === 'Delivery') {
+      alert('Please select a valid street address!');
       checkVar = false;
     }
 
-    return checkVar;
+    return checkVar
   }
 
   getDeliveryTime(): Date {
@@ -104,7 +114,7 @@ export class CartComponent {
     }
   }
 
-  convertToUTC (date: Date): Date{
+  convertToUTC(date: Date): Date {
     date.setFullYear(date.getUTCFullYear());
     date.setMonth(date.getUTCMonth());
     date.setDate(date.getUTCDate());
@@ -119,6 +129,7 @@ export class CartComponent {
   placeOrder() {
     this.orderDetails.updateValueAndValidity();
     let formValues = this.orderDetails.value;
+
     if (this.checkRequiredFields()) {
       let deliveryTime: Date = this.convertToUTC(this.getDeliveryTime());
       let currentUTC: Date = this.convertToUTC(new Date());
@@ -146,7 +157,7 @@ export class CartComponent {
         null,
         this.selectedDelivery.toLowerCase(),
         null,
-        this.address,
+        this.addressInput,
         orderTime,
         false,
         new Price(this.cartTotal * 100, null, null),
@@ -155,7 +166,6 @@ export class CartComponent {
 
       orderDTO.restaurantNote = formValues.restaurantNote;
       orderDTO.driverNote = formValues.driverNote;
-
       this.createToken.createToken(orderDTO);
     }
   }

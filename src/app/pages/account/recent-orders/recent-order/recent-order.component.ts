@@ -2,30 +2,39 @@ import {Component, Input} from '@angular/core';
 import {Order} from "../../../../models/order/order";
 import {FoodOrder} from "../../../../models/FoodOrder/food-order";
 import {OrderService} from "../../../../services/order.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal, NgbRatingConfig} from "@ng-bootstrap/ng-bootstrap";
 import {CartService} from "../../../../services/cart.service";
 import {RestaurantService} from "../../../../services/restaurant.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {faPen} from '@fortawesome/free-solid-svg-icons';
+import {faPen, faStar} from '@fortawesome/free-solid-svg-icons';
 import {Restaurant} from "../../../../models/Restaurant";
 
 @Component({
   selector: 'app-recent-order',
   templateUrl: './recent-order.component.html',
-  styleUrls: ['./recent-order.component.css']
+  styleUrls: ['./recent-order.component.css'],
+  providers: [NgbRatingConfig],
+  styles: [`
+    .filled {
+        color: #F79E02
+    }
+  `]
 })
 export class RecentOrderComponent {
 
   @Input() order: Order;
   faPen = faPen;
+  faStar = faStar;
   orderNotes: FormGroup;
+  reviewForm: FormGroup;
 
   restaurants: Restaurant[]
 
   constructor(private orderService: OrderService,
               private modalService: NgbModal,
               private cartService: CartService,
-              private restaurantService: RestaurantService) {
+              private restaurantService: RestaurantService,
+              config: NgbRatingConfig) {
     this.orderNotes = new FormGroup({
       driverNote: new FormControl(this.order?.driverNote, Validators.required),
       restaurantNote: new FormControl(this.order?.restaurantNote, Validators.required)
@@ -34,11 +43,17 @@ export class RecentOrderComponent {
     this.restaurantService.restaurantSubject.subscribe((restaurant:Restaurant) => {
       this.restaurants.push (restaurant);
     });
+    this.reviewForm = new FormGroup(({
+      reviewBody: new FormControl("", Validators.required)
+    }));
+    this.reviewForm.enable();
+    config.max = 5;
   }
+
 
   cancelOrder(){
     this.orderService.cancelOrder (this.order);
-    this.orderService.getOrders();
+    location.reload();
   }
 
   closeModals(){
@@ -71,7 +86,7 @@ export class RecentOrderComponent {
     }
   }
 
-  orderDetails(content) {
+  openModal(content) {
     this.modalService.open(content, {centered: true})
   }
 

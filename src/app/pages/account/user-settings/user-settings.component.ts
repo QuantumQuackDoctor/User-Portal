@@ -49,7 +49,7 @@ export class UserSettingsComponent implements OnInit {
       this.settingsFormGroup.enable();
     else{
       this.settingsFormGroup.disable();
-      this.userService.getUserDetails();
+      location.reload();
     }
   }
 

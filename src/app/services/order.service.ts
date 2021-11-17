@@ -83,10 +83,7 @@ export class OrderService {
   }
 
   sendOrderEmail(orderResponse) {
-    this.http.post(this.baseOrderURL + '/email-order', orderResponse).subscribe(
-      (res) => {
-        console.log(res);
-      });
+    this.http.post(this.baseOrderURL + '/email-order', orderResponse);
   }
 
   printFood(foodOrder: FoodOrder): string {

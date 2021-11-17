@@ -32,10 +32,6 @@ export class UserDetailsComponent implements OnInit {
   constructor(private userService: UserService,
               private authService: AuthService,
               private router: Router,) {
-  }
-
-  ngOnInit(): void {
-    //TODO refactor to diff methods
     this.userService.userDetails.subscribe((user: User) => {
       this.user = user;
       this.profileRegisterGroup = new FormGroup({
@@ -81,6 +77,9 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+  }
+
   profileUpdate() {
     this.profileRegisterGroup.updateValueAndValidity();
     if (this.profileRegisterGroup.valid) {
@@ -109,9 +108,8 @@ export class UserDetailsComponent implements OnInit {
   }
 
   toggleInput() {
-    if (!this.inputsDisabled){
-      this.userService.getUserDetails();
-    }
+    if (!this.inputsDisabled)
+      location.reload();
     this.inputsDisabled = !this.inputsDisabled;
   }
 }
