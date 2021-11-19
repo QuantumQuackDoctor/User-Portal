@@ -1,0 +1,131 @@
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Order Details</h4>
+    <button type="button" class="btn-close" aria-label="Close"
+            (click)="modal.dismiss('Cross click'); orderNotes.disable()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <p *ngFor="let orderFood of order.food">{{orderFood.restaurantName}}
+      : {{printFood(orderFood)}}</p>
+    <strong>Price: </strong> ${{order.price.food / 100}}
+    <div *ngIf="order?.restaurantNote">
+      <strong>Restaurant Note:</strong> {{order?.restaurantNote}}
+    </div>
+    <div *ngIf="order?.driverNote">
+      <strong>Delivery Note:</strong> {{order?.driverNote}}
+    </div>
+    <form *ngIf="this.orderNotes.enabled"
+          [formGroup]="orderNotes"
+          (keyup)="orderNotes.updateValueAndValidity()"
+          (ngSubmit)="submitNoteUpdate()">
+      <div class="form-group" *ngIf="order?.orderTime?.restaurantAccept == null">
+        <label for="restaurantNote">Restaurant Note</label>
+        <input type="text" class="form-control" id="restaurantNote" formControlName="restaurantNote"
+               [value]="order?.restaurantNote">
+      </div>
+      <div class="form-group">
+        <label for="driverNote">Delivery Instructions</label>
+        <input type="text" class="form-control" id="driverNote" formControlName="driverNote"
+               [value]="order?.driverNote">
+      </div>
+      <div class="col" *ngIf="orderNotes.enabled">
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        <button *ngIf="order?.orderTime?.restaurantAccept == null" type="button"
+                class="btn btn-outline-danger mt-2 ms-2" (click)="orderDetails(cancelModal)">
+          Cancel Order
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="checkDeliverySlot(order.orderTime.deliverySlot)" type="button" class="btn btn-secondary me-auto"
+            (click)="toggleNoteInput()">
+      <fa-icon [icon]="faPen"></fa-icon>
+    </button>
+    <button type="button" class="btn btn-outline-primary" [routerLink]="['/cart']"
+            (click)="reOrder(); modal.close ('Close click'); orderNotes.disable()">
+      Re-Order
+    </button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click'); orderNotes.disable()">
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #cancelModal let-cancelModal class="modal-sm">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Cancel Order</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="cancelModal.dismiss('Cross click')">
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure would like to cancel the order
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="order?.orderTime?.restaurantAccept == null" type="button"
+                class="btn btn-danger me-auto" (click) = "cancelOrder();
+                orderNotes.disable(); closeModals();">
+          Confirm Cancel
+        </button>
+        <button type="button" class="btn btn-light" (click)="cancelModal.close('Close click');">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<div class="row" *ngIf="order.orderTime.delivered !== null">
+  <div class="orderImage col-2">
+    <img class="img" width="auto" style="max-height: 75px;"
+         src="https://e1.pngegg.com/pngimages/435/709/png-clipart-mcdonald-s-french-fries-thumbnail.png"
+         alt=""/>
+  </div>
+  <div class="OrderDetails col-7 text-truncate">
+        <span *ngFor="let foodOrder of order?.food">
+            | <strong>{{foodOrder.restaurantName}}</strong> |
+        </span>
+    <div class="row ms-2">
+      {{order.orderType.toUpperCase()}} • {{order.address}}
+      <br>
+      Completed:
+      {{order?.orderTime.delivered | date: 'short'}}
+    </div>
+  </div>
+  <div class="OrderOptions col-3">
+    <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
+            (click)="orderDetails(modalContent)">
+      Details
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="order.orderTime.delivered === null">
+  <div class="orderImage col-2 text-danger">
+    <img class="img" width="auto" style="max-height: 75px;"
+         src="https://e1.pngegg.com/pngimages/435/709/png-clipart-mcdonald-s-french-fries-thumbnail.png"
+         alt=""/>
+  </div>
+  <div class="OrderDetails col-7 text-truncate text-danger">
+        <span *ngFor="let foodOrder of order?.food">
+            | <strong>{{foodOrder.restaurantName}}</strong> |
+        </span>
+    Pending
+    <div class="row ms-2 text-danger">
+      {{order.orderType.toUpperCase()}} • {{order.address}}
+      <br>
+      Order Placed: {{order?.orderTime.orderPlaced | date: 'short'}}
+    </div>
+  </div>
+  <div class="OrderOptions col-3">
+    <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
+            (click)="orderDetails(modalContent)">
+      Details
+    </button>
+  </div>
+</div>
+

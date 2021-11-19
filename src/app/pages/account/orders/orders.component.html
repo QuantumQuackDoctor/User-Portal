@@ -1,14 +1,59 @@
-<h3><u>Orders</u></h3>
-<div class="col">
-  <div *ngIf="orderList.size === 0" class="alert alert-info">
-    No Order History
-  </div>
-  <div class="row" *ngFor="let item of orderList | keyvalue: keyDescOrder">
-    <strong>{{ monthNames[item.key - 1] }}</strong>
-    <br />
-    <div *ngIf="orderList.size > 0" class="list-group">
-      <app-order [orderMap]="item"></app-order>
-      <br />
+<app-header></app-header>
+
+<div class="bg-bg-main p-1" style="min-height: 100%">
+  <div class="bg-white m-2 p-4 rounded row">
+    <h3><u>Orders</u></h3>
+    <div class="row overflow-hidden">
+      <div class="input-group col-1">
+        <fa-icon class="input-group-text" [icon]="faSearch"></fa-icon>
+        <input
+          type="text"
+          class="form-control"
+          id="search"
+          [placeholder]="'search'"
+          [(ngModel)]="orderSearch"
+        />
+        <div class="col ms-1">
+          Price Range:
+          <form>
+            <input class = "ms-3" type="checkbox" id = "$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[0], $event)" >
+            <label class = "ms-1" for = "$">$</label>
+            <input class = "ms-3" type="checkbox" id = "$$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[1], $event)">
+            <label class = "ms-1" for = "$$">$$</label>
+            <input class = "ms-3" type="checkbox" id = "$$$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[2], $event)">
+            <label class = "ms-1" for = "$$$">$$$</label>
+            <input class = "ms-3" type="checkbox" id = "$$$$" name = "priceRange"
+                   (change)="updateRange (priceRangeList[3], $event)">
+            <label class = "ms-1" for = "$$$$">$$$$</label>
+          </form>
+        </div>
+        <div class = "col">
+          <label class = "me-1" for = "start">From: </label>
+          <input type="date" id="start" (ngModelChange)="updateStart($event)" [ngModel]="startDate | date:'yyyy-MM-dd'"/>
+          <input type="date" id="end" (ngModelChange)="updateEnd ($event)" [ngModel]="endDate | date:'yyyy-MM-dd'"/>
+          <label class = "ms-1" for = "end"> :End</label>
+        </div>
+      </div>
+    </div>
+    <div class="orderGroup">
+      <div *ngIf="fullOrderList.length === 0" class="alert alert-info">
+        No Order History
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let order of (fullOrderList | orderFilter: orderSearch:priceRanges:startDate:endDate) | paginate: {id: 'orderPaginator',
+      itemsPerPage: 5,
+      currentPage: page}; let cursor = index;">
+          <div *ngIf="checkMonthChange(order, cursor)">
+            <strong>{{monthNames [currentMonth - 1]}}</strong>
+          </div>
+          <app-single-order [order]="order"></app-single-order>
+        </li>
+      </ul>
+      <pagination-controls [responsive]=true class="text-center" id="orderPaginator" [maxSize]="9" [autoHide]="true"
+                           (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>

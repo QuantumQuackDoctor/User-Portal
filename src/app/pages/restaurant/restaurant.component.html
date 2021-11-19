@@ -94,7 +94,7 @@
           <a
             [href]="
               'https://www.google.com/maps/search/?api=1&query=' +
-              encodedAdress()
+              encodedAddress()
             "
             class="d-flex p-2 border-bottom"
             target="_blank"
@@ -130,7 +130,7 @@
             *ngIf="item.imageURL"
             src="{{ item.imageURL }}"
             alt=""
-            style="max-width: 200px; max-height: auto"
+            style="max-width: 200px; /*max-height: auto;*/"
           />
         </div>
       </div>

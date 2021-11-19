@@ -95,6 +95,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
       emailNotifications: new FormControl(false, {
         validators: [Validators.required],
       }),
+      emailOrder: new FormControl(false, {validators: [Validators.required]}),
+      emailDelivery: new FormControl(false, {validators: [Validators.required]}),
       theme: new FormControl(false, {
         validators: [Validators.required, Validators.pattern(/^(dark|light)$/)],
       }),
@@ -122,7 +124,7 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
     if (this.registerGroup.valid && !this.hasSubmitted) {
       this.hasSubmitted = true;
       this.authService.register(this.createUser()).subscribe(
-        (res) => {
+        () => {
           this.displayError = false;
           this.router.navigate(['/account/login'], {
             queryParams: { returnUrl: this.returnUrl },
@@ -145,6 +147,10 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 
   private createUser(): User {
     const formValue = this.registerGroup.value;
+    let defaultEmailOptions: boolean = false;
+    if (formValue.emailNotifications){
+      defaultEmailOptions = true;
+    }
     return {
       email: formValue.email,
       password: formValue.password,
@@ -157,6 +163,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
       settings: {
         notifications: {
           email: formValue.emailNotifications,
+          emailOrder: defaultEmailOptions,
+          emailDelivery: defaultEmailOptions,
           text: formValue.textNotifications,
         },
         theme: formValue.theme,

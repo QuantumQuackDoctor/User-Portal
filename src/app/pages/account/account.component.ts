@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {User} from 'src/app/models/User';
@@ -12,7 +12,7 @@ import {Order} from "../../models/order/order";
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
   user?: User;
   userIsAuthenticated: boolean = false;
   router: Router;
@@ -37,6 +37,8 @@ export class AccountComponent implements OnInit {
           this.user = user;
           this.userService.updateUser(user);
           this.orderService.getOrders();
+          localStorage.setItem ('emailOrder', JSON.stringify(user.settings.notifications.emailOrder));
+          localStorage.setItem ('emailDelivery', JSON.stringify(user.settings.notifications.emailDelivery));
         });
       } else {
         this.router.navigate(['/home']);

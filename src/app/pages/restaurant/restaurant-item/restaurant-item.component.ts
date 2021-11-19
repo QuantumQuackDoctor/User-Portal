@@ -8,8 +8,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './restaurant-item.component.html',
   styleUrls: ['./restaurant-item.component.css'],
 })
-export class RestaurantItemComponent implements OnInit {
-  @Input() menuItem: Item;
+
+export class RestaurantItemComponent {
+
+  @Input() menuItem: Item
   menuId: number;
 
   constructor(
@@ -18,9 +20,7 @@ export class RestaurantItemComponent implements OnInit {
   ) {
     this.menuId = this.actRoute.snapshot.params.id;
   }
-
-  ngOnInit(): void {}
-
+  
   handleAddToCart() {
     this.menuItem.quantity = 1;
     this.cartService.addToCart(this.menuItem, this.menuId);

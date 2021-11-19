@@ -1,54 +1,82 @@
 <h3><u>Settings</u></h3>
-<div class="container-fluid p-0">
-  <div class="row mb-4 gy-3">
-    <div class="col-md-6">
-      <div class="form-check">
-        <input
-          type="checkbox"
-          id="text"
-          class="form-check-input"
-          [checked]="user?.settings?.notifications?.text"
-          [disabled]="inputsDisabled"
-        />
-        <label for="text" class="form-check-label">Text Notifications</label>
+<form
+  *ngIf="user"
+  [formGroup]="settingsFormGroup"
+  (keyup)="settingsFormGroup.updateValueAndValidity()"
+  (ngSubmit)="updateSettings()"
+>
+  <div class="container-fluid p-0">
+    <div class="row mb-4 gy-3">
+      <div class="col-md-6">
+        <div class="form-check">
+          <input
+            type="checkbox"
+            id="text"
+            class="form-check-input"
+            formControlName="text"
+            [checked]="user?.settings?.notifications?.text"
+          />
+          <label for="text" class="form-check-label">Text Notifications</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-check">
+          <input
+            type="checkbox"
+            id="email"
+            class="form-check-input"
+            formControlName="email"
+            [checked]="user?.settings?.notifications?.email"
+          />
+          <label for="email" class="form-check-label">Email Notifications</label>
+        </div>
+        <div class="form-check ms-2" *ngIf = "this.settingsFormGroup.enabled && this.settingsFormGroup.value.email">
+          <input
+            type="checkbox"
+            id="emailOrder"
+            class="form-check-input"
+            formControlName="emailOrder"
+            [checked]="user?.settings?.notifications?.emailOrder">
+          <label for="emailOrder" class="form-check-label">Order Details</label>
+        </div>
+        <div class="form-check ms-2" *ngIf = "this.settingsFormGroup.enabled && this.settingsFormGroup.value.email">
+          <input
+            type="checkbox"
+            id="emailDelivery"
+            class="form-check-input"
+            formControlName="emailDelivery"
+            [checked]="user?.settings?.notifications?.emailDelivery">
+          <label for="emailOrder" class="form-check-label">Delivery</label>
+        </div>
+      </div>
+      <div class="col-md-11">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="theme">Theme</label>
+          <select class="form-select" formControlName="theme" id="theme" [value]="user?.settings?.theme">
+            <option selected value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-secondary" type="button">
+          <fa-icon [icon]="faPen" (click)="toggleInput()"></fa-icon>
+        </button>
+      </div>
+      <div class="col-md-1" *ngIf="settingsFormGroup.enabled">
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="form-check">
-        <input
-          type="checkbox"
-          id="emai"
-          class="form-check-input"
-          [checked]="user?.settings?.notifications?.email"
-          [disabled]="inputsDisabled"
-        />
-        <label for="email" class="form-check-label">Email Notifications</label>
-      </div>
-    </div>
-    <div class="col-md-11">
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="theme">Theme</label>
-        <select class="form-select" id="theme" [disabled]="inputsDisabled">
-          <option selected value="dark">Dark</option>
-          <option value="light">Light</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-1">
-      <button class="btn btn-secondary">
-        <fa-icon [icon]="faPen"></fa-icon>
+    <div>
+      <button
+        class="btn btn-primary btn-md bg-color-main border-color-main"
+        (click)="logout()"
+      >
+        Log Out
+      </button>
+      <button class="btn btn-warning btn-md float-end" (click)="delete()">
+        Delete
       </button>
     </div>
   </div>
-  <div>
-    <button
-      class="btn btn-primary btn-md bg-color-main border-color-main"
-      (click)="logout()"
-    >
-      Log Out
-    </button>
-    <button class="btn btn-warning btn-md float-end" (click)="delete()">
-      Delete
-    </button>
-  </div>
-</div>
+</form>

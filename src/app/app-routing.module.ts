@@ -1,3 +1,4 @@
+import {OrdersComponent} from "./pages/account/orders/orders.component";
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AccountComponent } from './pages/account/account.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'restaurant/:id', component: RestaurantComponent },
   { path: 'my-account', component: AccountComponent },
   { path: 'activate/:token', component: ActivateAccountComponent },
+  { path: 'full-order-history', component: OrdersComponent}
 ];
 
 const routerOptions: ExtraOptions = {

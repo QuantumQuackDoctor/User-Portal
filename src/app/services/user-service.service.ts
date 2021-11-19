@@ -35,16 +35,21 @@ export class UserService {
   }
 
   updateProfile(updatedUser: User) {
-    this.http
-      .patch(environment.baseURL + '/accounts/user', updatedUser)
-      .subscribe(
-        (result: User) => {
-          console.log(result);
-          this.userDetails.next(result);
-        },
-        (err) => {
-          this.errorHandler.handleError('updateProfile', updatedUser);
-        }
-      );
+    this.http.patch('/accounts/user', updatedUser).subscribe(
+      (result: User) => {
+        this.userDetails.next(result);
+      },
+      () => {
+        this.errorHandler.handleError('updateProfile', updatedUser);
+      }
+    );
+  }
+
+  updateSettings(updatedSettings) {
+    this.http.patch('/accounts/notifications', updatedSettings).subscribe(() => {
+      },
+      () => {
+        this.errorHandler.handleError('updateSettings')
+      });
   }
 }

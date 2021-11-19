@@ -4,6 +4,8 @@ import {OrdersComponent} from './orders.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {Order} from "../../../models/order/order";
 import {OrderTime} from "../../../models/OrderTime/order-time";
+import {NgxPaginationModule} from "ngx-pagination";
+import {OrderFilterPipe} from "../../../pipes/order-filter.pipe";
 
 function sampleOrderList(orderList: Order[], month: number) : Order[] {
 
@@ -23,8 +25,9 @@ describe('OrdersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [OrdersComponent]
+      imports: [HttpClientTestingModule, NgxPaginationModule],
+      providers: [],
+      declarations: [OrdersComponent, OrderFilterPipe]
     })
       .compileComponents();
   });
@@ -37,15 +40,5 @@ describe('OrdersComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should sort', () => {
-    let orderList = sampleOrderList([], 5);
-    let map = component.sortOrdersByMonth(orderList);
-    map.forEach((value: Order[], key: number) => {
-      value.forEach((order: Order) => {
-        expect(key === order.orderTime.restaurantAccept.getMonth() + 1).toBe(true);
-      })
-    })
   });
 });

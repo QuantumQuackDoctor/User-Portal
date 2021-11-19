@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CartService} from 'src/app/services/cart.service';
 import {Order} from '../../models/order/order';
 import {Price} from '../../models/price/price';
 import {FoodOrder} from '../../models/FoodOrder/food-order';
 import {OrderTime} from '../../models/OrderTime/order-time';
-import {OrderService} from "../../services/order.service";
+import {CreateTokenComponent} from "./create-token/create-token.component";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-cart',
@@ -12,36 +14,50 @@ import {OrderService} from "../../services/order.service";
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
+
+  @ViewChild(CreateTokenComponent) createToken: CreateTokenComponent;
+
+  orderDetails: FormGroup;
+
   selectedTime = 'Select Delivery Time';
   selectedDelivery = 'Select Delivery or Pickup';
   address = '';
 
   deliveryTypeList = [
-    { type: 'Select Delivery or Pickup' },
-    { type: 'Delivery' },
-    { type: 'Pickup' },
+    {type: 'Select Delivery or Pickup'},
+    {type: 'Delivery'},
+    {type: 'Pickup'},
   ];
 
   deliveryTimeList = [
-    { type: 'Select Delivery Time' },
-    { type: '15 Min (Fastest)' },
-    { type: '30 Min' },
-    { type: '45 Min' },
+    {type: 'Select Delivery Time'},
+    {type: '15 Min (Fastest)'},
+    {type: '30 Min'},
+    {type: '45 Min'},
   ];
 
   foodOrders: FoodOrder[] = [];
   cartTotal = 0;
 
   constructor(
+    private modalService: NgbModal,
     private cartService: CartService,
-    private orderService: OrderService
-  ) {}
+  ) {
+    this.orderDetails = new FormGroup({
+      driverNote: new FormControl("", Validators.required),
+      restaurantNote: new FormControl("", Validators.required)
+    });
+  }
 
   ngOnInit() {
     this.cartService.cartSubject.subscribe((foodOrders: FoodOrder[]) => {
       this.foodOrders = foodOrders;
       this.cartTotal = this.cartService.cartTotal;
     });
+  }
+
+  openModal(content) {
+    this.modalService.open(content, {centered: true})
   }
 
   clearCart() {
@@ -87,12 +103,28 @@ export class CartComponent implements OnInit {
     }
   }
 
+  convertToUTC (date: Date): Date{
+    date.setFullYear(date.getUTCFullYear());
+    date.setMonth(date.getUTCMonth());
+    date.setDate(date.getUTCDate());
+    date.setHours(date.getUTCHours());
+    date.setMinutes(date.getUTCMinutes());
+    date.setSeconds(date.getUTCSeconds());
+    date.setMilliseconds(date.getUTCMilliseconds());
+
+    return date;
+  }
+
   placeOrder() {
+    this.orderDetails.updateValueAndValidity();
+    let formValues = this.orderDetails.value;
     if (this.checkRequiredFields()) {
-      let deliveryTime = this.getDeliveryTime();
+      let deliveryTime: Date = this.convertToUTC(this.getDeliveryTime());
+      let currentUTC: Date = this.convertToUTC(new Date());
+
       let orderTime = new OrderTime(
+        currentUTC,
         null,
-        new Date(Date.now()),
         null,
         null,
         null,
@@ -116,11 +148,16 @@ export class CartComponent implements OnInit {
         this.address,
         orderTime,
         false,
-        new Price(this.cartTotal, null, null),
+        new Price(this.cartTotal * 100, null, null),
         foodOrders
       );
-      this.orderService.placeOrder(orderDTO);
-      this.clearCart();
+
+      orderDTO.restaurantNote = formValues.restaurantNote;
+      orderDTO.driverNote = formValues.driverNote;
+
+      console.log (orderDTO);
+
+      this.createToken.createToken(orderDTO);
     }
   }
 }

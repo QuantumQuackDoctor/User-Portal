@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { Subscription } from 'rxjs';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { SearchService } from '../../services/search.service';
-import { AuthService, AuthToken } from 'src/app/services/auth.service';
-import { CartService } from 'src/app/services/cart.service';
+import {Component, OnDestroy} from '@angular/core';
+import {Router} from '@angular/router';
+import {faUser} from '@fortawesome/free-regular-svg-icons';
+import {Subscription} from 'rxjs';
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {SearchService} from '../../services/search.service';
+import {AuthService} from 'src/app/services/auth.service';
+import {CartService} from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnDestroy {
   isAuthenticated: boolean = false; //attach to auth service
   faUser = faUser;
   faSearch = faSearch;
@@ -47,8 +47,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/search']);
     this.searchService.search = event.target.value;
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.authSubscription?.unsubscribe();
