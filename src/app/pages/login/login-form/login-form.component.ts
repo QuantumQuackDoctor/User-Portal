@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
-import {faLock} from '@fortawesome/free-solid-svg-icons';
-import {AuthService} from 'src/app/services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HttpErrorResponse} from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { createPasswordValidator } from 'src/app/validators/PasswordValidator';
 
 @Component({
   selector: 'app-login-form',
@@ -29,7 +30,7 @@ export class LoginFormComponent {
         validators: [Validators.email, Validators.required],
       }),
       password: new FormControl(null, {
-        validators: [Validators.minLength(8), Validators.required],
+        validators: [Validators.required, createPasswordValidator()],
       }),
       isDriver: new FormControl(false),
     });

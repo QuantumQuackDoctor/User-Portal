@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { validatePassword } from 'src/app/validators/PasswordValidator';
+import { createPasswordValidator } from 'src/app/validators/PasswordValidator';
 
 @Component({
   selector: 'app-reset-password',
@@ -37,7 +37,7 @@ export class ResetPasswordComponent {
     this.formGroup = new FormGroup(
       {
         password: new FormControl(null, {
-          validators: [validatePassword, Validators.required],
+          validators: [createPasswordValidator(), Validators.required],
         }),
         parityPassword: new FormControl(null, {
           validators: [Validators.required],
