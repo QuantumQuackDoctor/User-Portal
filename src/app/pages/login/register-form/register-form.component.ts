@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { validatePassword } from 'src/app/validators/PasswordValidator';
 
 @Component({
   selector: 'app-register-form',
@@ -39,7 +40,7 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
         validators: [Validators.email, Validators.required],
       }),
       password: new FormControl(null, {
-        validators: [Validators.minLength(8), Validators.required],
+        validators: [validatePassword, Validators.required],
       }),
       DOB: new FormControl(null, {
         validators: [
