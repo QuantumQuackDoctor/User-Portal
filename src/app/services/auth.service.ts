@@ -107,6 +107,6 @@ export class AuthService {
 }
 
 interface PasswordResetRequest {
-  email: string;
+  newPassword: string;
   token: string;
 }
