@@ -3,11 +3,11 @@ import {Order} from "../../../../models/order/order";
 import {OrderService} from "../../../../services/order.service";
 import {FoodOrder} from "../../../../models/FoodOrder/food-order";
 import {CartService} from "../../../../services/cart.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal, NgbRatingConfig} from "@ng-bootstrap/ng-bootstrap";
 import {RestaurantService} from "../../../../services/restaurant.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {faPen} from '@fortawesome/free-solid-svg-icons';
-import {Restaurant} from "../../../../models/Restaurant";
+import {faPen, faStar} from '@fortawesome/free-solid-svg-icons';
+import {Restaurant, RestaurantReview} from "../../../../models/Restaurant";
 
 @Component({
   selector: 'app-single-order',
@@ -18,12 +18,16 @@ export class SingleOrderComponent {
 
   @Input() order: Order
   faPen = faPen;
+  faStar = faStar;
   orderNotes: FormGroup;
+  reviewForm: FormGroup;
+  currentStars: number = 0;
+  foodOrderCursor: FoodOrder;
 
   restaurants: Restaurant[] = [];
 
   constructor(private orderService: OrderService, private cartService: CartService, private modalService: NgbModal,
-              private restaurantService: RestaurantService) {
+              private restaurantService: RestaurantService, config: NgbRatingConfig) {
     this.restaurantService.restaurantSubject.subscribe((restaurant: Restaurant) => {
       this.restaurants.push(restaurant);
     });
@@ -32,6 +36,11 @@ export class SingleOrderComponent {
       restaurantNote: new FormControl(this.order?.restaurantNote, Validators.required)
     });
     this.orderNotes.disable();
+    this.reviewForm = new FormGroup(({
+      reviewBody: new FormControl("", Validators.required),
+    }));
+    this.reviewForm.enable();
+    config.max = 5;
   }
 
 
@@ -42,6 +51,24 @@ export class SingleOrderComponent {
 
   closeModals() {
     this.modalService.dismissAll();
+  }
+
+  submitReview() {
+    this.reviewForm.updateValueAndValidity();
+    let formValues = this.reviewForm.value;
+    let review: RestaurantReview = {
+      description: formValues.reviewBody,
+      stars: this.currentStars,
+      imageURL: '',
+      restaurant: this.foodOrderCursor.restaurantId
+    }
+
+    this.restaurantService.submitReview(review);
+
+  }
+
+  openModal(content) {
+    this.modalService.open(content, {centered: true})
   }
 
   printFood(foodOrder: FoodOrder): string {

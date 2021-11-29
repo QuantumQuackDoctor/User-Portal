@@ -36,6 +36,7 @@ export class UserSettingsComponent implements OnInit {
         theme: new FormControl(this.user.settings.theme, Validators.required)
       });
       this.settingsFormGroup.disable();
+      localStorage.setItem('emailOrder', JSON.stringify(this.user.settings.notifications.emailOrder));
     });
   }
 

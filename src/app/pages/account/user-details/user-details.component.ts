@@ -1,12 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {
-  faIdCard,
-  faCalendar,
-  faEnvelope,
-} from '@fortawesome/free-regular-svg-icons';
-import {faPhone} from '@fortawesome/free-solid-svg-icons';
+import {Component} from '@angular/core';
+import {faCalendar, faEnvelope, faIdCard,} from '@fortawesome/free-regular-svg-icons';
+import {faPen, faPhone} from '@fortawesome/free-solid-svg-icons';
 import {User} from 'src/app/models/User';
-import {faPen} from '@fortawesome/free-solid-svg-icons';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user-service.service";
 import {AuthService} from "../../../services/auth.service";
@@ -17,7 +12,7 @@ import {Router} from "@angular/router";
   templateUrl: './user-details.component.html',
   styleUrls: ['../account.component.css'],
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent {
   user: User
 
   profileRegisterGroup: FormGroup;
@@ -77,8 +72,6 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
 
   profileUpdate() {
     this.profileRegisterGroup.updateValueAndValidity();

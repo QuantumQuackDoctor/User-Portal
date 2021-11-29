@@ -73,8 +73,9 @@ export class OrderService {
     }).subscribe(
       (result) => {
         let orderNotification = JSON.parse(localStorage.getItem('emailOrder'));
-        if (orderNotification)
+        if (orderNotification){
           this.sendOrderEmail(result);
+        }
       },
       () => {
         this.errorHandler.handleError('placeOrder', null);

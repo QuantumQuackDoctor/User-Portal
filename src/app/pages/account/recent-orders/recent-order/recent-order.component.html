@@ -1,8 +1,8 @@
-<ng-template #modalContent let-modal>
+<ng-template #orderDetailContent let-orderDetailModal>
   <div class="modal-header">
     <h4 class="modal-title">Order Details</h4>
     <button type="button" class="btn-close" aria-label="Close"
-            (click)="modal.dismiss('Cross click'); orderNotes.disable()">
+            (click)="orderDetailModal.dismiss('Cross click'); orderNotes.disable()">
     </button>
   </div>
   <div class="modal-body">
@@ -19,7 +19,7 @@
           [formGroup]="orderNotes"
           (keyup)="orderNotes.updateValueAndValidity()"
           (ngSubmit)="submitNoteUpdate()">
-      <div class="form-group" *ngIf="order?.orderTime?.restaurantAccept == null">
+      <div class="form-group" *ngIf="order?.orderTime?.restaurantAccept === null">
         <label for="restaurantNote">Restaurant Note</label>
         <input type="text" class="form-control" id="restaurantNote" formControlName="restaurantNote"
                [value]="order?.restaurantNote">
@@ -31,8 +31,8 @@
       </div>
       <div class="col" *ngIf="orderNotes.enabled">
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
-        <button *ngIf="order?.orderTime?.restaurantAccept == null" type="button"
-                class="btn btn-outline-danger mt-2 ms-2" (click)="openModal(cancelModal)">
+        <button *ngIf="order?.orderTime?.restaurantAccept === null" type="button"
+                class="btn btn-outline-danger mt-2 ms-2" (click)="openModal(cancelContent)">
           Cancel Order
         </button>
       </div>
@@ -44,15 +44,35 @@
       <fa-icon [icon]="faPen"></fa-icon>
     </button>
     <button type="button" class="btn btn-outline-success me-auto"
-            (click)="openModal(reviewModalContent); modal.close ('Close click'); orderNotes.disable()">
+            (click)="openModal(restaurantReviewChoiceContent); orderDetailModal.close ('Close click'); orderNotes.disable()">
       Review
     </button>
     <button type="button" class="btn btn-outline-primary" [routerLink]="['/cart']"
-            (click)="reOrder(); modal.close ('Close click'); orderNotes.disable()">
+            (click)="reOrder(); orderDetailModal.close ('Close click'); orderNotes.disable()">
       Re-Order
     </button>
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click'); orderNotes.disable()">
+    <button type="button" class="btn btn-light" (click)="orderDetailModal.close('Close click'); orderNotes.disable()">
       Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #restaurantReviewChoiceContent let-restaurantReviewChoiceModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Choose the Restaurant</h4>
+    <button type="button" class="btn-close" aria-label="Close"
+            (click)="restaurantReviewChoiceModal.dismiss('Cross click'); orderNotes.disable()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngFor = "let foodOrder of order?.food">
+      <span style = "cursor: pointer; text-decoration: underline" (click) = "this.foodOrderCursor = foodOrder; openModal(reviewModalContent)">{{foodOrder?.restaurantName}} </span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light"
+            (click)="restaurantReviewChoiceModal.close('Close click'); orderNotes.disable()">
+      Cancel
     </button>
   </div>
 </ng-template>
@@ -66,7 +86,7 @@
   </div>
   <div class="modal-body">
 
-    <ngb-rating [(rate)] = this.currentStars>
+    <ngb-rating [(rate)]=this.currentStars>
       <ng-template let-fill="fill" let-index="index">
         <span [class.filled]="fill === 100">
           <fa-icon
@@ -87,29 +107,24 @@
     </div>
     <form *ngIf="this.reviewForm.enabled"
           [formGroup]="reviewForm"
-          (keyup)="reviewForm.updateValueAndValidity()"
-          (ngSubmit)="submitNoteUpdate()">
+          (keyup)="reviewForm.updateValueAndValidity()">
       <label for="reviewBody">Review: </label>
       <textarea id="reviewBody" class=form-control
                 formControlName="reviewBody"></textarea>
     </form>
   </div>
   <div class="modal-footer">
-    <button *ngIf="checkDeliverySlot(order.orderTime.deliverySlot)" type="button" class="btn btn-secondary me-auto"
-            (click)="toggleNoteInput()">
-      <fa-icon [icon]="faPen"></fa-icon>
-    </button>
     <button type="button" class="btn btn-outline-success me-auto"
-            (click)="submitReview(); reviewModal.close ('Close click');">
+            (click)="submitReview(); closeModals()">
       Submit
     </button>
-    <button type="button" class="btn btn-light" (click)="reviewModal.close('Close click'); orderNotes.disable()">
+    <button type="button" class="btn btn-light" (click)="closeModals(); orderNotes.disable()">
       Cancel
     </button>
   </div>
 </ng-template>
 
-<ng-template #cancelModal let-cancelModal class="modal-sm">
+<ng-template #cancelContent let-cancelModal class="modal-sm">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -121,7 +136,7 @@
         Are you sure would like to cancel the order
       </div>
       <div class="modal-footer">
-        <button *ngIf="order?.orderTime?.restaurantAccept == null" type="button"
+        <button *ngIf="order?.orderTime?.restaurantAccept === null" type="button"
                 class="btn btn-danger me-auto" (click)="cancelOrder();
                 orderNotes.disable(); closeModals();">
           Confirm Cancel
@@ -156,7 +171,7 @@
       </div>
       <div class="OrderOptions col-3">
         <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
-                (click)="openModal(modalContent)">
+                (click)="openModal(orderDetailContent)">
           Details
         </button>
       </div>
@@ -184,7 +199,7 @@
       </div>
       <div class="OrderOptions col-3">
         <button type="button" class="btn btn-outline-info d-inline-flex p-2 mt-3 float-end"
-                (click)="openModal(modalContent)">
+                (click)="openModal(orderDetailContent)">
           Details
         </button>
       </div>

@@ -19,11 +19,11 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button *ngIf="loading != true" type="button" class="btn btn-success me-auto"
+    <button *ngIf="loading !== true" type="button" class="btn btn-success me-auto"
             (click)="placeOrder(); loading = true;">
       Place Order
     </button>
-    <button *ngIf="loading == true" type="button" disabled
+    <button *ngIf="loading === true" type="button" disabled
             class="btn btn-success me-auto">
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       <span> Loading...</span>

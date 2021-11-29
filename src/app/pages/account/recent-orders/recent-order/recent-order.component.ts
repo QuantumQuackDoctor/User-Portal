@@ -16,7 +16,7 @@ import {Restaurant, RestaurantReview} from "../../../../models/Restaurant";
   providers: [NgbRatingConfig],
   styles: [`
     .filled {
-        color: #F79E02
+      color: #F79E02
     }
   `]
 })
@@ -28,6 +28,7 @@ export class RecentOrderComponent {
   orderNotes: FormGroup;
   reviewForm: FormGroup;
   currentStars: number = 0;
+  foodOrderCursor: FoodOrder;
 
   restaurants: Restaurant[]
 
@@ -41,8 +42,8 @@ export class RecentOrderComponent {
       restaurantNote: new FormControl(this.order?.restaurantNote, Validators.required)
     });
     this.orderNotes.disable();
-    this.restaurantService.restaurantSubject.subscribe((restaurant:Restaurant) => {
-      this.restaurants.push (restaurant);
+    this.restaurantService.restaurantSubject.subscribe((restaurant: Restaurant) => {
+      this.restaurants.push(restaurant);
     });
     this.reviewForm = new FormGroup(({
       reviewBody: new FormControl("", Validators.required),
@@ -51,44 +52,44 @@ export class RecentOrderComponent {
     config.max = 5;
   }
 
-  submitReview (){
+  submitReview() {
     this.reviewForm.updateValueAndValidity();
     let formValues = this.reviewForm.value;
     let review: RestaurantReview = {
       description: formValues.reviewBody,
       stars: this.currentStars,
       imageURL: '',
-      restaurant: this.order.food.pop().restaurantId
+      restaurant: this.foodOrderCursor.restaurantId
     }
 
-    this.restaurantService.submitReview (review);
+    this.restaurantService.submitReview(review);
 
   }
 
-  cancelOrder(){
-    this.orderService.cancelOrder (this.order);
+  cancelOrder() {
+    this.orderService.cancelOrder(this.order);
     location.reload();
   }
 
-  closeModals(){
+  closeModals() {
     this.modalService.dismissAll();
   }
 
-  toggleNoteInput (){
+  toggleNoteInput() {
     this.orderNotes.updateValueAndValidity();
-    if (this.orderNotes.disabled){
+    if (this.orderNotes.disabled) {
       this.orderNotes.enable();
-    }else{
+    } else {
       this.orderNotes.disable();
     }
   }
 
-  checkDeliverySlot (slot: Date): boolean{
-    if (slot == null){
+  checkDeliverySlot(slot: Date): boolean {
+    if (slot == null) {
       return false;
     }
-    let timeSlot: Date = new Date (slot);
-    let currentTime: Date = new Date ();
+    let timeSlot: Date = new Date(slot);
+    let currentTime: Date = new Date();
     return ((timeSlot.getTime() - currentTime.getTime()) / (1000 * 60)) > 10;
   }
 
@@ -108,7 +109,7 @@ export class RecentOrderComponent {
     return this.orderService.printFood(foodOrder);
   }
 
-  submitNoteUpdate (){
+  submitNoteUpdate() {
     //Update Order with notes;
     this.orderNotes.updateValueAndValidity();
     let formValues = this.orderNotes.value;
